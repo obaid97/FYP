@@ -1,0 +1,113 @@
+
+mat-form-field
+{
+  width: 100%;
+}
+mat-label
+{
+  padding-left: 5px;
+}
+mat-spinner
+{
+  margin: auto;
+}
+input[type="file"]
+{
+  visibility: hidden;
+}
+
+.image-preview
+{
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.image-preview img
+{
+  height: 100%;
+}
+.submitButton
+{
+  margin-left: 25%;
+  width: 50%;
+}
+.maindiv
+
+
+mat-grid-tile {
+  background: #fff;
+}
+input[type="radio"]
+{
+  visibility: hidden;
+}
+.accountStatus-radio-group
+{
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+.accountStatus-radio-button
+ {
+  margin: 5px;
+}
+
+
+
+
+.accountStatus
+{
+  visibility: hidden;
+  height: 1px;
+
+}
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 5px;
+}
+mat-card-header
+{
+  padding-bottom: 15px;
+  align-content: right;
+  padding-left: 80%;
+  height: 120px;
+}
+.user-details
+{
+  margin-top: 2rem;
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+}
+.pie-chart-btn
+{
+  margin-left: 5px;
+}
+.edit-btn
+{
+  float: center;
+ margin-bottom: 7px;
+ margin-right: 5px;
+}
+.delete-btn
+{
+  float: left;
+  margin-bottom: 7px;
+  margin-right: 5px;
+}
+.bar-chart-btn
+{
+  margin-left:5px;
+
+}
+.report-card
+{
+  margin-bottom:5rem;
+  margin-top:2rem;
+}

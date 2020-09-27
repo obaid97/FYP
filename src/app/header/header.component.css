@@ -1,0 +1,31 @@
+ul
+{
+  list-style: none;
+  padding:0 ;
+  margin: 0;
+}
+a
+{
+  text-decoration: none;
+  color: white;
+}
+.spacer
+{
+  flex: 1 1 auto;
+}
+ul
+{
+  display: flex;
+}
+mat-toolbar
+{
+  /*background-color: #00c3ff;
+  background-color: #DA2226;*/
+  background-color: #38d39f;
+
+  width:100%;
+}
+mat-button
+{
+  color:#fff;
+}

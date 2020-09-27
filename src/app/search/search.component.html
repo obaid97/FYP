@@ -1,0 +1,23 @@
+<div class="container">
+    <!-- <mat-spinner></mat-spinner> -->
+    <!-- <mat-spinner *ngIf="isloading"></mat-spinner> -->
+    <!-- <form [formGroup]="myForm" (submit)="search()"  *ngIf="!isloading"> -->
+    <form [formGroup]="myForm" (submit)="search()" >
+
+    <div class="row">
+      <mat-card class="main-card">
+        <mat-form-field class="example-full-width">
+          <input matInput type="text"  [formControlName]="'searchText'" placeholder="Enter text to search">
+          
+          <!-- <mat-error *ngIf="myForm.get('searchText').invalid">
+            Search
+          </mat-error> -->
+         </mat-form-field>
+      </mat-card>
+    </div>
+    <br>
+    <div class="row submit-row">
+      <button align="right" mat-raised-button color="accent" class="submit-button"type="submit">Search</button>
+    </div>
+    </form>
+  </div>

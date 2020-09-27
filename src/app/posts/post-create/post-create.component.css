@@ -1,0 +1,89 @@
+
+mat-form-field,textarea
+{
+  width: 80%;
+  font-family: Merriweather;
+  font-size: 18px;
+  padding-left:10%;
+  padding-right: 10%;
+
+}
+
+
+mat-spinner
+{
+  margin: auto;
+}
+input[type="file"]
+{
+  visibility: hidden;
+}
+
+.image-preview
+{
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.image-preview img
+{
+  height: 100%;
+}
+.main-card
+{
+  margin-top: 3rem ;
+}
+.title-card
+{
+  padding-left: 40%;
+
+}
+.submit-button
+{
+  width: 50%;
+  margin-left: 25%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+}
+.submit-row
+{
+  padding-bottom: 1rem;
+}
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0 2px 1px -1px rgb(146, 146, 146),
+              0 1px 1px 0 rgb(146, 146, 146),
+              0 1px 3px 0 rgb(146, 146, 146);
+}
+.main-heading
+{
+  color: rgb(15, 158, 253);
+  padding-top: 10px;
+  font-family: Merriweather;
+  font-size: 45px;
+}
+.sub-heading
+{
+  font-family: Merriweather;
+  font-size: 25px;
+}
+.mat-header-title
+{
+  font-family: Merriweather;
+  font-size: 25px;
+}
+.mat-header-subtitle
+{
+  font-family: Merriweather;
+  font-size: 15px;
+}
+.mat-list-features
+{
+  width: 80%;
+  font-family: sans-serif;
+  font-size: 18px;
+  padding-left:10%;
+  padding-right: 10%;
+}
