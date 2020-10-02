@@ -5,6 +5,8 @@ const extractFile = require('../middleware/file');
 //const { title } = require("process");
 const router = express.Router();
 const PostController = require("../controllers/posts");
+const SearchController = require("../controllers/posts");
+
 
 
 
@@ -18,10 +20,7 @@ router.get('/',PostController.getPosts);
 router.put("/:id",checkAuth,extractFile,PostController.updatePost);
 
 router.get('/:id',PostController.getPost);
-
-// router.get('/search',PostController.searchPosts);
-
-
+router.get('/search/:searchText', SearchController.searchPosts);
 router.delete("/:id",checkAuth,PostController.deletePost);
 
 module.exports = router;

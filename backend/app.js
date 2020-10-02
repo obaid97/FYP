@@ -10,7 +10,7 @@ const app = express();
 const User = require("./models/user");
 
 const postsRoutes = require("./routes/posts");
-const searchRoutes = require("./routes/search");
+// const searchRoutes = require("./routes/search");
 const mongoose = require("mongoose");
 const { json } = require('body-parser');
 const userRoutes = require('./routes/user');
@@ -67,7 +67,7 @@ app.use((req,res,next)=>
 
 app.use("/api/posts",postsRoutes);
 app.use("/api/user",userRoutes);
-app.use("/api/search",searchRoutes);
+// app.use("/api/search",searchRoutes);
 
 
 /*
