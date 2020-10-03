@@ -14,6 +14,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+//import { MatChipInputEvent } from '@angular/material/chips';
 //import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 
 @NgModule({
@@ -43,7 +46,8 @@ exports: [
   MatSelectModule,
   MatCheckboxModule,
   MatChipsModule,
-
+  MatIconModule,
+  MatAutocompleteModule
 ]
 })
 

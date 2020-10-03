@@ -52,13 +52,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-         <!--<mat-form-field class="example-full-width">
-          <input  matInput type="text" [formControlName]="'registrationcity'" placeholder="Registration City">
-          <mat-error *ngIf="form.get('registrationcity').invalid">
-            Please Enter A registration city
-          </mat-error>
-         </mat-form-field>
-        -->
 
          <!--Exterior Color-->
          <mat-form-field class="select-option">
@@ -104,12 +97,11 @@
           <mat-card-title class="mat-header-title">Car Images</mat-card-title>
           <mat-card-subtitle class="mat-header-subtitle">file size upto 5mb only* with jpg,png</mat-card-subtitle>
         </mat-card-header>
+
         <!--images-->
       <div>
-        <button mat-stroked-button type="button" (click)="filepicker.click()">Choose Image</button>
-        <input type="file" #filepicker (change)="onImagePicked($event)">
-        <!-- <input type="file" #filepicker multiple="multiple"> -->
-        
+        <button mat-stroked-button type="button" (click)="filepicker.click()" multiple>Choose Image</button>
+        <input type="file" #filepicker (change)="onImagePicked($event)" multiple>
       </div>
       <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
         <img [src]="imagePreview" [alt]="form.value.title">
@@ -162,42 +154,36 @@
         </mat-error>
       </mat-form-field>
 
-
+      <!--features-->
+      <mat-form-field class=" select-option">
+        <mat-chip-list #chipList aria-label="Fruit selection" [formControlName]="'features'">
+          <mat-chip
+            *ngFor="let feature of features"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(feature)">
+            {{feature}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Features"
+            #fruitInput
+            [formControlName]="'features'"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let feature of filteredFeatures | async" [value]="feature">
+            {{feature}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
       </mat-card>
 
 
-      <mat-card class="main-card">
-        <!--features-->
-        <mat-card-header class="mat-header">
-          <mat-card-title class="mat-header-title">Car Features</mat-card-title>
-        </mat-card-header>
-
-        <mat-form-field >
-          <input  matInput type="text" [formControlName]="'features'" placeholder="Features" >
-          <mat-error *ngIf="form.get('features').invalid">
-            Please Enter Car Features
-          </mat-error>
-         </mat-form-field>
-
-
-        <!--<input matInput type="text" [formControlName]="'features'"placeholder="Features">
-        <mat-error *ngIf="form.get('features').invalid">
-          Please Enter all the features of your car
-        </mat-error>
-      -->
-<!--
-      <mat-grid-list cols="4" rowHeight="8:1" align="left" class="mat-list-features">
-        <p *ngIf="this.featureshold != null">{{this.featureshold}}</p>
-        <mat-grid-tile *ngFor="let a of features" >
-          <mat-checkbox class="example-margin" (oncheck)="checked(this.a.value)" [formControlName]="'features'">
-            {{a.viewValue}}
-          </mat-checkbox>
-          <p>{{featureshold}}</p>
-        </mat-grid-tile>
-      </mat-grid-list>
-    -->
-    </mat-card>
 
 
       <mat-card class="main-card">
