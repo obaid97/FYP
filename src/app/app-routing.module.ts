@@ -7,16 +7,19 @@ import { UserProfileComponent } from '../app/auth/user-profile/user-profile.comp
 import { HomeComponent } from './home/home.component';
 import { SmartContractComponent } from './auth/smart-contract/smart-contract.component';
 import { SearchComponent } from './search/search.component';
+import { ChatComponent } from './chat/chat.component';
+
 
 const routes: Routes=[
-  { path:'', component: PostListComponent },
-  { path:'home',component:HomeComponent },
+  { path:'', component: HomeComponent },
+  { path:'posts',component:PostListComponent },
   { path:'create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path:'smartcontract', component: SmartContractComponent, canActivate: [AuthGuard] },
   { path:'search', component: SearchComponent, canActivate: [AuthGuard] },
-  
+  { path:'chat', component: ChatComponent, canActivate: [AuthGuard] },
+  { path:'chat:/userId', component: ChatComponent, canActivate: [AuthGuard] },
   //this wont work in the newer version
   //another way to load children is
   { path:"auth",loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)}
