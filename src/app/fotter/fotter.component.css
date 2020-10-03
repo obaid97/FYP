@@ -31,8 +31,86 @@ mat-button
 {
   color:#fff;
 }
-.w3-sidebar a {font-family: "Roboto", sans-serif}
+.w3-sidebar a
+{
+  font-family: "Roboto, sans-serif";
+  color: #ffffff;
+}
+
 body,h1,h2,h3,h4,h5,h6,.w3-wide,div {
-  font-family: "Montserrat", sans-serif;
-  background-color: #F1F1F1;
+  font-family: "Montserrat, sans-serif";
+  background-color:#38d39f;
+  color:#FFF;
+  font-size: 18px;
+}
+i
+{
+  margin:3px;
+}
+a
+{
+  color:#FFF;
+}
+.footer
+{
+  height: 300px;
+  margin-bottom: 0;
+  width:100%;
+}
+.center
+{
+  align-items: center;
+
+}
+.copyright
+{
+  margin-left: 40%;
+
+  font-size: 18px;
+  font-family: sans-serif;
+  font-weight: bolder;
+
+
+}
+.footer2
+{
+  margin-top: 0;
+}
+footer
+{
+  margin-top: 10%;
+  margin-bottom: 0;
+  padding-top:5px;
+  background-color:#38d39f;
+
+}
+h4
+{
+  font-size: 20px;
+  font-weight:bold;
+  margin-left: 40%;
+}
+p
+{
+  margin-left:40%;
+}
+
+input
+{
+  margin-left: 25%;
+  width:100%;
+  margin-top: 5px;
+  height: 50px;
+}
+input.text
+{
+  height:25px;
+}
+button
+{
+  margin-left:35%;
+  background-color: #fff;
+  color: #000;
+  width:50%;
+  margin-top: 5px;
 }

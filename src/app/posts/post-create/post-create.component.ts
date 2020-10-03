@@ -90,14 +90,17 @@ export class PostCreateComponent implements OnInit, OnDestroy
   filteredFeatures: Observable<string[]>;
   //fruits: string[] = ['Lemon'];
   //allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-
+ a:string;
   //@ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
  //@ViewChild('auto') matAutocomplete: MatAutocomplete;
  @ViewChild('featureInput') featureInput: ElementRef<HTMLInputElement>;
  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-
-
+  imagesPath:string[]=[];
+  imagesPreviewPath:string[]=[];
+  imagespathf:string;
+  paths:any[];
+  paths2:any[];
 
   constructor(public postsService: PostsService,public route: ActivatedRoute,private authService: AuthService ,private formBuilder: FormBuilder )
   {
@@ -110,7 +113,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
+    // Add our feature
     if ((value || '').trim()) {
       this.features.push(value.trim());
     }
@@ -259,17 +262,38 @@ export class PostCreateComponent implements OnInit, OnDestroy
     reader.onload = () =>
     {
       this.imagePreview = reader.result as string;
+
     };
     reader.readAsDataURL(file);
     //reader.onload and reader.readAsDataURL works asynchronusly
   }
   //end of on image picked
 
-  //onchecked
-  /*checked(a:string)
+  imagespicked(event:Event)
   {
-    this.featureshold.push(a);
-  }*/
+
+    const reader = new FileReader();
+    for(var i=0;i<=8;i++)
+    {
+      const file = (event.target as HTMLInputElement).files[i];
+      this.paths2.push(file);
+      this.form.patchValue({image: file});
+      this.form.get('image').updateValueAndValidity();
+      reader.onload = () =>
+    {
+      this.imagePreview = reader.result as string;
+      this.imagesPreviewPath.push(this.imagePreview);
+      this.imagePreview='';
+    };
+    const a = reader.readAsDataURL(file);
+    const b = reader.readAsArrayBuffer(file);
+    this.paths.push(b);
+    alert(a);
+    }
+
+
+    alert(this.paths);
+  }
 
 //on Save post
   onSavePost()
@@ -300,12 +324,14 @@ export class PostCreateComponent implements OnInit, OnDestroy
         this.form.value.enginecapacity,
         this.form.value.transmission,
         this.form.value.assembly,
-        this.form.value.filteredFeatures,
+       // this.form.value.filteredFeatures,
+        this.features.toString(),
         //this.form.value.interestFormGroup,
         //this.featureshold[],
         //contact information
         this.form.value.mobilenumber
         );
+        alert(this.features);
     }
     else {
       this.postsService.updatePost
