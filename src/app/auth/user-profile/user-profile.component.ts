@@ -6,6 +6,19 @@ import { ActivatedRoute } from '@angular/router';
 import { mimeType } from '../../posts/post-create/mime-type.validator';
 import { AuthSignupData } from '../auth-signup-data.model';
 
+export interface userData
+{
+  fullName:string;
+  email: string;
+
+  phoneNumber:string;
+  fullAddress:string;
+  cnicNumber:number;
+  dob:Date;
+  genderStatus:string;
+  //accountStatus:string;
+  imagePath:string;
+}
 
 
 @Component({
@@ -22,8 +35,8 @@ export class UserProfileComponent implements OnInit
   userId :string;
   private authServiceSub : Subscription;
   userIsAuthenticated =false;
-  constructor(public authService: AuthService,public route: ActivatedRoute, private _formBuilder: FormBuilder){}
-  user:AuthSignupData[];
+
+  userdf:userData;
   usercnic:string;
   form : FormGroup;
   imagePreview : string;
@@ -37,10 +50,23 @@ export class UserProfileComponent implements OnInit
   genderStatus:string;
   accountStatus:string;
   authorizedStatus:boolean;
+  try:any[];
+
+
+  constructor(public authService: AuthService,public route: ActivatedRoute, private _formBuilder: FormBuilder)
+  {
+
+  }
 
   ngOnInit()
 {
 
+  this.authService.getuserDeatils();
+ // alert(this.userdf);
+  //alert(this.fullName);
+
+}
+/*
   this.isloading = true;
   this.userId =  this.authService.getUserId();
 
@@ -54,12 +80,12 @@ export class UserProfileComponent implements OnInit
         this.dob = userData.dob;
         this.cnicNumber= userData.cnicNumber;
         this.phoneNumber = userData.phoneNumber;
-      this.accountStatus= userData.accountStatus;
-      this.authorizedStatus= userData.authorizedStatus;
+        this.accountStatus= userData.accountStatus;
+        this.authorizedStatus= userData.authorizedStatus;
       }
       this.isloading=false;
         console.log(this.cnicNumber)
-    });
+    });*/
   //this.authService.getUser(this.usercnic);
   /*this.postsSub=this.postsService.getPostUpdate()
   .subscribe((postData : {posts: Post[], postCount:number}) => {
@@ -73,6 +99,6 @@ export class UserProfileComponent implements OnInit
     this.userIsAuthenticated = isAuthenticated;
     this.userId =  this.authService.getUserId();
   });*/
-}
+
 
 }

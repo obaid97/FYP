@@ -22,7 +22,7 @@ import { UserProfileComponent } from '../app/auth/user-profile/user-profile.comp
 import { HomeComponent } from './home/home.component';
 import { SmartContractComponent } from './auth/smart-contract/smart-contract.component';
 import { SearchComponent } from './search/search.component';
-
+import { SinglePostComponent } from './posts/single-post/single-post.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import { SearchComponent } from './search/search.component';
     UserProfileComponent,
     SmartContractComponent,
     HomeComponent,
-    SearchComponent
+    SearchComponent,
+    SinglePostComponent
   ],
   imports: [
     BrowserModule,

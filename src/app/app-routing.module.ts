@@ -8,14 +8,17 @@ import { HomeComponent } from './home/home.component';
 import { SmartContractComponent } from './auth/smart-contract/smart-contract.component';
 import { SearchComponent } from './search/search.component';
 import { ChatComponent } from './chat/chat.component';
+import { SinglePostComponent } from './posts/single-post/single-post.component';
 
 
 const routes: Routes=[
   { path:'', component: HomeComponent },
   { path:'posts',component:PostListComponent },
+  { path:'post',component:SinglePostComponent },
   { path:'create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },
+  { path:'userdetail/:userId', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path:'smartcontract', component: SmartContractComponent, canActivate: [AuthGuard] },
   { path:'search', component: SearchComponent, canActivate: [AuthGuard] },
   { path:'chat', component: ChatComponent, canActivate: [AuthGuard] },

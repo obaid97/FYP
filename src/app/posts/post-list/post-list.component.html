@@ -1,5 +1,5 @@
-<div class="container">
-  <!-- <app-search></app-search> -->
+<!--<div class="container">
+
   <div class="row ">
     <img  class="main-banner" src="../../../assets/images/5.jfif">
   </div>
@@ -7,8 +7,8 @@
       <h2>Main Content Area</h2>
   </div>
 </div>
+-->
 
-<!--
 <mat-spinner *ngIf="isloading"></mat-spinner>
 <div *ngIf="posts.length>0 && !isloading">
 <div class="container">
@@ -17,13 +17,13 @@
       <table class="col col-lg-4 col-md-6 col-xl-4 col-sm-12 col-xs-12">
         <tr colspan="12" class="">
           <td  colspan="4">
-            <mat-card class="example-card mt-2"   *ngFor="let post of posts">
+            <mat-card class="example-card mt-2"   *ngFor="let post of posts" >
               <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
                 <mat-card-title>{{post.make+"-"+post.model}} - {{post.exteriorcolor}} - {{post.enginetype}}</mat-card-title>
                 <mat-card-subtitle>{{post.city}}</mat-card-subtitle>
               </mat-card-header>
-              <a href=#><img mat-card-image  [src]="post.imagePath" [alt]="post.make"></a>
+              <a ><img mat-card-image  [src]="post.imagePath" [alt]="post.make"></a>
               <mat-card-content>
                 <p>
                    {{post.description}}
@@ -31,11 +31,13 @@
                 <p>
                 post
                 <p>
-              </mat-card-content>
-              <mat-card-actions *ngIf="userIsAuthenticated && userId === post.creator">
+              </mat-card-content><!--&& userId === post.creator"-->
+              <mat-card-actions *ngIf="userIsAuthenticated ">
                 <a mat-flat-button color="primary" class="action-buttons" [routerLink]="['/edit',post.id]" >EDIT</a>
                 <button mat-flat-button color="warn" class="action-buttons" (click)="onDelete(post.id)" >DELETE</button>
                 <button mat-flat-button color="accent" class="action-buttons">Chat</button>
+                <a mat-flat-button color="primary" class="action-buttons" [routerLink]="['/post',post.id]" >View</a>
+
               </mat-card-actions>
 
             </mat-card>
@@ -53,7 +55,6 @@
 </mat-paginator>
 
 <p class="info-text mat-body-1" *ngIf="posts.length<=0 && !isloading">No Posts Availables.!</p>
--->
 
 
 

@@ -13,6 +13,7 @@ const BACKEND_URL = environment.apiUrl +"/user/";
 export class AuthService
 {
   private unverifiedUsers: AuthSignupData[] = [];
+  private userdata:AuthSignupData;
   private userstatus:AuthSignupData;
   private unverifiedUsersUpdated= new Subject<{unverifiedUsers: AuthSignupData[],unverifiedUsersCount:number}>();
   private token :string;
@@ -63,6 +64,7 @@ export class AuthService
   {
     return this.authStatusListener.asObservable();
   }
+
 
 
   createUser(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string ,/*accountStatus:string,*/ image:File)
@@ -236,7 +238,7 @@ login(cnicNumber: string, password: string)
     return  this.unverifiedUsersUpdated.asObservable();
   }
 
-  getUUsersDeatils()
+  getUsersDeatils()
   {
     return  this.userDeatils;
   }
@@ -249,7 +251,7 @@ login(cnicNumber: string, password: string)
   getuserDeatils()
   {
 
-   return  this.http.get<
+   console.log(this.http.get<
     {
       _id:string,
       fullName:string,
@@ -262,7 +264,7 @@ login(cnicNumber: string, password: string)
       accountStatus:string,
       imagePath:string,
       authorizedStatus:boolean
-    }>(BACKEND_URL+"userdetails/"+this.currentUser);
+    }>(BACKEND_URL+"userdetails/"+this.currentUser));
   }
 
   getaccountStatus()

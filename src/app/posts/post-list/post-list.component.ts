@@ -66,7 +66,10 @@ export class PostListComponent implements OnInit, OnDestroy {
     });
   }
 
-
+  singlepostview(postid:string)
+  {
+    this.postsService.getsinglepost(postid);
+  }
 
 
 

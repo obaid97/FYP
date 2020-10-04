@@ -13,7 +13,7 @@ const BACKEND_URL = environment.apiUrl + "/posts/";
 export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<{ posts: Post[], postCount: number }>();
-
+  private check:any;
   constructor(private http: HttpClient, private router: Router) { }
 
   getPosts(postsPerPage: number, currentPage: number) {
@@ -105,7 +105,42 @@ export class PostsService {
       });
   }
 
+getpostobser()
+{
+  return this.check;
+}
 
+getsinglepost(id:string)
+{
+  this.check = this.http.get<
+  {
+    _id: string,
+    city: string,
+    make: string,
+    model: string,
+    registrationcity: string,
+    mileage: string,
+    exteriorcolor: string,
+    description: string,
+
+    //price
+    price: number,
+
+    //images
+    imagePath: string,
+
+    //additional information
+    enginetype: string,
+    enginecapacity: string,
+    transmission: string,
+    assembly: string,
+    features: string,
+    //contact information
+    mobilenumber: number,
+    creator: string
+  }
+>(BACKEND_URL + id);
+}
 
   getPost(id: string) {
     return this.http.get<
