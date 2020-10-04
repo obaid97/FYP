@@ -179,11 +179,12 @@ exports.findUnverifiedUsers = (req,res) =>
 exports.approveuser =  (req,res,next) =>
 {
 
- const a = User.findOne({cnicNumber: req.body.cnicNumber}).then(userdetail =>{
+ const a = User.findOneAndUpdate({cnicNumber: req.body.cnicNumber}).then(userdetail =>{
     //console.log(userdetail);
     if(userdetail)
     {
       res.status(200).json(userdetail);
+      userdetail.accountStatus= true;
       console.log("fethcedUser sucesfully");
     }
     else
@@ -192,24 +193,11 @@ exports.approveuser =  (req,res,next) =>
     }
     //res.status(200).json({message:"user fetch",
   //users:userdetail})
-  }).catch(error =>console.log(error))
+  }
+
+  ).catch(error =>console.log(error))
     a.authorizedStatus=true;
-    User.updateOne({cnicNumber:a.cnicNumber}).then(res =>
-      {
-        //a.authorizedStatus=true;
-        if(authorizedStatus == true)
-        {
-          //a.save().then(res =>{res.status(200)})
-          res.status(200).json({message:"Authorized Sucessfully"});
-        }
-        else
-        {
-          re.status(200).json({message:"Authorization error"});
-        }
-      }).catch(err =>
-        {
-          res.status(500).json({message:"couldnt authorize user"});
-        })
+
 
  /* User.findOneAndUpdate(req.params.cnicNumber,{
     returnOriginal: false
