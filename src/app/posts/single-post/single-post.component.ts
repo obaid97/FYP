@@ -42,7 +42,7 @@ export class SinglePostComponent
   ngOnInit()
   {
     this.post = this.postsService.getpostobser();
-    alert(this.post);
+    //alert(this.post);
   }
 
 }
