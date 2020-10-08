@@ -202,8 +202,7 @@ mat-card
   font-size: 45px;
   font-weight: bold;
   font-stretch: semi-expanded;
-
-  padding-top: 20rem;;
+  padding-top: 20rem;
   margin-left:50rem;
 }
 .main_text_about_company
@@ -226,4 +225,42 @@ mat-card
   font-style: normal;
   font-family: 'Poppins', sans-serif;
   margin-left: 22rem;
+}
+body
+{
+  width: 125.6%;
+  margin-left: -10rem;
+}
+mat-grid-list
+{
+  width: 125.6%;
+  margin-left: -10rem;
+  margin-top: 10px;
+}
+.search-card
+{
+  margin-top: 5px;
+  height: 250px;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient( rgb(25, 91, 145), rgb(255, 208, 0)),url("../../assets/images/1574.jpg");
+  padding-left: 15rem;
+  padding-top: 8rem;
+}
+.search-button
+{
+  background-color: beige;
+  color:#000000;
+}
+.input-search
+{
+  height:2.8rem;
+  border: none;
+  width:18%;
+  margin-right: 5px;
+  /*border-radius: 15px 50px 30px;*/
+  /*border-radius: 15px 50px;*/
+  border-radius: 50px 50px 50px 50px;
+  border-color: none;
+  padding-left:80px;
+  padding-right: 100px;
 }
