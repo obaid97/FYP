@@ -20,7 +20,7 @@ router.get('/',PostController.getPosts);
 router.put("/:id",checkAuth,extractFile,PostController.updatePost);
 
 router.get('/:id',PostController.getPost);
-router.get('/search/:searchText', SearchController.searchPosts);
+router.post('/search', SearchController.searchPosts);
 router.delete("/:id",checkAuth,PostController.deletePost);
 
 module.exports = router;

@@ -9,7 +9,7 @@ exports.deletePost = (req, res, next) => {
   //to check it in console
   Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
     .then(result => {
-     // console.log(result);
+      // console.log(result);
       if (result.n > 0) {
         res.status(200).json({ message: "Post Deleted Sucessfully!" });
       }
@@ -186,15 +186,19 @@ exports.getPosts = (req, res, next) => {
 }
 
 exports.searchPosts = (req, res, next) => {
-  // console.log("Params: ", req.params.searchText);
-  // res.send("Called successfully frpmpostss.");
-
-  // Post.find({ "$text" : { "$search" : req.params.searchText } }).then(documents => {
-
-  Post.find({ city: req.params.searchText }).then(documents => {
+  console.log(req.body);
+  Post.find({
+    $and: [
+      {
+        $or: [{ make: new RegExp(req.body.searchText) },
+        { model: new RegExp(req.body.searchText) }]
+      },
+      { city: new RegExp(req.body.city) }, 
+      // { price: { $lt: 1000000 } }
+    ]
+  }).then(documents => {
     fetchedPosts = documents
     return Post.count();
-
   }).then(count => {
     res.status(200).json(
       {
