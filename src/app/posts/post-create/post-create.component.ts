@@ -88,11 +88,8 @@ export class PostCreateComponent implements OnInit, OnDestroy
   separatorKeysCodes: number[] = [ENTER, COMMA];
   featureCtrl = new FormControl(null,{validators:[ Validators.required ]});
   filteredFeatures: Observable<string[]>;
-  //fruits: string[] = ['Lemon'];
-  //allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
- a:string;
-  //@ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
- //@ViewChild('auto') matAutocomplete: MatAutocomplete;
+   a:string;
+
  @ViewChild('featureInput') featureInput: ElementRef<HTMLInputElement>;
  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
@@ -136,7 +133,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.features.push(event.option.viewValue);
-    this.featureInput.nativeElement.value = '';
+    this.featureInput.nativeElement.value = "";
     this.featureCtrl.setValue(null);
   }
 
@@ -251,6 +248,15 @@ export class PostCreateComponent implements OnInit, OnDestroy
   }
  // end of ng oninit
 
+ urls=[];
+ onselect(e)
+ {
+
+ }
+
+
+
+
 //on image picked
   onImagePicked(event : Event)
   {
@@ -319,6 +325,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
         this.form.value.price,
         //images
         this.form.value.image ,
+
         //additional information
         this.form.value.enginetype,
         this.form.value.enginecapacity,
@@ -331,7 +338,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
         //contact information
         this.form.value.mobilenumber
         );
-        alert(this.features);
+       // alert(this.features);
     }
     else {
       this.postsService.updatePost

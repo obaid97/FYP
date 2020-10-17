@@ -22,7 +22,7 @@ export class AuthService
   private tokenTimer :any;
   private userId: string;
   private temp =  new Subject<string>();
-  private currentUser:string;
+  private currentUser:number;
   private currentUseraccountStatus:string;
   private currentUserauthorizeStatus:boolean;
   private accountstatus=  new Subject<string>();
@@ -102,12 +102,13 @@ export class AuthService
 
 deleteUser(cnicNumber :number)
 {
- return  this.http.delete(BACKEND_URL+cnicNumber);
+  console.log("auth service reached");
+ return  this.http.delete(BACKEND_URL + cnicNumber);
 
 }
 
 
-login(cnicNumber: string, password: string)
+login(cnicNumber: number, password: string)
   {
     const authData: AuthLoginData = {cnicNumber: cnicNumber, password:password};
     this.http.post<{token: string, expiresIn:number ,userId:string, accountStatus:string, authorizedStatus:Boolean}>(BACKEND_URL+"login",authData)

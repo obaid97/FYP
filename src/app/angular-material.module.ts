@@ -18,7 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 //import { MatChipInputEvent } from '@angular/material/chips';
 //import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
-
+//import { MaterialFileInputModule } from 'ngx-material-file-input';
 @NgModule({
 /*imports: [
   MatInputModule,
@@ -47,7 +47,8 @@ exports: [
   MatCheckboxModule,
   MatChipsModule,
   MatIconModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  // MaterialFileInputModule
 ]
 })
 

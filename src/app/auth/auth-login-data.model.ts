@@ -1,5 +1,5 @@
 export interface AuthLoginData
 {
-  cnicNumber: string;
+  cnicNumber: number;
   password: string;
 }

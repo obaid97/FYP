@@ -5,7 +5,7 @@ const extractFile = require('../middleware/file');
 const UserController = require("../controllers/user");
 const app = express();
 const router = express.Router();
-
+const checkAuth = require('../middleware/check-auth');
 
 //const { error } = require("console");
 //const user = require("../models/user");
@@ -21,8 +21,10 @@ router.post("/login",UserController.userLogin);
 router.get("/unverifiedusers",UserController.findUnverifiedUsers);
 
 //router.post("/dummy",UserController.dummy);
-router.post("/approve/:cnicNumber",UserController.approveuser);
+router.put("/approve/:cnicNumber",UserController.approveuser);
 router.get("/userdetails/:cnicNumber",UserController.userdetails);
 router.post("/delete/:cnicNumber",UserController.deleteUser);
+router.get("/allusers",UserController.getallusers);
+router.put("/updateuserdetails",UserController.updateuserdetails);
 
 module.exports = router;

@@ -35,7 +35,7 @@ export class UserProfileComponent implements OnInit
   userId :string;
   private authServiceSub : Subscription;
   userIsAuthenticated =false;
-
+  currentusercnic:number;
   userdf:userData;
   usercnic:string;
   form : FormGroup;
@@ -62,9 +62,23 @@ export class UserProfileComponent implements OnInit
 {
 
   this.authService.getuserDeatils();
+  this.currentusercnic = this.authService.getUsercnic();
  // alert(this.userdf);
   //alert(this.fullName);
 
+}
+
+onedit()
+{
+
+}
+
+
+onDelete()
+{
+
+  this.authService.deleteUser(this.currentusercnic);
+  this.authService.logout();
 }
 /*
   this.isloading = true;

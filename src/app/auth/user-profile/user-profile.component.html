@@ -11,8 +11,8 @@
         <p><b>Gender: </b></p><br>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-raised-button color="accent" class="edit-btn">Edit Deatils</button>
-        <button mat-raised-button color="warn" class="delete-btn">Delete Account</button>
+        <button mat-raised-button color="accent" class="edit-btn" (click)="onedit()" >Edit Deatils</button>
+        <button mat-raised-button color="warn" class="delete-btn" (click)="onDelete()">Delete Account</button>
     </mat-card-actions>
 </mat-card>
 <mat-card class="report-card">
