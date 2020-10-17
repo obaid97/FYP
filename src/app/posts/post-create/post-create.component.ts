@@ -248,6 +248,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
   }
  // end of ng oninit
 
+
  urls=[];
  onselect(e)
  {
@@ -257,8 +258,10 @@ export class PostCreateComponent implements OnInit, OnDestroy
 
 
 
-//on image picked
-  onImagePicked(event : Event)
+
+// on image picked
+  onImagePicked(event: Event)
+
   {
 
     const file = (event.target as HTMLInputElement).files[0];
@@ -271,9 +274,9 @@ export class PostCreateComponent implements OnInit, OnDestroy
 
     };
     reader.readAsDataURL(file);
-    //reader.onload and reader.readAsDataURL works asynchronusly
+    // reader.onload and reader.readAsDataURL works asynchronusly
   }
-  //end of on image picked
+  // end of on image picked
 
   imagespicked(event:Event)
   {
