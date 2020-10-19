@@ -12,7 +12,7 @@ const checkAuth = require('../middleware/check-auth');
 
 
 //sign up post router
-router.post("/signup",extractFile,UserController.createUser);
+router.post("/signup",extractFile,extractFile,UserController.createUser);
 
 
 //login post router
@@ -22,6 +22,7 @@ router.get("/unverifiedusers",UserController.findUnverifiedUsers);
 
 //router.post("/dummy",UserController.dummy);
 router.put("/approve/:cnicNumber",UserController.approveuser);
+router.post("/disable/:cnicNumber",UserController.disableuser);
 router.get("/userdetails/:cnicNumber",UserController.userdetails);
 router.post("/delete/:cnicNumber",UserController.deleteUser);
 router.get("/allusers",UserController.getallusers);

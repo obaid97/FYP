@@ -26,6 +26,7 @@ exports.createUser =  (req,res,next)=>{
           genderStatus:req.body.genderStatus,
           accountStatus: tempuserstatus,
           imagePath: url+"/images/" + req.file.filename,
+          //profileImage: url+"/images/" + req.file.filename,
           authorizedStatus: false
       });
       user.save().then(result =>

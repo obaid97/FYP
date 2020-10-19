@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
   genderStatus: { type:String, required:true},
   accountStatus: { type:String, required:true },
   imagePath : { type:String, required:true },
+  profileImage: {type:String, required:true},
   authorizedStatus: {type:Boolean,required:true}
 });
 

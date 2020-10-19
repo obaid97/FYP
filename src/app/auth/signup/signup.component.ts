@@ -24,6 +24,7 @@ export class SignupComponent implements OnInit, OnDestroy
   private authStatusSub: Subscription;
   signupform : FormGroup;
   imagePreview : string;
+  profileImagePreview:string;
   profileImage : string;
   accountStatus:string;
   accStatus: string[] = ['user','admin'];
@@ -57,8 +58,8 @@ export class SignupComponent implements OnInit, OnDestroy
       dob: new FormControl(null, {validators:[Validators.required]}),
       genderStatus: new FormControl(null, {validators:[Validators.required]}),
       //accountStatus: new FormControl(null,{validators:[Validators.required]}),
-      image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
-
+      image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]}),
+      profileImage: new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
     });
 
 
@@ -104,7 +105,9 @@ export class SignupComponent implements OnInit, OnDestroy
       this.signupform.value.dob,
       this.signupform.value.genderStatus,
       //this.signupform.value.accountStatus,
-      this.signupform.value.image);
+      this.signupform.value.image,
+      //this.signupform.value. profileImage
+      );
       //console.log("onsignup form sucessful");
 
       this.isloading =false;
@@ -131,6 +134,24 @@ export class SignupComponent implements OnInit, OnDestroy
   }
   //end of on image picked
 
+
+  //on image picked
+  onprofileimagePicked(event : Event)
+  {
+    const profileimagefile = (event.target as HTMLInputElement).files[0];
+    this.signupform.patchValue({profileImage: profileimagefile});
+    this.signupform.get('profileImage').updateValueAndValidity();
+    const reader = new FileReader();
+    //console.log(file);
+    //console.log(this.signupform);
+    reader.onload = () =>
+    {
+      this.profileImagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(profileimagefile);
+    //reader.onload and reader.readAsDataURL works asynchronusly
+  }
+  //end of on image picked
 
   ngOnDestroy()
   {

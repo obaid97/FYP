@@ -10,6 +10,6 @@ export interface AuthSignupData
   genderStatus:string;
   //accountStatus:string;
   imagePath:string;
-  cnicbackimagePath:string;
+  //cnicbackimagePath:string;
   profileimagePath:string;
 }

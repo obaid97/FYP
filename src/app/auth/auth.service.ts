@@ -67,7 +67,7 @@ export class AuthService
 
 
 
-  createUser(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string ,/*accountStatus:string,*/ image:File)
+  createUser(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string ,/*accountStatus:string,*/ image:File /*,profileImage:File*/)
   {
 
     const authData = new FormData();
@@ -80,6 +80,7 @@ export class AuthService
     authData.append("dob",dob);
     authData.append("genderStatus",genderStatus);
     authData.append("image",image);
+    //authData.append("profileImage", profileImage);
 
    // const avialblecheck = this.http.get(BACKEND_URL+"userdetails",cnicNumber)
 

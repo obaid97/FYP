@@ -4,8 +4,7 @@ import { AuthSignupData } from '../auth-signup-data.model';
 import { PostsService } from '../../posts/posts.service';
 import {Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
-import { AuthService } from 'src/app/auth/auth.service';
-
+import { AuthService } from '../auth.service';
 
 @Component(
 {
@@ -81,7 +80,10 @@ onDelete(cnicNumber: number)
 
 onApprove(cnicNumber:number)
 {
-  this.isloading=true;
+  this.isloading = true;
+  this.authService.approveUser(cnicNumber);
+  this.isloading=false;
+
 
 }
 

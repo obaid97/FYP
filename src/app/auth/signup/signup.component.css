@@ -1,8 +1,12 @@
 .container-fluid
 {
-  background-color: rgb(252, 252, 252);
+  /*background-color: rgb(252, 252, 252);*/
+  background-color:#fff;
+  width: 125.6%;
+  margin-left: -10rem;
+  align-items:center;
 }
-
+/*
 .right
 {
   align-content: right;
@@ -16,7 +20,7 @@
 }
 
 .mat-form-field {
-  margin-top: 16px;
+  margin-top: 0;
 }
 .matformfield-left
 {
@@ -66,12 +70,10 @@ input[type="file"]
 }
 .mat-card
 {
-  margin-top: 1rem;
-
+  /*margin-top: 1rem;
+  width: 100%;
 }
-mat-grid-tile {
-  background: #fff;
-}
+*/
 input[type="radio"]
 {
   visibility: hidden;
@@ -85,4 +87,133 @@ input[type="radio"]
 .accountStatus-radio-button
  {
   margin: 5px;
+}
+.mat-card:hover
+{
+  box-shadow: 10px 10px 10px 10px grey;
+}
+.main-heading
+{
+  margin-top: 10rem;;
+  color: rgb(0, 0, 0);
+  padding-top: 2rem;
+  font-family: Merriweather;
+  font-size: 45px;
+  margin-left: 10rem;
+  width: 100%;
+  margin: 0;
+}
+.sub-heading
+{
+  font-family: Merriweather;
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+
+  width: 100%;
+}
+.mat-header-title
+{
+  font-family: Merriweather;
+  font-size: 50px;
+  font-style: italic;
+  font-weight:bold;
+  margin-left: 55%;
+}
+.mat-header-subtitle
+{
+  font-family: Merriweather;
+  font-size: 35px;
+  font-style: italic;
+  font-weight:bold;
+  margin-left: 35%;
+  padding-top: 15px;
+}
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0 2px 1px -1px rgb(146, 146, 146),
+              0 1px 1px 0 rgb(146, 146, 146),
+              0 1px 3px 0 rgb(146, 146, 146);
+}
+.main-card
+{
+  margin-top: 3rem ;
+  width:230%;
+  margin-left: 30%;
+}
+.title-card
+{
+  padding-left: 40%;
+}
+mat-form-field,textarea
+{
+  width: 100%;
+  font-family: Merriweather;
+  font-size: 18px;
+  padding-left:10%;
+  padding-right: 10%;
+
+}
+mat-spinner
+{
+  margin: auto;
+}
+input[type="file"]
+{
+  margin-left: 10%;
+  visibility: hidden;
+}
+
+
+.radio-selection
+{
+  margin-left: 10%;
+}
+.label_gender
+{
+  font-weight: bold;
+  font-style: normal;
+}
+.cnic-image
+{
+  padding-left: 6rem;
+  width: 100%;
+}
+.cnic-label
+{
+  width: 100%;
+  padding-left:5px;
+}
+.image-preview
+{
+  height: 5rem;
+  margin: 1rem 0;
+  padding-left: 6rem;
+
+}
+
+.submitrow
+{
+  margin-bottom: 5rem;
+}
+.image-preview img
+{
+  height: 100%;
+}
+.submitButton
+{
+
+  margin-left: 25%;
+  width: 50%;
+}
+mat-grid-list
+{
+  width: 100%;
+  height:5rem;
+}
+.mat-card:hover
+{
+  box-shadow: 10px 10px 10px 10px grey;
+}
+.image-choose
+{
+  background-color:#01c20b;
 }
