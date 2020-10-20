@@ -6,6 +6,7 @@ const UserController = require("../controllers/user");
 const app = express();
 const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
+const { RouteReuseStrategy } = require("@angular/router");
 
 //const { error } = require("console");
 //const user = require("../models/user");
@@ -19,13 +20,14 @@ router.post("/signup",extractFile,extractFile,UserController.createUser);
 router.post("/login",UserController.userLogin);
 //unverified users
 router.get("/unverifiedusers",UserController.findUnverifiedUsers);
+router.get("/verifiedusers",UserController.findVerifiedUsers);
 
 //router.post("/dummy",UserController.dummy);
 router.put("/approve/:cnicNumber",UserController.approveuser);
-router.post("/disable/:cnicNumber",UserController.disableuser);
+router.put("/disable/:cnicNumber",UserController.disableuser);
 router.get("/userdetails/:cnicNumber",UserController.userdetails);
 router.post("/delete/:cnicNumber",UserController.deleteUser);
 router.get("/allusers",UserController.getallusers);
-router.put("/updateuserdetails",UserController.updateuserdetails);
-
+router.put("/updateuserdetails/:cnicNumber",UserController.updateuserdetails);
+//router.get("/allusers",UserController.getallusers)
 module.exports = router;

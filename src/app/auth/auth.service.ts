@@ -300,7 +300,7 @@ login(cnicNumber: number, password: string)
   approveUser(cnicNumber:number)
   {
     const tempstatus = true;
-    this.http.put(BACKEND_URL+cnicNumber,tempstatus)
+    this.http.post(BACKEND_URL+"approve/"+cnicNumber,tempstatus)
     .subscribe(response => {
       this.router.navigate(["/admin"]);
     });

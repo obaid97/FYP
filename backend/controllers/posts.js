@@ -184,7 +184,10 @@ exports.getPosts = (req, res, next) => {
     })
   });
 }
+//all posts ended
 
+
+//search posts starts
 exports.searchPosts = (req, res, next) => {
   console.log(req.body);
   Post.find({
@@ -193,7 +196,7 @@ exports.searchPosts = (req, res, next) => {
         $or: [{ make: new RegExp(req.body.searchText) },
         { model: new RegExp(req.body.searchText) }]
       },
-      { city: new RegExp(req.body.city) }, 
+      { city: new RegExp(req.body.city) },
       // { price: { $lt: 1000000 } }
     ]
   }).then(documents => {
