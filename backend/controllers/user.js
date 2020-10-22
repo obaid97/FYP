@@ -303,3 +303,85 @@ const a = {"authorizedStatus": true};
     }
   })
 }
+
+
+exports.authorizedStatus = (req,res,next) =>
+{
+  User.findOne({cnicNumber: req.params.cnicNumber}).then(result =>
+    {
+      res.status(200).json({userstatus:result});
+    })
+}
+
+
+exports.findVerifiedUsers = (req,res) =>
+{
+
+  User.find({authorizedStatus:true})
+  .then(results => {
+
+    res.status(200).json(
+      {
+        message:"Verified Users Fetched Sucessfully",
+        users:results
+
+      })
+
+    })
+  .catch(error => console.error(error))
+
+}
+
+
+
+
+exports.passwordreset= (req,res,next) =>
+{
+  //console.log("sucesfully");
+  let fethcedUser;
+  User.findOne({cnicNumber:req.body.cnicNumber})
+    .then(user =>
+    {
+      const status = bcrypt.compare(req.body.password, user.password);
+      if(!status && !user)
+      {
+        return res.status(401).json(
+        {
+          message: "Invalid password"
+        });
+      }
+      fethcedUser = user;
+      //return bcrypt.compare(req.body.password, user.password);
+
+    })
+      .then(result =>
+          {
+            if(!result)
+            {
+              return res.status(401).json(
+                {
+                  message: "Invalid Authentication Credentials"
+                });
+            }
+            //the second parameter "'secret_this_should_be_longer'" this would be changed in our real application for security purpose...and it is used in self created middleware check-auth
+            const token = jwt.sign({cnicNumber: fethcedUser.cnicNumber, userId: fethcedUser._id, accountStatus: fethcedUser.accountStatus},
+              process.env.JWT_KEY,
+              {expiresIn: "1h"});
+            res.status(200).json(
+              {
+                token : token,
+                expiresIn: 3600,
+                userId: fethcedUser._id,
+                accountStatus: fethcedUser.accountStatus
+                //message: "Succesfull"
+              });
+          })
+          .catch(error =>
+            {
+              return res.status(401).json(
+                {
+                  message: "Authentication Failed"
+                });
+            });
+    }
+

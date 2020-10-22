@@ -307,5 +307,6 @@ login(cnicNumber: number, password: string)
     //this.http.put<{cnicNumber:number}>(BACKEND_URL+cnicNumber).subscribe(res =>{})
   }
 
+
 }
 //

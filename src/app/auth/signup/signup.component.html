@@ -5,6 +5,12 @@
   <div class="row">
     <div class="col col-lg-4 col-md-4">
 
+      <mat-card class="main-card">
+
+        <mat-card-header class="mat-header">
+          <mat-card-title class="mat-header-title main-heading">Come Join Us</mat-card-title>
+          <mat-card-subtitle class="mat-header-subtitle sub-heading">Reach Out To Millions of Buyers & Sellers</mat-card-subtitle>
+        </mat-card-header>
                 <!-- Full name Field Field -->
                 <mat-form-field class="matformfield-left" >
                   <input matInput  type="text" placeholder="Full Name"  formControlName="fullName">
@@ -60,26 +66,11 @@
                 </mat-radio-group>
 
 
-                <!--Account Status Field-->
-               <!-- <mat-label>Choose your account setting</mat-label>
-                <mat-radio-group  formControlName="accountStatus"
-                  aria-labelledby="accountStatus-radio-group-label"
-                  class="accountStatus-radio-group matformfield-left">
-                  <mat-radio-button class="accountStatus-radio-button" *ngFor="let status of accStatus" [value]="status">
-                    {{status}}
-                  </mat-radio-button>
-                </mat-radio-group>
---->
 
-    </div>
 
-<!--
-    <div>
-      <img *ngFor="let url of urls" [src]="url" width="100" height="100" alt="">
-      <input type="file" (change)="selectFiles($event) ">
-    </div>
 
-  -->
+
+
 
 
   <div class="col col-lg-4 col-md-4 ">
@@ -87,8 +78,6 @@
        <button mat-stroked-button type="button" (click)="filepicker.click()">Choose Image</button>
         <mat-label>Choose you Cnic Image "Front Side" clear picture</mat-label>
         <input type="file" #filepicker (change)="onImagePicked($event)" multiple>
-
-
 
     </div>
       <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && signupform.get('image').valid">
@@ -100,7 +89,7 @@
 
 
 
-  </div>
+
   <br>
   <div class="row submitrow">
     <div class="col">
@@ -108,6 +97,10 @@
     <button mat-raised-button color="accent" type="submit" style="align-self: center" class="submitButton">Signup</button>
   </div>
   </div>
+</mat-card>
+</div>
+</div>
+
 </form>
 
 </div>
