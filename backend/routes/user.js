@@ -26,5 +26,7 @@ router.get("/userdetails/:cnicNumber",UserController.userdetails);
 router.post("/delete/:cnicNumber",UserController.deleteUser);
 router.get("/allusers",UserController.getallusers);
 router.put("/updateuserdetails",UserController.updateuserdetails);
+router.put("/passreset/:cnicNumber",UserController.passwordreset);
+
 
 module.exports = router;
