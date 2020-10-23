@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit, OnDestroy
   private authStatusSub: Subscription;
   signupform : FormGroup;
   imagePreview : string;
-  profileImage : string;
+  profileImage : string;profileImagePreview:string;
   accountStatus:string;
   accStatus: string[] = ['user','admin'];
   genderStatus:string[] = ['Male','Female'];
@@ -136,4 +136,22 @@ export class SignupComponent implements OnInit, OnDestroy
   {
     this.authStatusSub.unsubscribe();
   }
+
+  //on image picked
+  onprofileimagePicked(event : Event)
+  {
+    const profileimagefile = (event.target as HTMLInputElement).files[0];
+    this.signupform.patchValue({profileImage: profileimagefile});
+    this.signupform.get('profileImage').updateValueAndValidity();
+    const reader = new FileReader();
+    //console.log(file);
+    //console.log(this.signupform);
+    reader.onload = () =>
+    {
+      this.profileImagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(profileimagefile);
+    //reader.onload and reader.readAsDataURL works asynchronusly
+  }
+  //end of on image picked
 }

@@ -23,7 +23,9 @@ import { HomeComponent } from './home/home.component';
 import { SmartContractComponent } from './auth/smart-contract/smart-contract.component';
 import { SearchComponent } from './search/search.component';
 import { SinglePostComponent } from './posts/single-post/single-post.component';
+import { ChatInboxComponent } from '../app/auth/chat-inbox/chat-inbox.component';
 
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import { SinglePostComponent } from './posts/single-post/single-post.component';
     SmartContractComponent,
     HomeComponent,
     SearchComponent,
-    SinglePostComponent
+    SinglePostComponent,
+    ChatInboxComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { SinglePostComponent } from './posts/single-post/single-post.component';
     BrowserAnimationsModule,
     AngularMaterialModule,
     HttpClientModule,
-    PostModule
+    PostModule,
+    FormsModule
 
   ],
   providers: [

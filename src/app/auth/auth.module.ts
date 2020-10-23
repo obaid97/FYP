@@ -7,6 +7,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AngularMaterialModule } from '../angular-material.module';
 import { AuthRoutingModuel } from './auth-routing.module';
 import { SmartContractComponent } from './smart-contract/smart-contract.component';
+
 //import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SmartContractComponent } from './smart-contract/smart-contract.componen
     [
       LoginComponent,
       SignupComponent,
-      AdminComponent
+      AdminComponent,
+
     ],
   imports:
     [

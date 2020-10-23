@@ -101,6 +101,11 @@
 
         <!--images-->
       <div class="image-picked">
+        <!--
+        <div>
+          <img *ngFor="let url of urls" src="[url]">
+          <input type="file" (change)="onselect($event)" multiple >
+        </div>-->
         <div class="">
         <button mat-stroked-button type="button" class="image-picked-button" (click)="filepicker.click()" multiple>Choose Image</button>
         <input type="file" #filepicker (change)="onImagePicked($event)" multiple>

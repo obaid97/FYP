@@ -2,13 +2,16 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { findOne } = require("../models/user");
-
+const crypto =require("crypto");
 
 
 
 
 
 exports.createUser =  (req,res,next)=>{
+
+  const privatek = crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex');
+  //console.log(privatek);
   const tempuserstatus = "user";
   const url = req.protocol + '://' + req.get("host");
   bcrypt.hash(req.body.password, 10)
@@ -23,10 +26,10 @@ exports.createUser =  (req,res,next)=>{
           cnicNumber:req.body.cnicNumber,
           dob: req.body.dob,
           genderStatus:req.body.genderStatus,
-          //accountStatus: req.body.accountStatus,
           accountStatus: tempuserstatus,
           imagePath: url+"/images/" + req.file.filename,
-          authorizedStatus: false
+          authorizedStatus: false,
+          privateKey :crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex')
       });
       user.save().then(result =>
         {
@@ -37,7 +40,8 @@ exports.createUser =  (req,res,next)=>{
         })
           .catch(error => {
             res.status(500).json({
-                message: "Invalid Authentication Credentials!"
+                message: "Invalid Authentication Credentials!",
+                result: error
             });
           });
   });
@@ -100,22 +104,19 @@ exports.userdetails = (req,res,next) =>
 {
 
 User.findOne({cnicNumber: req.params.cnicNumber}).then(userdetail =>{
- // console.log(userdetail);
+
   if(userdetail)
   {
-
     res.status(200).json({
       message:"Fetched sucesfully",
       result:userdetail,
       });
-    //console.log("fethcedUser sucesfully");
   }
   else
   {
     res.status(404).json({message:"error finding user"})
   }
-  //res.status(200).json({message:"user fetch",
-//users:userdetail})
+
 }).catch(error =>console.log(error))
 }
 
@@ -124,9 +125,7 @@ User.findOne({cnicNumber: req.params.cnicNumber}).then(userdetail =>{
 
 exports.deleteUser = (req,res,next) =>
 {
-  //const a = 3710558105901;
-  /*console.log(req.params.cnicNumber);
-  res.status(200).json({message:"user deleted"});*/
+
   User.deleteOne({cnicNumber: req.params.cnicNumber}).then(result =>
     {
       //console.log(req.params.cnicNumber);
@@ -141,7 +140,6 @@ exports.deleteUser = (req,res,next) =>
     }).catch(error =>{res.status(500).json({message:"error deleting user"});
   });
 
- // console.log("deleted user");
 }
 
 
@@ -150,119 +148,227 @@ exports.deleteUser = (req,res,next) =>
 exports.findUnverifiedUsers = (req,res) =>
 {
 
-  //console.log("req here", req);
-
   User.find({authorizedStatus:false})
   .then(results => {
-    //console.log(results);
+
     res.status(200).json(
       {
         message:"Unverified Users Fetched Sucessfully",
         users:results
 
       })
-      //console.log(results);
+
     })
   .catch(error => console.error(error))
 
- /* let fethcedUser;
-  User.find()
-  .then(documents =>
+}
+
+
+exports.getallusers = (req,res,next) =>
+{
+  User.find().then(users =>
     {
-      consol.log(documents);
-    });
-  res.status(200).json(
-    {
-      message:"Users Fetched Successfully",
-      users: users
-});*/
+      res.status(200).json({
+        message :" users fethced sucessful",
+        result: users });
+    })
 }
 
 
 exports.approveuser =  (req,res,next) =>
 {
-  var query = {'username': req.user.username};
-  req.newData.authorizedStatus = req.user.username;
-
-  MyModel.findOneAndUpdate(query, req.newData, {upsert: true}, function(err, doc) {
-      if (err) return res.send(500, {error: err});
-      return res.send('Succesfully saved.');
-  });
-
-
-/*
- const a = User.findOneAndUpdate({cnicNumber: req.body.cnicNumber}).then(userdetail =>{
-
-    if(userdetail)
+const a = {"authorizedStatus": true};
+  User.findOne({cnicNumber: req.params.cnicNumber}, function(err, foundobject)
+  {
+    //console.log(req.params.cnicNumber + " found");
+    if(err)
     {
-      res.status(200).json(userdetail);
-      userdetail.authorizedStatus= true;
-      console.log("fethcedUser sucesfully");
+      console.log(err);
+      res.status(500).send(err.message);
     }
     else
     {
-      res.status(404).json({message:"error finding user"})
+      if(!foundobject)
+      {
+        res.status(404).send();
+      }
+      else
+      {
+          foundobject.authorizedStatus = true;
+
+
+        //can apply as many fields as we can like above
+
+        foundobject.save(function(err,updateObject)
+        {
+          if(err)
+          {
+            console.log(err);
+            res.status(500).send();
+          }
+          else
+          {
+            res.send(updateObject);
+          }
+        })
+      }
     }
+  })
+}
 
-  }
 
-  ).catch(error =>console.log(error))
-    a.authorizedStatus=true;
-    User.update({cnicNumber:a.cnicNumber}).then(res =>
+exports.updateuserdetails =  (req,res,next) =>
+{
+
+  User.findOne({cnicNumber: req.params.cnicNumber}, function(err, foundobject)
+  {
+    //console.log(req.params.cnicNumber + " found");
+    if(err)
+    {
+      console.log(err);
+      res.status(500).send(err.message);
+    }
+    else
+    {
+      if(!foundobject)
+      {
+        res.status(404).send();
+      }
+      else
+      {
+        if(req.body.email)
+        {
+          foundobject.email = req.body.email;
+        }
+        if(req.body.phoneNumber)
+        {
+          foundobject.phoneNumber = req.body.phoneNumber;
+        }
+        if(req.body.fullAddress)
+        {
+          foundobject.fullAddress = req.body.fullAddress;
+        }
+        //can apply as many fields as we can like above
+
+        foundobject.save(function(err,updateObject)
+        {
+          if(err)
+          {
+            console.log(err);
+            res.status(500).send();
+          }
+          else
+          {
+            res.send(updateObject);
+          }
+        })
+      }
+    }
+  })
+}
+
+exports.disableuser =  (req,res,next) =>
+{
+const a = {"authorizedStatus": true};
+  User.findOne({cnicNumber: req.params.cnicNumber}, function(err, foundobject)
+  {
+    //console.log(req.params.cnicNumber + " found");
+    if(err)
+    {
+      console.log(err);
+      res.status(500).send(err.message);
+    }
+    else
+    {
+      if(!foundobject)
+      {
+        res.status(404).send();
+      }
+      else
+      {
+          foundobject.authorizedStatus = false;
+
+
+        //can apply as many fields as we can like above
+
+        foundobject.save(function(err,updateObject)
+        {
+          if(err)
+          {
+            console.log(err);
+            res.status(500).send();
+          }
+          else
+          {
+            res.send(updateObject);
+          }
+        })
+      }
+    }
+  })
+}
+
+
+exports.authorizedStatus = (req,res,next) =>
+{
+  User.findOne({cnicNumber: req.params.cnicNumber}).then(result =>
+    {
+      res.status(200).json({userstatus:result});
+    })
+}
+
+
+exports.findVerifiedUsers = (req,res) =>
+{
+
+  User.find({authorizedStatus:true})
+  .then(results => {
+
+    res.status(200).json(
+      {
+        message:"Verified Users Fetched Sucessfully",
+        users:results
+
+      })
+
+    })
+  .catch(error => console.error(error))
+
+}
+
+
+
+
+exports.passwordreset= (req,res,next) =>
+{
+  User.findOne({cnicNumber:req.body.cnicNumber},)
+  .then(user =>
+  {
+    if(!user)
+    {
+      return res.status(401).json(
+      {
+        message: "Authentication Failed"
+      });
+    }
+    fethcedUser = user;
+    return bcrypt.compare(req.body.password, user.password);
+  })
+    .then(foundobject =>
       {
 
-        if(authorizedStatus == true)
+        foundobject.save(function(err,updateObject)
         {
-
-          res.status(200).json({message:"Authorized Sucessfully"});
-        }
-        else
-        {
-          re.status(200).json({message:"Authorization error"});
-        }
-      }).catch(err =>
-        {
-          res.status(500).json({message:"couldnt authorize user"});
+          if(err)
+          {
+            console.log(err);
+            res.status(500).send();
+          }
+          else
+          {
+            res.send(updateObject);
+          }
         })
-*/
-
-
-
- /* User.findOneAndUpdate(req.params.cnicNumber,{
-    returnOriginal: false
-  })
-  .then(userdetail =>
-    {
-      if(userdetail)
-    {
-      userdetail.authorizedStatus = true;
-      userdetail.save();
-      res.status(200).json(userdetail);
-      console.log("Authorized sucesfully");
-    }
-    else
-    {
-      res.status(404).json({message:"error authorizing user"})
-    }
-    }).catch(error =>console.log(error))
-
-*/
-
-
-/*
-  const user = new User({
-    authorizedStatus:true
-  })
-  User.find({cnicNumber:req.params.cnicNumber})
-  .then(results => {
-    results.authorizedStatus = true;
-    if(authorizedStatus == true)
-    {
-      res.status(200).json({message:"User Authorized succesfully"});
-    }
-    else
-    {
-      res.status(400).json({message:"Error authorizing user"});
-    }
-  })*/
+      })
 }
+

@@ -1,3 +1,4 @@
+const { createPrivateKey } = require('crypto');
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const userSchema = mongoose.Schema({
@@ -11,7 +12,8 @@ const userSchema = mongoose.Schema({
   genderStatus: { type:String, required:true},
   accountStatus: { type:String, required:true },
   imagePath : { type:String, required:true },
-  authorizedStatus: {type:Boolean,required:true}
+  authorizedStatus: {type:Boolean,required:true},
+  privateKey: {type:String, required:true}
 });
 
 userSchema.plugin(uniqueValidator);
