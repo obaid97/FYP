@@ -11,7 +11,7 @@ const crypto =require("crypto");
 exports.createUser =  (req,res,next)=>{
 
   const privatek = crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex');
-  console.log(privatek);
+  //console.log(privatek);
   const tempuserstatus = "user";
   const url = req.protocol + '://' + req.get("host");
   bcrypt.hash(req.body.password, 10)

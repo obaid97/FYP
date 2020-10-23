@@ -4,8 +4,8 @@ const express = require('express');
 const bodyparser = require("body-parser");
 const path = require('path');
 const app = express();
-
-
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 //newProjectRoot
 const User = require("./models/user");
 
@@ -36,6 +36,25 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: false}));
 app.use("/images", express.static(path.join("backend/images")));
 app.use("/userimages", express.static(path.join("backend/userimages")));
+
+
+app.get('/', (req, res) => res.send('hello!'));
+io.on('connection', (socket) => {
+  //console.log('a user connected');
+  socket.on('message', (msg) => {
+    //console.log(msg);
+    socket.broadcast.emit('message-broadcast', msg);
+   });
+});
+
+
+
+
+http.listen(5000, () => {
+  console.log('listening on *5000');
+});
+
+
 
 
 
@@ -70,28 +89,6 @@ app.use("/api/user",userRoutes);
 // app.use("/api/search",searchRoutes);
 
 
-/*
-
-app.get('/', (req, res) => {
-  //const cursor = db.collection('users').find()
-User.find({authorizedStatus:false})
-  .then(results => {
-
-    console.log(results);
-
-  })
-  .catch(error => console.error(error))
-});
-
-
-app.get("/as", (req, res) => {
-  res.json({
-    message:
-      "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes.",
-  });
-});
-
-*/
 
 //This will be used to send post(store post) in database
 //To get from angular side and post it on node side
