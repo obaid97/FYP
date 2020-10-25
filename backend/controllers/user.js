@@ -3,14 +3,14 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { findOne } = require("../models/user");
 const crypto =require("crypto");
-
+const Admin = require("../models/admin");
 
 
 
 
 exports.createUser =  (req,res,next)=>{
 
-  const privatek = crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex');
+  //const privatek = crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex');
   //console.log(privatek);
   const tempuserstatus = "user";
   const url = req.protocol + '://' + req.get("host");
@@ -45,6 +45,56 @@ exports.createUser =  (req,res,next)=>{
             });
           });
   });
+}
+
+
+//admin Create
+
+exports.createAdmin =  (req,res,next)=>{
+
+  //const privatek = crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex');
+  //console.log(privatek);
+  const tempuserstatus = "admin";
+  //const url = req.protocol + '://' + req.get("host");
+  bcrypt.hash(req.body.password, 10)
+    .then(hash =>
+      {
+        const user = new User({
+          fullName: req.body.fullName,
+          email:req.body.email,
+          password:hash,
+          phoneNumber:req.body.phoneNumber,
+          fullAddress: req.body.fullAddress,
+          cnicNumber:req.body.cnicNumber,
+          dob: req.body.dob,
+          genderStatus:req.body.genderStatus,
+          imagePath: url+"/images/" + req.file.filename,
+          //imagePath: req.body.imagePath,
+          accountStatus: tempuserstatus,
+          authorizedStatus: true,
+          privateKey :crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex')
+      });
+
+      user.save().then(result =>
+        {
+          res.status(201).json({
+            message: "User created sucesfully",
+            result: result
+          });
+        }).catch(error => {
+            res.status(500).json({
+                message: "Invalid Authentication Credentials!",
+                result: error
+            });
+          });
+  }).catch(error =>
+    {
+      res.status(500).json({
+        message: "Error creating Admin",
+        result: error
+
+    });
+  })
 }
 
 
@@ -103,13 +153,13 @@ exports.userLogin= (req,res,next) =>
 exports.userdetails = (req,res,next) =>
 {
 
-User.findOne({cnicNumber: req.params.cnicNumber}).then(userdetail =>{
+User.find({cnicNumber: req.params.cnicNumber}).then(result =>{
 
-  if(userdetail)
+  if(result)
   {
     res.status(200).json({
       message:"Fetched sucesfully",
-      result:userdetail,
+      user:result,
       });
   }
   else
@@ -164,15 +214,35 @@ exports.findUnverifiedUsers = (req,res) =>
 }
 
 
-exports.getallusers = (req,res,next) =>
+exports.findVerifiedUsers = (req,res) =>
 {
-  User.find().then(users =>
+
+  User.find({authorizedStatus:true})
+  .then(results => {
+
+     res.status(200).json(
+      {
+        message:"Verified Users Fetched Sucessfully",
+        users:results
+      })
+    })
+  .catch(error => console.error(error))
+
+}
+
+exports.findallusers = (req,res) =>
+{
+  User.find().then(results=>
     {
       res.status(200).json({
-        message :" users fethced sucessful",
-        result: users });
+        message : " All users fethced sucessful",
+        users : results  });
     })
+    .catch(error => console.error(error))
 }
+
+
+
 
 
 exports.approveuser =  (req,res,next) =>
@@ -217,55 +287,8 @@ const a = {"authorizedStatus": true};
 }
 
 
-exports.updateuserdetails =  (req,res,next) =>
-{
 
-  User.findOne({cnicNumber: req.params.cnicNumber}, function(err, foundobject)
-  {
-    //console.log(req.params.cnicNumber + " found");
-    if(err)
-    {
-      console.log(err);
-      res.status(500).send(err.message);
-    }
-    else
-    {
-      if(!foundobject)
-      {
-        res.status(404).send();
-      }
-      else
-      {
-        if(req.body.email)
-        {
-          foundobject.email = req.body.email;
-        }
-        if(req.body.phoneNumber)
-        {
-          foundobject.phoneNumber = req.body.phoneNumber;
-        }
-        if(req.body.fullAddress)
-        {
-          foundobject.fullAddress = req.body.fullAddress;
-        }
-        //can apply as many fields as we can like above
 
-        foundobject.save(function(err,updateObject)
-        {
-          if(err)
-          {
-            console.log(err);
-            res.status(500).send();
-          }
-          else
-          {
-            res.send(updateObject);
-          }
-        })
-      }
-    }
-  })
-}
 
 exports.disableuser =  (req,res,next) =>
 {
@@ -318,44 +341,187 @@ exports.authorizedStatus = (req,res,next) =>
 }
 
 
-exports.findVerifiedUsers = (req,res) =>
+
+
+
+exports.forgotpassword= (req,res,next) =>
 {
-
-  User.find({authorizedStatus:true})
-  .then(results => {
-
-    res.status(200).json(
+  User.findOne({cnicNumber: req.body.cnicNumber,privateKey:req.body.privateKey}, function(err, foundobject)
+  {
+    //console.log(req.params.cnicNumber + " found");
+    if(err)
+    {
+      console.log(err);
+      res.status(500).send(err.message);
+    }
+    else
+    {
+      if(!foundobject)
       {
-        message:"Verified Users Fetched Sucessfully",
-        users:results
+        res.status(404).send();
+      }
+      else
+      {
+         //here
+         var newpass="";
+         for(let i=0; i<6;i++)
+         {
+           const temp = Math.floor(Math.random() * 26);
+           //console.log(temp);
+           switch(temp)
+           {
+             case 0: newpass=newpass.concat("A") ;  break;
+             case 1: newpass=newpass.concat("B");  break;
+             case 2: newpass=newpass.concat("C");  break;
+             case 3: newpass=newpass.concat("D");  break;
+             case 4: newpass=newpass.concat("E"); break;
+             case 5: newpass=newpass.concat("F"); break;
+             case 6: newpass=newpass.concat("G"); break;
+             case 7: newpass=newpass.concat("H"); break;
+             case 8: newpass=newpass.concat("I"); break;
+             case 9: newpass=newpass.concat("J"); break;
+             case 10: newpass=newpass.concat("K");  break;
+             case 11: newpass=newpass.concat("L");break;
+             case 12: newpass=newpass.concat("M");break;
+             case 13: newpass=newpass.concat("N");break;
+             case 14: newpass=newpass.concat("O");break;
+             case 15: newpass=newpass.concat("P");break;
+             case 16: newpass=newpass.concat("Q");break;
+             case 17: newpass=newpass.concat("R");break;
+             case 18: newpass=newpass.concat("S");break;
+             case 19: newpass=newpass.concat("T");break;
+             case 20: newpass=newpass.concat("U");break;
+             case 21: newpass=newpass.concat("V");break;
+             case 22: newpass=newpass.concat("W");break;
+             case 23: newpass=newpass.concat("X");break;
+             case 24: newpass=newpass.concat("Y");break;
+             case 25: newpass=newpass.concat("Z");break;
+           }
 
-      })
+         }
+          for(j=0;j<4;j++)
+          {
+            const temp = Math.floor(Math.random() * 10);
+            newpass = newpass.concat(temp);
+          }
 
-    })
-  .catch(error => console.error(error))
+          var seprate = newpass.slice(2, 4);
+          var lower = seprate.toLowerCase();
+          newpass = newpass.replace(seprate,lower);
 
+          //var cncryptedpass =crypto.createHash('sha1').update(newpass).digest('hex');
+
+          bcrypt.hash(newpass, 10, function(err, hash)
+          {
+            foundobject.password=hash;
+            foundobject.save(function(err,updateObject)
+        {
+          if(err)
+          {
+            //console.log(err);
+            res.status(500).send(err);
+          }
+          else
+          {
+           // console.log(updateObject);
+            res.status(200).json
+            ({
+              message:"Successfully updated password",
+              result:newpass});
+          }
+        })
+          });
+
+
+      }
+    }
+  })
 }
 
 
-
-
-exports.passwordreset= (req,res,next) =>
+exports.resetpassword = (req,res,next) =>
 {
-  User.findOne({cnicNumber:req.body.cnicNumber},)
-  .then(user =>
+  User.findOne({cnicNumber: req.body.cnicNumber}, function(err, foundobject)
   {
-    if(!user)
+    //console.log(req.params.cnicNumber + " found");
+    if(err)
     {
-      return res.status(401).json(
-      {
-        message: "Authentication Failed"
-      });
+      //console.log(err);
+      res.status(500).send(err.message);
     }
-    fethcedUser = user;
-    return bcrypt.compare(req.body.password, user.password);
-  })
-    .then(foundobject =>
+    else
+    {
+      if(!foundobject)
       {
+        res.status(404).send();
+      }
+      else
+      {
+        bcrypt.hash(req.body.password, 10, function(err, hash)
+        {
+          foundobject.password=hash;
+          //console.log(hash);
+          foundobject.save(function(err,updateObject)
+          {
+            if(err)
+            {
+              //console.log(err);
+              res.status(500).send(err);
+            }
+            else
+            {
+            // console.log(updateObject);
+              res.status(200).json
+              ({
+                message:"Successfully updated password",
+                result:req.body.password});
+            }
+          })
+        });
+      }
+    }
+  }  )
+}
+
+exports.updateuserdetails =  (req,res,next) =>
+{
+
+  User.findOne({cnicNumber: req.body.cnicNumber}, function(err, foundobject)
+  {
+    //console.log(req.params.cnicNumber + " found");
+    if(err)
+    {
+      console.log(err);
+      res.status(500).send(err.message);
+    }
+    else
+    {
+      if(!foundobject)
+      {
+        res.status(404).send();
+      }
+      else
+      {
+        if(req.body.email)
+        {
+          foundobject.email = req.body.email;
+        }
+        if(req.body.phoneNumber)
+        {
+          foundobject.phoneNumber = req.body.phoneNumber;
+        }
+        if(req.body.fullAddress)
+        {
+          foundobject.fullAddress = req.body.fullAddress;
+        }
+        if(req.body.password)
+        {
+          bcrypt.hash(req.body.password, 10, function(err, hash)
+          {
+            foundobject.password=hash;
+          });
+        }
+        //can apply as many fields as we can like above
 
         foundobject.save(function(err,updateObject)
         {
@@ -369,6 +535,27 @@ exports.passwordreset= (req,res,next) =>
             res.send(updateObject);
           }
         })
-      })
+      }
+    }
+  })
 }
+
+
+exports.getcnicNumber = (req,res) =>
+{
+
+  User.find({_id:req.body.id}).then(result =>
+  {
+      if(result)
+      {
+      res.status(200).json(result);
+      }
+      else
+      {
+        res.status(404).json({message: 'User not found'});
+      }
+    })
+    .catch(error =>res.status(500).send())
+}
+
 

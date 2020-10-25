@@ -29,6 +29,17 @@ export class SinglePostComponent
   private postsSub: Subscription;
   private authServiceSub: Subscription;
   userIsAuthenticated = false;
+  carmake:string;
+  City:string;
+  regcity:string;
+  images:string;
+  carmileage:String;
+  carcolor:String;
+  enginetype:string;
+  enginecapacity:string;
+  features:string;
+  mobilenumber:number;
+
 
   tiles: Tile[] = [
     {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
@@ -41,8 +52,10 @@ export class SinglePostComponent
 
   ngOnInit()
   {
-    this.post = this.postsService.getpostobser();
-    //alert(this.post);
+
+    const a = this.postsService.getpostobser();
+    console.log()
   }
+
 
 }

@@ -6,16 +6,21 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
-
+import {PostsService} from '../posts/posts.service'
 const BACKEND_URL = environment.apiUrl +"/user/";
 @Injectable({providedIn: "root"})
 
 export class AuthService
 {
   private unverifiedUsers: AuthSignupData[] = [];
+  private verifiedUsers: AuthSignupData[] = [];
+  private allUsers: AuthSignupData[] = [];
+  private userdet: AuthSignupData[]=[];
   private userdata:AuthSignupData;
   private userstatus:AuthSignupData;
   private unverifiedUsersUpdated= new Subject<{unverifiedUsers: AuthSignupData[],unverifiedUsersCount:number}>();
+  private verifiedUsersUpdated= new Subject<{verifiedUsers: AuthSignupData[],verifiedUsersCount:number}>();
+  private allUpdated= new Subject<{allUsers: AuthSignupData[],allUsersCount:number}>();
   private token :string;
   private isAuthenticated = false;
   private authStatusListener = new Subject<boolean>();
@@ -28,42 +33,14 @@ export class AuthService
   private accountstatus=  new Subject<string>();
   //private accountstatus: string;
   private userDeatils: AuthSignupData;
-  constructor(private http : HttpClient, private router: Router){}
+  private portid1:number;
+  private portid2:number;
+  private port:number;
+  private test : string[] =[];
+  private newpassword:string;
 
-  getIsAuth()
-  {
-    return this.isAuthenticated;
-  }
+  constructor(private http : HttpClient, private router: Router, private postService:PostsService){}
 
-  getUserId()
-  {
-    return this.userId;
-  }
-
-  getUsercnic()
-  {
-    return this.currentUser;
-  }
-
-  getcurrentuserstatus()
-  {
-    return this.currentUseraccountStatus;
-  }
-
-  getcurrentuserauthorizestatus()
-  {
-    return this.currentUserauthorizeStatus;
-  }
-
-  getToken()
-  {
-    return this.token;
-  }
-
-  getAuthStatusListener()
-  {
-    return this.authStatusListener.asObservable();
-  }
 
 
 
@@ -94,18 +71,9 @@ export class AuthService
   );
   this.router.navigate(["/"]);
 
-
-
-
-
   }
 
-deleteUser(cnicNumber :number)
-{
-  console.log("auth service reached");
- return  this.http.delete(BACKEND_URL + cnicNumber);
 
-}
 
 
 login(cnicNumber: number, password: string)
@@ -139,12 +107,15 @@ login(cnicNumber: number, password: string)
             }
 
           }
-
         }, error => {
               this.authStatusListener.next(false);
         });
         this.currentUser = cnicNumber;
-        this.getuserDeatils();
+        //this.forgotpassword(3710558105933,"0ce8d34a082854ea18b83eafac46cc38b532d59aed0d18c85d50ec4e8d517273");
+        //this.currentUserauthorizeStatus =
+        //this.getcurrentuserauthstatus();
+       // this.createport();
+       // this.getuserDeatils();
   }
 
   autoAuthUser()
@@ -215,6 +186,25 @@ login(cnicNumber: number, password: string)
     }
   }
 
+  getallUsers()
+  {
+
+    //const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+    this.http.get<{ users:any }>(BACKEND_URL+"/allusers")
+     .subscribe(response =>
+      {
+        var i;
+        for (i = 0; i < response.users.length; i++)
+        {
+          this.allUsers[i] = response.users[i];
+        }
+
+      })
+
+      return this.allUsers;
+      //return this.unverifiedUsers;
+  }
+
   getUnverifiedUsers()
   {
 
@@ -231,9 +221,59 @@ login(cnicNumber: number, password: string)
       })
 
       return this.unverifiedUsers;
-
       //return this.unverifiedUsers;
   }
+
+  //verified users get
+  getVerifiedUsers()
+  {
+    this.http.get<{ users:any }>(BACKEND_URL+"/verifiedusers")
+    .subscribe(response =>
+      {
+        var i;
+        for (i = 0; i < response.users.length; i++)
+        {
+          this.verifiedUsers[i] = response.users[i];
+        }
+
+      })
+
+      return this.verifiedUsers;
+  }
+
+getuserDeatils()
+{
+  this.http.get<{ user:any }>(BACKEND_URL+"/userdetails/"+this.currentUser)
+   .subscribe(response =>
+    {
+      var i;
+      for (i = 0; i < response.user.length; i++)
+      {
+        this.userdet[i] = response.user[i];
+      }
+
+    })
+
+    return this.userdet;
+}
+
+
+
+  verifieduserdata(verifieduser:any)
+  {
+    this.unverifiedUsers = verifieduser;
+  }
+
+  getverifiedUsersupdate()
+  {
+    return  this.verifiedUsersUpdated.asObservable();
+  }
+
+  unverifieduserdata(unverifieduser:any)
+  {
+    this.unverifiedUsers = unverifieduser;
+  }
+
   getUnverifiedUsersupdate()
   {
     return  this.unverifiedUsersUpdated.asObservable();
@@ -244,51 +284,6 @@ login(cnicNumber: number, password: string)
     return  this.userDeatils;
   }
 
-  unverifieduserdata(unverifieduser:any)
-  {
-    this.unverifiedUsers = unverifieduser;
-  }
-
-  getuserDeatils()
-  {
-
-   console.log(this.http.get<
-    {
-      _id:string,
-      fullName:string,
-      email:string,
-      phoneNumber:string,
-      fullAddress:string,
-      cnicNumber:number,
-      dob:Date,
-      genderStatus:string,
-      accountStatus:string,
-      imagePath:string,
-      authorizedStatus:boolean
-    }>(BACKEND_URL+"userdetails/"+this.currentUser));
-  }
-
-  getaccountStatus()
-  {
-    this.getuserDeatils()
-    this.http.get<{ users:any }>(BACKEND_URL+"/userdetails")
-     .subscribe(response =>
-      {
-        var i;
-        for (i = 0; i < response.users.length; i++)
-        {
-          this.unverifiedUsers[i] = response.users[i];
-        }
-        //console.log(response.users.length);
-      })
-      /*var a;
-      for(a=0; a< 6;a++)
-      {
-        console.log(this.unverifiedUsers[a]);
-      }*/
-     // console.log(this.unverifiedUsers);
-      return this.unverifiedUsers;
-  }
 
   userProfileDetails()
   {
@@ -296,7 +291,125 @@ login(cnicNumber: number, password: string)
 
   }
 
-  approveUser(cnicNumber:number)
+  getIsAuth()
+  {
+    return this.isAuthenticated;
+  }
+
+  getUserId()
+  {
+    return this.userId;
+  }
+
+  getUsercnic()
+  {
+    return this.currentUser;
+  }
+
+
+  getToken()
+  {
+    return this.token;
+  }
+
+  getAuthStatusListener()
+  {
+    return this.authStatusListener.asObservable();
+  }
+
+
+
+
+
+
+  deleteUser(cnicNumber :number)
+  {
+    console.log("auth service reached");
+   return  this.http.delete(BACKEND_URL + cnicNumber);
+
+  }
+  getcurrentuserstatus()
+  {
+    return this.currentUseraccountStatus;
+  }
+
+  getcurrentuserauthstatus()
+  {
+    this.http.get<{user:any}>(BACKEND_URL+"/userdetails"+this.currentUser).subscribe(use =>
+      {
+        console.log(use + "curretn status" );
+      });
+  }
+
+  getcurrentuserauthorizestatus()
+  {
+   return this.currentUserauthorizeStatus;
+  }
+
+  //not yet fixed /completed
+  /*
+  -
+  -
+  `
+  `
+  `
+  `
+  `
+  `
+  `
+  `
+  `
+  ``
+  `
+  `
+  `
+  `
+  `
+  `
+  */
+  createport()
+  {
+    this.test[0] = this.currentUser.toString();
+    //console.log(this.test[0]);
+    this.portid1 = Number(this.test[0].slice(11,13));
+    console.log(this.portid1);
+    this.port = Number(this.portid1);
+    console.log(this.port);
+    this.portid2 = Number(this.port.toString().concat(this.portid1.toString()));
+    console.log(this.portid2);
+    const a = this.postService.getpostcreator();
+    console.log(a+"creator id");
+  }
+
+     //resetpassword(cnicNumber:string,privatekey:string)
+forgotpassword(cnicNumber: number, privatekey: string)
+{
+ const authData = {cnicNumber, privatekey};
+  //return this.http.put(BACKEND_URL +"forgotpassword",authData);*/
+    /*.subscribe(response =>
+      {
+        console.log(response);
+      })*/
+      this.http.post<{password:string}>(BACKEND_URL+"login",authData)
+      .subscribe(response =>
+        {
+          console.log(response);
+          console.log(response.password);
+        })
+
+}
+
+resetpassword(cnicNumber: number, password: string)
+{
+  const authData = {cnicNumber, password};
+  this.http.put(BACKEND_URL +"reset",authData)
+    .subscribe(response =>
+      {
+        console.log(response);
+      })
+}
+
+approveUser(cnicNumber:number)
   {
     const tempstatus = true;
     this.http.put(BACKEND_URL+cnicNumber,tempstatus)
@@ -305,6 +418,35 @@ login(cnicNumber: number, password: string)
     });
 
     //this.http.put<{cnicNumber:number}>(BACKEND_URL+cnicNumber).subscribe(res =>{})
+  }
+
+
+  createAdmin(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string,/*image:File*/)
+  {
+
+    const authData = new FormData();
+    authData.append("fullName",fullName);
+    authData.append("email",email);
+    authData.append("password",password);
+    authData.append("phoneNumber",phoneNumber);
+    authData.append("fullAddress",fullAddress);
+    authData.append("cnicNumber",cnicNumber);
+    authData.append("dob",dob);
+    //authData.append("image",image);
+    authData.append("genderStatus",genderStatus);
+   // const avialblecheck = this.http.get(BACKEND_URL+"userdetails",cnicNumber)
+    this.http.post<{message :string, user:AuthSignupData }>
+      (BACKEND_URL+"createadmin",authData)
+      .subscribe((responseData)=>{
+
+       this.router.navigate(["/auth/admin"]);
+  },error => {
+    this.authStatusListener.next(false);
+    alert(error.message);
+  }
+  );
+  this.router.navigate(["/auth/admin"]);
+
   }
 
 

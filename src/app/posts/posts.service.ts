@@ -1,7 +1,7 @@
 import { Post } from './post.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from "../../environments/environment";
@@ -14,6 +14,7 @@ export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<{ posts: Post[], postCount: number }>();
   private check:any;
+  private creatorid:string;
   constructor(private http: HttpClient, private router: Router) { }
 
   getPosts(postsPerPage: number, currentPage: number) {
@@ -26,14 +27,24 @@ export class PostsService {
           return {
             posts: postData.posts.map(post => {
               return {
-                title: post.title,
-                model: post.model,
-                engine: post.engine,
-                location: post.location,
-                content: post.content,
-                id: post._id,
+                make:post.make,
+                city:post.city,
+                model:post.model,
+                registrationcity: post.registrationcity,
+                mileage: post.mileage,
+                exteriorcolor: post.exteriorcolor,
+                description: post.description,
+                price: post.price,
                 imagePath: post.imagePath,
+                id: post._id,
+                enginecapacity: post.enginecapacity,
+                enginetype: post.enginetype,
+                transmission: post.transmission,
+                assembly: post.assembly,
+                features: post.features,
+                mobilenumber: post.mobilenumber,
                 creator: post.creator
+
               };
             }), maxPosts: postData.maxPosts
           };
@@ -75,6 +86,7 @@ export class PostsService {
       postData.append("assembly", assembly);
       postData.append("features", features);
       postData.append("mobilenumber", mobilenumber);
+
     }
     else {
       postData =
@@ -95,7 +107,7 @@ export class PostsService {
         assembly: assembly,
         features: features,
         mobilenumber: mobilenumber,
-        //creator:null
+        creator:null
       };
     }
     this.http.put(BACKEND_URL + id, postData)
@@ -112,7 +124,8 @@ getpostobser()
 
 getsinglepost(id:string)
 {
-  this.check = this.http.get<
+  this.getpostcreator();
+  console.log( this.http.get<
   {
     _id: string,
     city: string,
@@ -139,10 +152,12 @@ getsinglepost(id:string)
     mobilenumber: number,
     creator: string
   }
->(BACKEND_URL + id);
+>(BACKEND_URL + id));
+//this.creatorid = this.check.creatorid;
 }
 
-  getPost(id: string) {
+getPost(id: string) {
+  this.getsinglepost(id);
     return this.http.get<
       {
         _id: string,
@@ -171,6 +186,7 @@ getsinglepost(id:string)
         creator: string
       }
     >(BACKEND_URL + id);
+
   }
 
   addPost(city: string, make: string, model: string, registrationcity: string, mileage: string, exteriorcolor: string, description: string, price: string, image: File, enginetype: string, enginecapacity: string, transmission: string, assembly: string, features: string, mobilenumber: string)
@@ -213,7 +229,12 @@ getsinglepost(id:string)
 
   deletepost(postId: string) {
     return this.http.delete(BACKEND_URL + postId);
-
   }
+
+  getpostcreator()
+  {
+    console.log(this.creatorid);
+  }
+
   //this bracket is last below
 }

@@ -26,9 +26,9 @@ export class HeaderComponent implements OnInit, OnDestroy
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
     this.userIsAuthenticated = isAuthenticated;
-   this.accountStatus = this.authService.getcurrentuserstatus();
-    this.authorizedStatus = this.authService.getcurrentuserauthorizestatus();
-
+    this.accountStatus = this.authService.getcurrentuserstatus();
+    //this.authorizedStatus =
+     //console.log(this.authService.getcurrentuserauthorizestatus()+ " - header");
    if(this.accountStatus == "user")
    {
      this.userandadminstatus = true;

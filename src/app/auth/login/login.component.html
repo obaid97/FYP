@@ -89,7 +89,7 @@ this is a pop up sign in
                   <input  matInput name="password" ngModel  type="password" placeholder="Password"  class="input" #passwordInput="ngModel" required>
             	   </div>
             	</div>
-            	<a href="#" >Forgot Password?</a>
+            	<a routerLink="/forgotpassword" >Forgot Password?</a>
             	<input type="submit" class="btn" value="Login" *ngIf="!isloading">
             </form>
         </div>

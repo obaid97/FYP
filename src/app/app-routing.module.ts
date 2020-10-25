@@ -10,19 +10,22 @@ import { SearchComponent } from './search/search.component';
 
 import { SinglePostComponent } from './posts/single-post/single-post.component';
 import { ChatInboxComponent } from './auth/chat-inbox/chat-inbox.component';
-
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { DisplayNewPasswordComponent } from './auth/forgot-password/display-new-password/display-new-password';
 
 const routes: Routes=[
   { path:'', component: HomeComponent },
   { path:'posts',component:PostListComponent },
-  { path:'post',component:SinglePostComponent },
+  { path:'post/:postId',component:SinglePostComponent },
   { path:'create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path:'userdetail/:userId', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path:'smartcontract', component: SmartContractComponent, canActivate: [AuthGuard] },
-  { path:'search', component: SearchComponent, canActivate: [AuthGuard] },
-  { path:'chat', component:ChatInboxComponent},
+  { path:'forgotpassword',component:ForgotPasswordComponent},
+  { path:'DNP',component: DisplayNewPasswordComponent},
+  { path:'search', component: SearchComponent },
+  { path:'chat', component:ChatInboxComponent, canActivate: [AuthGuard]},
   //this wont work in the newer version
   //another way to load children is
   { path:"auth",loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)}

@@ -1,9 +1,11 @@
-<mat-card class="user-details">
+<div >
+<mat-card class="user-details" *ngFor="let user of userdetails" >
     <mat-card-header style="align-items: center">
       <div mat-card-avatar class="example-header-image"></div>
     </mat-card-header>
     <mat-card-content>
-       <p><b>Full Name::</b>{{this.fullName}}</p><br>
+       <p><b>Full Name :</b>{{user.fullName}}</p><br>
+       <p><b>CNIC : </b>{{user.cnicNumber}}</p><br>
         <p><b>Email: </b></p><br>
         <p><b>Address: </b></p><br>
         <p><b>Phone number: </b></p><br>
@@ -21,3 +23,5 @@
     <button mat-raised-button class="pie-chart-btn" style="background-color:#f403fc; color:#fff;">View Pie Chart Report</button>
   </mat-card-content>
 </mat-card>
+</div>
+<p>working</p>

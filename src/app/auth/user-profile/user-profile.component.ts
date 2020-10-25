@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { mimeType } from '../../posts/post-create/mime-type.validator';
 import { AuthSignupData } from '../auth-signup-data.model';
-
+import { PageEvent } from '@angular/material/paginator';
 export interface userData
 {
   fullName:string;
@@ -40,7 +40,6 @@ export class UserProfileComponent implements OnInit
   usercnic:string;
   form : FormGroup;
   imagePreview : string;
-
   fullName:string;
   fullAddress: string;
   email: string;
@@ -52,21 +51,34 @@ export class UserProfileComponent implements OnInit
   authorizedStatus:boolean;
   try:any[];
 
+  userdetails: AuthSignupData[] = [];
 
-  constructor(public authService: AuthService,public route: ActivatedRoute, private _formBuilder: FormBuilder)
-  {
+  totalUnverifiedUsers = 0;
 
-  }
+  currentPage = 1;
+  pageSizeOptions = [1,2,5,10];
+  verified:boolean ;
+
+  constructor(public authService: AuthService)
+{}
+
 
   ngOnInit()
 {
-
+  this.isloading=true;
+  this.userdetails = this.authService.getuserDeatils();
+  this.isloading=false;
   this.authService.getuserDeatils();
   this.currentusercnic = this.authService.getUsercnic();
+  console.log(this.authService.getuserDeatils());
  // alert(this.userdf);
   //alert(this.fullName);
 
 }
+
+
+ngOnDestroy()
+{}
 
 onedit()
 {
