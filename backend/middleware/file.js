@@ -28,4 +28,10 @@ const storage = multer.diskStorage({
 });
 
 
-module.exports = multer({storage: storage}).single("image");
+module.exports = multer({storage: storage}).single('image');
+/*to upload multiple images
+app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
+  // req.files is array of `photos` files
+  // req.body will contain the text fields, if there were any
+})
+*/

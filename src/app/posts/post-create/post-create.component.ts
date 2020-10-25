@@ -53,7 +53,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
   private authStatusSub : Subscription;
   //@Output() postCreated= new EventEmitter<Post>();
   newPost='';
-
+  authorizedStatus:boolean;
   enginetype : genericarray[] =[{value:'CNG',viewValue:'CNG'},{value:'Diesel',viewValue:'Diesel'},{value:'Hybrid',viewValue:'Hybrid'},{value:'Petrol',viewValue:'Petrol'}];
   transmission : genericarray[] = [{value:'Manual',viewValue:'Manual'},{value:'Automatic',viewValue:'Automatic'}];
   cities :genericarray[]=[{value:'Islamabad',viewValue:'Islamabad'},{value:'Rawalpindi',viewValue:'Rawalpindi'},{value:'Lahore',viewValue:'Lahore'},{value:'Karachi',viewValue:'Karachi'},{value:'Gujranwala',viewValue:'Gujranwala'},{value:'Sakrdu',viewValue:'Sakrdu'},{value:'Hunza',viewValue:'Hunza'},{value:'Pindigheb',viewValue:'Pindigheb'},{value:'Faislabad',viewValue:'Faislabad'},];
@@ -149,6 +149,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
  // ng oninit starts
   ngOnInit()
   {
+    this.authorizedStatus = this.authService.getcurrentuserauthorizestatus();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
       authStatus => {
         this.isloading=false;
@@ -213,7 +214,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
              assembly: postData.assembly,
              features: postData.features,
              mobilenumber: postData.mobilenumber.toString(),
-            //creator: postData.creator
+            creator: postData.creator
           };
           this.form.setValue(
             {

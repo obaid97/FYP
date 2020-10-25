@@ -17,15 +17,53 @@ ul
 {
   display: flex;
 }
-mat-toolbar
-{
-  /*background-color: #00c3ff;
-  background-color: #DA2226;*/
-  background-color: #38d39f;
-
-  width:100%;
-}
 mat-button
 {
   color:#fff;
 }
+mat-toolbar
+{
+
+  background-color: #38d39f;
+
+  width:100%;
+}
+
+/*
+body {
+  font-size: 28px;
+}
+
+.header_ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #3A217B;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.header_ul_li {
+  float: left;
+}
+
+.header_ul_li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.header_ul_li a:hover {
+  background-color: #E72A1A;
+}
+
+.active {
+  background-color: rgba(228, 226, 226, 0.884);
+  opacity: 50%;
+}
+
+*/

@@ -13,20 +13,25 @@ const checkAuth = require('../middleware/check-auth');
 
 //sign up post router
 router.post("/signup",extractFile,UserController.createUser);
-
+router.post("/createadmin",UserController.createAdmin);
 
 //login post router
 router.post("/login",UserController.userLogin);
+
 //unverified users
 router.get("/unverifiedusers",UserController.findUnverifiedUsers);
+router.get("/verifiedusers",UserController.findVerifiedUsers);
+router.get("/allusers",UserController.findallusers);
 
+router.get("/getcnicnum",UserController.getcnicNumber);
 //router.post("/dummy",UserController.dummy);
+
 router.put("/approve/:cnicNumber",UserController.approveuser);
 router.get("/userdetails/:cnicNumber",UserController.userdetails);
 router.post("/delete/:cnicNumber",UserController.deleteUser);
-router.get("/allusers",UserController.getallusers);
-router.put("/updateuserdetails",UserController.updateuserdetails);
-router.put("/passreset/:cnicNumber",UserController.passwordreset);
 
+router.post("/updateuserdetails",UserController.updateuserdetails);
+router.put("/forgotpassword",UserController.forgotpassword);
+router.post("/reset",UserController.resetpassword);
 
 module.exports = router;

@@ -24,8 +24,10 @@ import { SmartContractComponent } from './auth/smart-contract/smart-contract.com
 import { SearchComponent } from './search/search.component';
 import { SinglePostComponent } from './posts/single-post/single-post.component';
 import { ChatInboxComponent } from '../app/auth/chat-inbox/chat-inbox.component';
-
 import { FormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { DisplayNewPasswordComponent } from './auth/forgot-password/display-new-password/display-new-password';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,9 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     SearchComponent,
     SinglePostComponent,
-    ChatInboxComponent
+    ChatInboxComponent,
+    ForgotPasswordComponent,
+    DisplayNewPasswordComponent
   ],
   imports: [
     BrowserModule,

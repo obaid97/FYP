@@ -1,8 +1,7 @@
 const Post = require('../models/post');
 //const multer = require('multer');
 const checkAuth = require('../middleware/check-auth');
-
-
+const User = require('../models/user');
 
 exports.deletePost = (req, res, next) => {
   //console.log(req.params.id);
@@ -144,7 +143,7 @@ exports.getPost = (req, res, next) => {
     //console.log(post);
     if (post) {
       res.status(200).json(post);
-    }
+        }
     else {
       res.status(404).json({ message: 'Post not Found!' });
     }
@@ -203,7 +202,7 @@ exports.searchPosts = (req, res, next) => {
         maxPosts: count
       });
   }).catch(error => {
-    console.log(error);
+    //console.log(error);
     res.status(500).json({
       message: "Fetching Post Failed!"
     })
@@ -211,3 +210,34 @@ exports.searchPosts = (req, res, next) => {
 }
 
     //fetch all posts
+    exports.getcnicNumber = (req,res) =>
+    {
+      Post.findById(req.params.id).then(post => {
+        //console.log(post);
+        if (post) {
+          console.log(post);
+          //res.status(200).json(post);
+          User.find({_id: post.creator}).then(result =>
+            {
+              if(result)
+              {
+              res.status(200).json(result);
+              }
+              else
+              {
+                res.status(404).json({message: 'User not found'});
+              }
+            })
+            }
+        else {
+          res.status(404).json({ message: '404 not Found!' });
+        }
+      }).catch(error => {
+        res.status(500).json({
+          message: "Fetching Failed!"
+        });
+      });
+
+
+
+    }

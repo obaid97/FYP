@@ -28,18 +28,6 @@ export interface Post
   //contact information
   mobilenumber:string;
 
-  /*
-  title: string;
-  engine: string;
-  location: string;
-  creator: string;*/
-  /*
-  id: string;
-  title: string;
-  model:string;
-  engine: string;
-  location: string;
-  content: string;
-  imagePath: string;
-  creator: string;*/
+
+  creator: string;
 }
