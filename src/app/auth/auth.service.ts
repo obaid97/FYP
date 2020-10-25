@@ -38,6 +38,8 @@ export class AuthService
   private port:number;
   private test : string[] =[];
   private newpassword:string;
+  private usersUpdated = new Subject<{ users: AuthSignupData[], userCount: number }>();
+
 
   constructor(private http : HttpClient, private router: Router, private postService:PostsService){}
 
@@ -318,16 +320,35 @@ getuserDeatils()
   }
 
 
+  approveUser(cnicNumber:number)
+  {
+    this.http.post(BACKEND_URL +"approve",{cnicNumber}).subscribe(res =>
+      {
+        console.log(res);
+        this.router.navigate(["auth/unverified"]);
+      });
+  }
 
-
+  disableUser(cnicNumber:number)
+  {
+    this.http.post(BACKEND_URL +"disable",{cnicNumber}).subscribe(res =>
+      {
+        console.log(res);
+        this.router.navigate(["auth/verified"]);
+      });
+  }
 
 
   deleteUser(cnicNumber :number)
   {
-    console.log("auth service reached");
-   return  this.http.delete(BACKEND_URL + cnicNumber);
-
+   // console.log("auth service reached");
+    this.http.post(BACKEND_URL +"deleteuser",{cnicNumber}).subscribe(res =>
+      {
+        console.log(res);
+        this.router.navigate(["auth/admin"]);
+      });
   }
+
   getcurrentuserstatus()
   {
     return this.currentUseraccountStatus;
@@ -409,19 +430,10 @@ resetpassword(cnicNumber: number, password: string)
       })
 }
 
-approveUser(cnicNumber:number)
-  {
-    const tempstatus = true;
-    this.http.put(BACKEND_URL+cnicNumber,tempstatus)
-    .subscribe(response => {
-      this.router.navigate(["/admin"]);
-    });
-
-    //this.http.put<{cnicNumber:number}>(BACKEND_URL+cnicNumber).subscribe(res =>{})
-  }
 
 
-  createAdmin(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string,/*image:File*/)
+
+  createAdmin(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string,image:File)
   {
 
     const authData = new FormData();
@@ -432,7 +444,7 @@ approveUser(cnicNumber:number)
     authData.append("fullAddress",fullAddress);
     authData.append("cnicNumber",cnicNumber);
     authData.append("dob",dob);
-    //authData.append("image",image);
+    authData.append("image",image);
     authData.append("genderStatus",genderStatus);
    // const avialblecheck = this.http.get(BACKEND_URL+"userdetails",cnicNumber)
     this.http.post<{message :string, user:AuthSignupData }>

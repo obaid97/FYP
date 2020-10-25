@@ -4,6 +4,7 @@
 <div class="container">
   <div class="col">
   <div class="sidenav">
+    <a  routerLink='/auth/admin' routerLinkActive="mat-accent">Dashboard</a>
     <a  routerLink='/auth/create-admin' routerLinkActive="mat-accent">Create Admin</a>
     <a routerLink='/auth/allusers' routerLinkActive="mat-accent">All Users</a>
     <a routerLink='/auth/unverified' routerLinkActive="mat-accent">Unverified Users</a>
@@ -12,23 +13,6 @@
 </div>
 <div class="col">
 <div class="main">
-<!--
-  <table class="users_table" >
-    <tr>
-      <th>Name</th>
-      <th>C.N.I.C</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Actions</th>
-    </tr>
-    <tr *ngFor="let user of unverifiedUsers">
-      <td>{{user.fullName}}</td>
-      <td>{{user.cnicNumber}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.phoneNumber}}</td>
-      <td><a mat-flat-button color="primary" > Disbale </a></td>
-    </tr>
-  </table>-->
 
   <div class="limiter">
 		<div class="container-table100">
@@ -45,7 +29,7 @@
 								<th class="column6">Action</th>
 							</tr>
 						</thead>
-						<tbody *ngFor="let user of unverifiedUsers">
+						<tbody *ngFor="let user of allusers">
 								<tr>
 									<td class="column1">{{user.fullName}} </td>
 									<td class="column2">{{user.cnicNumber}}</td>
@@ -53,7 +37,7 @@
 									<td class="column4">{{user.phoneNumber}}</td>
 
 									<td class="column5">
-                    <a mat-flat-button color="primary" (click)="onApprove(user.cnicNumber)"  > Approve </a>
+                    <a mat-flat-button color="primary" (click)="ondisbale(user.cnicNumber)"  > Disable </a>
                     <button mat-flat-button color="warn" (click)="onDelete(user.cnicNumber)" > DELETE </button>
                   </td>
 								</tr>

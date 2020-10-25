@@ -176,7 +176,7 @@ User.find({cnicNumber: req.params.cnicNumber}).then(result =>{
 exports.deleteUser = (req,res,next) =>
 {
 
-  User.deleteOne({cnicNumber: req.params.cnicNumber}).then(result =>
+  User.deleteOne({cnicNumber: req.body.cnicNumber}).then(result =>
     {
       //console.log(req.params.cnicNumber);
       if(result.n > 0)
@@ -248,7 +248,7 @@ exports.findallusers = (req,res) =>
 exports.approveuser =  (req,res,next) =>
 {
 const a = {"authorizedStatus": true};
-  User.findOne({cnicNumber: req.params.cnicNumber}, function(err, foundobject)
+  User.findOne({cnicNumber: req.body.cnicNumber}, function(err, foundobject)
   {
     //console.log(req.params.cnicNumber + " found");
     if(err)
@@ -293,7 +293,7 @@ const a = {"authorizedStatus": true};
 exports.disableuser =  (req,res,next) =>
 {
 const a = {"authorizedStatus": true};
-  User.findOne({cnicNumber: req.params.cnicNumber}, function(err, foundobject)
+  User.findOne({cnicNumber: req.body.cnicNumber}, function(err, foundobject)
   {
     //console.log(req.params.cnicNumber + " found");
     if(err)
@@ -309,11 +309,7 @@ const a = {"authorizedStatus": true};
       }
       else
       {
-          foundobject.authorizedStatus = false;
-
-
-        //can apply as many fields as we can like above
-
+        foundobject.authorizedStatus = false;
         foundobject.save(function(err,updateObject)
         {
           if(err)

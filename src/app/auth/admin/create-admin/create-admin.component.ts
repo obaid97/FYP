@@ -3,6 +3,7 @@ import { FormGroup,FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { mimeType } from 'src/app/posts/post-create/mime-type.validator';
 
 @Component(
   {
@@ -17,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
     private authStatusSub: Subscription;
     signupform : FormGroup;
     genderStatus:string[] = ['Male','Female'];
-
+    imagePreview : string;
     constructor(private authService: AuthService ,public route: ActivatedRoute, private _formBuilder: FormBuilder){}
 
     ngOnInit()
@@ -45,7 +46,7 @@ import { ActivatedRoute } from '@angular/router';
         dob: new FormControl(null, {validators:[Validators.required]}),
         genderStatus: new FormControl(null, {validators:[Validators.required]}),
         //accountStatus: new FormControl(null,{validators:[Validators.required]}),
-        //image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
+        image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
 
       });
 
@@ -74,7 +75,7 @@ import { ActivatedRoute } from '@angular/router';
         this.signupform.value.dob,
         this.signupform.value.genderStatus,
         //this.signupform.value.accountStatus,
-
+        this.signupform.value.image
         );
         //console.log("onsignup form sucessful");
 
@@ -83,4 +84,20 @@ import { ActivatedRoute } from '@angular/router';
       }
       this.signupform.reset();
     }
+
+    onImagePicked(event : Event)
+  {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.signupform.patchValue({image: file});
+    this.signupform.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    //console.log(file);
+    //console.log(this.signupform);
+    reader.onload = () =>
+    {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+    //reader.onload and reader.readAsDataURL works asynchronusly
+  }
   }

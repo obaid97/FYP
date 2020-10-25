@@ -59,12 +59,8 @@ exports.createPost = (req, res, next) => {
     location:req.body.location,
     content:req.body.content,
     */
-
-
     creator: req.userData.userId
   });
-
-
   post.save().then(createdPost => {
 
     res.status(201).json({

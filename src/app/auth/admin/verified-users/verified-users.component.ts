@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup,FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthSignupData } from '../../auth-signup-data.model';
 import { PageEvent } from '@angular/material/paginator';
 
@@ -16,7 +16,7 @@ import { PageEvent } from '@angular/material/paginator';
 
   export class VerifiedUsersComponent
   {
-    constructor(private authService: AuthService ,public route: ActivatedRoute, private _formBuilder: FormBuilder){}
+    constructor(private authService: AuthService ,public route: ActivatedRoute, private _formBuilder: FormBuilder,private router: Router){}
 
 
 verifiedUsers: AuthSignupData[] = [];
@@ -39,17 +39,6 @@ ngOnInit()
   {
     this.isloading=true;
     this.verifiedUsers = this.authService.getVerifiedUsers();
-
-   // this.userId = this.authService.getUserId();
-    /*this.authServiceSub = this.authService.getUnverifiedUsersupdate()
-      .subscribe((userData: {unverifiedUsers:AuthSignupData[], unverifiedUsersCount:number})=>
-      {
-        this.isloading=false;
-        this.totalUnverifiedUsers = userData.unverifiedUsersCount;
-        this.unverifiedUsers = userData.unverifiedUsers;
-      });
-      this.userIsAuthenticated = this.authService.getIsAuth();
-*/
     this.isloading=false;
   }
 
@@ -67,19 +56,17 @@ ngOnDestroy()
 onDelete(cnicNumber: number)
 {
   this.isloading = true;
-  this.authService.deleteUser(cnicNumber).subscribe(()=>
-  {
-    this.authService.getUnverifiedUsers();
-  },()=>
-  {
-    this.isloading=false;
-  });
+  this.authService.deleteUser(cnicNumber);
+  this.isloading=false;
+  this.router.navigate(["auth/verified"]);
 }
 
-onApprove(cnicNumber:number)
+ondisbale(cnicNumber:number)
 {
   this.isloading=true;
-
+  this.authService.disableUser(cnicNumber);
+  this.isloading=false;
+  this.router.navigate(["auth/verified"]);
 }
 
   }

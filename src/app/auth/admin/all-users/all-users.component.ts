@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 
 export class AllUsersComponent
   {
-    unverifiedUsers: AuthSignupData[] = [];
+    allusers: AuthSignupData[] = [];
     isloading =false;
     totalUnverifiedUsers = 0;
     unverifiedUsersPerPage = 5;
@@ -39,19 +39,9 @@ export class AllUsersComponent
 
     ngOnInit()
       {this.isloading=true;
-        this.unverifiedUsers = this.authService.getallUsers();
-
-      // this.userId = this.authService.getUserId();
-        /*this.authServiceSub = this.authService.getUnverifiedUsersupdate()
-          .subscribe((userData: {unverifiedUsers:AuthSignupData[], unverifiedUsersCount:number})=>
-          {
-            this.isloading=false;
-            this.totalUnverifiedUsers = userData.unverifiedUsersCount;
-            this.unverifiedUsers = userData.unverifiedUsers;
-          });
-          this.userIsAuthenticated = this.authService.getIsAuth();
-    */
+        this.allusers = this.authService.getallUsers();
         this.isloading=false;
+
       }
 
 
@@ -68,18 +58,14 @@ export class AllUsersComponent
     onDelete(cnicNumber: number)
     {
       this.isloading = true;
-      this.authService.deleteUser(cnicNumber).subscribe(()=>
-      {
-        this.authService.getUnverifiedUsers();
-      },()=>
-      {
-        this.isloading=false;
-      });
+      this.authService.deleteUser(cnicNumber);
+      this.isloading=false;
     }
 
-    onApprove(cnicNumber:number)
+    ondisbale(cnicNumber:number)
     {
       this.isloading=true;
-
+      this.authService.disableUser(cnicNumber);
+      this.isloading=false;
     }
   }
