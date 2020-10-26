@@ -87,7 +87,8 @@ this is a pop up sign in
            		   </div>
            		   <div class="div">
                   <input  matInput name="password" ngModel  type="password" placeholder="Password"  class="input" #passwordInput="ngModel" required>
-            	   </div>
+                 </div>
+
             	</div>
             	<a routerLink="/forgotpassword" >Forgot Password?</a>
             	<input type="submit" class="btn" value="Login" *ngIf="!isloading">
@@ -95,6 +96,9 @@ this is a pop up sign in
         </div>
     </div>
 </div>
+<p style="height: 30rem;">
+
+</p>
 <script>
 
 const inputs = document.querySelectorAll(".input");

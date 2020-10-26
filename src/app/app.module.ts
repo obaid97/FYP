@@ -27,6 +27,10 @@ import { ChatInboxComponent } from '../app/auth/chat-inbox/chat-inbox.component'
 import { FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { DisplayNewPasswordComponent } from './auth/forgot-password/display-new-password/display-new-password';
+import { BlogComponent } from './blog/blog.component.ts';
+import { AboutUsComponent } from './About-us/About-us.component';
+import { FAQComponent } from './FAQ/FAQ.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,12 @@ import { DisplayNewPasswordComponent } from './auth/forgot-password/display-new-
     SinglePostComponent,
     ChatInboxComponent,
     ForgotPasswordComponent,
-    DisplayNewPasswordComponent
+    DisplayNewPasswordComponent,
+    BlogComponent,
+    AboutUsComponent,
+    FAQComponent,
+    ContactUsComponent
+
   ],
   imports: [
     BrowserModule,
