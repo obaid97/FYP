@@ -66,10 +66,10 @@ export class UserProfileComponent implements OnInit
   ngOnInit()
 {
   this.isloading=true;
-  this.userdetails = this.authService.getuserDeatils();
+  //this.userdetails = this.authService.getuserDeatils();
   this.isloading=false;
-  this.authService.getuserDeatils();
-  this.currentusercnic = this.authService.getUsercnic();
+  //this.authService.getuserDeatils();
+  //this.currentusercnic = this.authService.getUsercnic();
   //console.log(this.authService.getuserDeatils());
  // alert(this.userdf);
   //alert(this.fullName);
