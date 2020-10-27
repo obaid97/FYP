@@ -1,6 +1,9 @@
 .container-fluid
 {
   background-color: rgb(252, 252, 252);
+  width:125.6%;
+  margin-left:-10rem;
+
 }
 
 .right
@@ -15,9 +18,7 @@
   margin-top: 8px;
 }
 
-.mat-form-field {
-  margin-top: 16px;
-}
+
 .matformfield-left
 {
   padding-right:1rem;
@@ -30,7 +31,8 @@ mat-form-field
 {
   width: 100%;
   align-items: left;
-
+  margin-top: 16px;
+  padding:5px;
 }
 mat-label
 {
@@ -66,8 +68,9 @@ input[type="file"]
 }
 .mat-card
 {
-  margin-top: 1rem;
-
+  margin-top: 9rem;
+  width:175%;
+  margin-left: 20rem;
 }
 mat-grid-tile {
   background: #fff;
@@ -85,4 +88,8 @@ input[type="radio"]
 .accountStatus-radio-button
  {
   margin: 5px;
+}
+.main-card
+{
+  box-shadow: 10px 10px 15px 15px #888888;
 }

@@ -7,6 +7,8 @@
     <a routerLink='/auth/allusers' routerLinkActive="mat-accent">All Users</a>
     <a routerLink='/auth/unverified' routerLinkActive="mat-accent">Unverified Users</a>
     <a routerLink='/auth/verified' routerLinkActive="mat-accent">Verified Users</a>
+    <a routerLink='/auth/createblog' routerLinkActive="mat-accent">Create Blog</a>
+    <a routerLink='/auth/allblogs' routerLinkActive="mat-accent">All Blogs</a>
   </div>
 
 
@@ -49,6 +51,16 @@
           </mat-card-header>
           <mat-card-content>
            <h3> {{totalPosts}}</h3>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col col-lg-4 col-md-4 col-sm-12">
+        <mat-card>
+          <mat-card-header>
+            Total Blogs
+          </mat-card-header>
+          <mat-card-content>
+           <h3> 0</h3>
           </mat-card-content>
         </mat-card>
       </div>

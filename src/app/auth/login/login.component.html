@@ -62,6 +62,7 @@ this is a pop up sign in
   </form>
 </div>
 </mat-card>-->
+<p style="margin-top:5rem;"></p>
 <mat-spinner *ngIf="isloading" ></mat-spinner>
 <div class="top">
 <img class="wave" src="../../../assets/images/wave.png">
@@ -77,20 +78,22 @@ this is a pop up sign in
            		   <div class="i">
            		   		<i class="fas fa-user"></i>
            		   </div>
-           		   <div class="div">
+           		   <div class="div" style="margin-bottom:0px;">
                     <input matInput name="cnicNumber" placeholder="CNIC" class="input" ngModel type="string" #cnicInput="ngModel" required>
            		   </div>
-           		</div>
-           		<div class="input-div pass">
+               </div>
+               <br>
+           		<div class="input-div one">
            		   <div class="i">
            		    	<i class="fas fa-lock"></i>
            		   </div>
            		   <div class="div">
-                  <input  matInput name="password" ngModel  type="password" placeholder="Password"  class="input" #passwordInput="ngModel" required>
-                 </div>
+                  <input  matInput name="password" ngModel id="password-field"  type="password" placeholder="Password"  class="input" #passwordInput="ngModel" required>
+                  <span style="float:right;padding-top:15px;" toggle="#password-field" class="fa fa-eye field-icon toggle-password"></span>
+                </div>
 
             	</div>
-            	<a routerLink="/forgotpassword" >Forgot Password?</a>
+            	<a routerLink="/forgotpassword">Forgot Password?</a>
             	<input type="submit" class="btn" value="Login" *ngIf="!isloading">
             </form>
         </div>
@@ -120,4 +123,14 @@ inputs.forEach(input => {
 	input.addEventListener("blur", remcl);
 });
 
+$(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+  input.attr("type", "text");
+} else {
+  input.attr("type", "password");
+}
+});
 </script>

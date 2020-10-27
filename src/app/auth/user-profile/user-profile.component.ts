@@ -70,7 +70,7 @@ export class UserProfileComponent implements OnInit
   this.isloading=false;
   this.authService.getuserDeatils();
   this.currentusercnic = this.authService.getUsercnic();
-  console.log(this.authService.getuserDeatils());
+  //console.log(this.authService.getuserDeatils());
  // alert(this.userdf);
   //alert(this.fullName);
 
