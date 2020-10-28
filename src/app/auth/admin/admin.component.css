@@ -37,23 +37,70 @@ mat-paginator
  margin-bottom: 2rem;
 }
 
-
-/*Side Nav CSS*/
-body {
-  font-family: "Lato", sans-serif;
+.container
+{
+  width:125.6%;
+  margin-top: 15rem;
 }
 
+/*new*/
+
+.Side_nav_a
+{
+  color: #8a8a8a;
+  font-size: 20px;
+  margin: 3px;
+}
+
+li
+{
+  text-decoration: none;
+  width:200%;
+  margin-top: 1.2rem;
+  margin-bottom:1.2rem;
+  list-style-type: none;
+
+}
+mat-card
+{
+  margin:5px;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  word-spacing: 1.5px;
+}
+.anchor_card:hover
+{
+  border: 1px solid #7B01EA;
+}
+
+a
+{
+  width:100%;
+
+}
+.side_nav_col
+{
+  background-color: #ffffff;
+}
+.anchor_card
+{
+  width:10rem;
+
+}
+.anchor_card a
+{
+  font-size: 18px;
+}
 .sidenav {
-  margin-top: 4.1%;
-  height: 100%;
+  margin-top: 4.2%;
+  height: 55%;
   width: 160px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: rgba(255, 72, 0, 0.644);
-  overflow-x: hidden;
-  padding-top: 20px;
+  background-color: rgba(24, 151, 255, 0.993);
+  padding-top: 22px;
 }
 
 .sidenav a {
@@ -72,23 +119,10 @@ body {
   margin-left: 160px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */
   padding: 0px 10px;
+
 }
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;margin-top: 4.1%;}
   .sidenav a {font-size: 12px;}
-}
-
-
-
-.container
-{
-  width:125.6%;
-  margin-top: 5rem;
-}
-
-mat-card
-{
-  margin: 1rem;
-  box-shadow: 5px 2px 0 0;
 }

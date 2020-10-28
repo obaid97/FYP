@@ -125,7 +125,7 @@ getpostobser()
 
 getsinglepost(id:string)
 {
-  this.getpostcreator();
+  //this.getpostcreator();
   /*console.log( this.http.get<
   {
     _id: string,
@@ -162,7 +162,7 @@ getsinglepost(id:string)
 }
 
 getPost(id: string) {
-  this.getsinglepost(id);
+  //this.getsinglepost(id);
     return this.http.get<
       {
         _id: string,
@@ -235,11 +235,11 @@ getPost(id: string) {
   deletepost(postId: string) {
     return this.http.delete(BACKEND_URL + postId);
   }
-
+/*
   getpostcreator()
   {
     console.log(this.creatorid);
-  }
+  }*/
 
   //this bracket is last below
 }
