@@ -1,0 +1,34 @@
+mat-card
+{
+  text-align: center;
+  margin-left: 10rem;
+  margin-bottom: 10rem;
+  width: 100%;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 5px 5px 15px 15px #8a8787;
+}
+mat-form-field
+{
+  width: 75%;
+  align-items: center;
+
+}
+input
+{
+  width: 100%;
+}
+.text_area
+{
+  height: 8rem;
+  border-radius: 10px 10px 10px 10px;
+  border: 1px solid rgb(202, 200, 200);
+}
+.submit_button
+{
+  width: 50%;
+  height:3rem;
+}
+mat-card:hover
+{
+  box-shadow: 15px 15px 25px 25px rgb(117, 117, 117);
+}

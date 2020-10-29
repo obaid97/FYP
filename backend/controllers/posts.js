@@ -52,13 +52,6 @@ exports.createPost = (req, res, next) => {
 
     //contact authInformation
     mobilenumber: req.body.mobilenumber,
-    /*
-    title:req.body.title,
-    model:req.body.model,
-    engine:req.body.engine,
-    location:req.body.location,
-    content:req.body.content,
-    */
     creator: req.userData.userId
   });
   post.save().then(createdPost => {

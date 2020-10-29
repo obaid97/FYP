@@ -5,6 +5,8 @@ import { PostsService } from '../../../posts/posts.service';
 import {Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 
 @Component(
   {
@@ -33,7 +35,7 @@ export class AllUsersComponent
 
 
 
-    constructor(public authService: AuthService)
+    constructor(public authService: AuthService,public route: ActivatedRoute, private _formBuilder: FormBuilder,private router: Router)
     {}
 
 
@@ -60,12 +62,23 @@ export class AllUsersComponent
       this.isloading = true;
       this.authService.deleteUser(cnicNumber);
       this.isloading=false;
-    }
+      this.router.navigate(['auth/allusers'])
+      .then(() => {
+
+      window.location.reload();
+      this.authService.getallUsers();
+  });
+}
 
     ondisbale(cnicNumber:number)
     {
       this.isloading=true;
       this.authService.disableUser(cnicNumber);
       this.isloading=false;
+      this.router.navigate(['auth/allusers'])
+      .then(() => {
+      window.location.reload();
+      this.authService.getallUsers();
+      });
     }
   }

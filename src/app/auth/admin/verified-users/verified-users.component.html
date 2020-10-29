@@ -46,49 +46,54 @@
 -->
 <!--New Decor here-->
 
-
-<mat-spinner *ngIf="isloading"></mat-spinner>
-
-<div class="container">
-  <div class="col">
-  <div class="sidenav">
-    <a  routerLink='/auth/admin' routerLinkActive="mat-accent">Dashboard</a>
-    <a  routerLink='/auth/create-admin' routerLinkActive="mat-accent">Create Admin</a>
-    <a routerLink='/auth/allusers' routerLinkActive="mat-accent">All Users</a>
-    <a routerLink='/auth/unverified' routerLinkActive="mat-accent">Unverified Users</a>
-    <a routerLink='/auth/verified' routerLinkActive="mat-accent">Verified Users</a>
+<div class="container" style="margin-top: 7.2rem; width:125.6; margin-left:-10.2rem;">
+  <div class="sidebar">
+    <a class="active"  routerLink='/auth/admin'>Home</a>
+    <a routerLink='/auth/create-admin'>Create Admin</a>
+    <a routerLink='/auth/allusers'>All Users</a>
+    <a routerLink='/auth/unverified' >Unverified Users</a>
+    <a routerLink='/auth/verified'>Verified Users</a>
     <a routerLink='/auth/createblog' routerLinkActive="mat-accent">Create Blog</a>
     <a routerLink='/auth/allblogs' routerLinkActive="mat-accent">All Blogs</a>
   </div>
+
+  <div class="content" >
+    <div class="row" style="margin-top: 7.8rem;" >
+      <div class="limiter">
+        <div class="container-table100">
+          <div class="wrap-table100">
+            <div class="table100">
+              <table>
+                <thead>
+                  <tr class="table100-head">
+                    <th class="column1">Full Name</th>
+                    <th class="column2">CNIC</th>
+                    <th class="column3">Email</th>
+                    <th class="column4">Phone</th>
+
+                    <th class="column6">Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let user of verifiedUsers">
+                    <tr>
+                      <td class="column1">{{user.fullName}} </td>
+                      <td class="column2">{{user.cnicNumber}}</td>
+                      <td class="column3">{{user.email}}</td>
+                      <td class="column4">{{user.phoneNumber}}</td>
+
+                      <td class="column5">
+                        <a mat-flat-button color="primary" (click)="ondisbale(user.cnicNumber)"  > Disable </a>
+                        <button mat-flat-button color="warn" (click)="onDelete(user.cnicNumber)" > DELETE </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+  </div>
 </div>
-<div class="col">
-<div class="main">
-  <div class="limiter">
-		<div class="container-table100">
-			<div class="wrap-table100">
-				<div class="table100">
-					<table>
-						<thead>
-							<tr class="table100-head">
-								<th class="column1">Full Name</th>
-								<th class="column2">CNIC</th>
-								<th class="column3">Email</th>
-								<th class="column4">Phone</th>
 
-								<th class="column6">Action</th>
-							</tr>
-						</thead>
-						<tbody *ngFor="let user of verifiedUsers">
-								<tr>
-									<td class="column1">{{user.fullName}} </td>
-									<td class="column2">{{user.cnicNumber}}</td>
-									<td class="column3">{{user.email}}</td>
-									<td class="column4">{{user.phoneNumber}}</td>
 
-									<td class="column5">
-                    <a mat-flat-button color="primary" (click)="ondisbale(user.cnicNumber)"  > Disable </a>
-                    <button mat-flat-button color="warn" (click)="onDelete(user.cnicNumber)" > DELETE </button>
-                  </td>
-								</tr>
-                </tbody></table></div></div></div></div>
-</div></div></div>

@@ -8,6 +8,14 @@ import { map } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
 import {PostsService} from '../posts/posts.service'
 const BACKEND_URL = environment.apiUrl +"/user/";
+
+export interface message {
+    cnicNumber: number;
+    Creatorid: any;
+    message: string;
+  }
+
+
 @Injectable({providedIn: "root"})
 
 export class AuthService
@@ -39,6 +47,7 @@ export class AuthService
   private test : string[] =[];
   private newpassword:string;
   private usersUpdated = new Subject<{ users: AuthSignupData[], userCount: number }>();
+  private message:string;
 
 
   constructor(private http : HttpClient, private router: Router, private postService:PostsService){}
@@ -113,6 +122,7 @@ login(cnicNumber: number, password: string)
               this.authStatusListener.next(false);
         });
         this.currentUser = cnicNumber;
+        this.getcurrentuserstatus();
         //this.forgotpassword(3710558105933,"0ce8d34a082854ea18b83eafac46cc38b532d59aed0d18c85d50ec4e8d517273");
         //this.currentUserauthorizeStatus =
         //this.getcurrentuserauthstatus();
@@ -351,7 +361,8 @@ getuserDeatils()
 
   getcurrentuserstatus()
   {
-    return this.currentUseraccountStatus;
+    console.log(   this.http.post(BACKEND_URL,"accstatus"+this.currentUser));
+
   }
 
   getcurrentuserauthstatus()
@@ -388,19 +399,7 @@ getuserDeatils()
   `
   `
   */
-  createport()
-  {
-    this.test[0] = this.currentUser.toString();
-    //console.log(this.test[0]);
-    this.portid1 = Number(this.test[0].slice(11,13));
-    console.log(this.portid1);
-    this.port = Number(this.portid1);
-    console.log(this.port);
-    this.portid2 = Number(this.port.toString().concat(this.portid1.toString()));
-    console.log(this.portid2);
-    const a = this.postService.getpostcreator();
-    console.log(a+"creator id");
-  }
+
 
      //resetpassword(cnicNumber:string,privatekey:string)
 forgotpassword(cnicNumber: number, privatekey: string)
@@ -461,6 +460,20 @@ resetpassword(cnicNumber: number, password: string)
 
   }
 
+  createport(creatorid:any)
+  {
+
+
+  }
+
+  startchat(creatorid:any)
+  {
+/*
+    this.http.post(BACKEND_URL,"chat"+this.currentUser,creatorid).subscribe(response =>
+      {
+        this.router.navigate(["/chat"]);
+      });*/
+  }
 
 }
 //

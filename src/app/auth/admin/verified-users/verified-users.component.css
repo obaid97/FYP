@@ -42,50 +42,6 @@
 
 /*new csss*/
 
-.sidenav {
-  margin-top: 4.1%;
-  height: 100%;
-  width: 160px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 72, 0, 0.644);
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 17px;
-  color: #ffffff;
-  display: block;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-.main {
-  margin-left: 160px; /* Same as the width of the sidenav */
-  font-size: 28px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
-
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;margin-top: 4.1%;}
-  .sidenav a {font-size: 12px;}
-}
-
-.container
-{
-  width:125.6%;
-  margin-top: 5rem;
-  background-color:#ffffff;
-}
-
 
 /*.............................*/
 
@@ -191,6 +147,7 @@ iframe {
 .container-table100 {
   width: 100%;
   min-height: 100%;
+  background: #c850c0;
   background: #c850c0;
   background: -webkit-linear-gradient(45deg, #4158d0, #c850c0);
   background: -o-linear-gradient(45deg, #4158d0, #c850c0);
@@ -383,5 +340,58 @@ tbody tr:hover {
   .container-table100 {
     padding-left: 15px;
     padding-right: 15px;
+  }
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 80%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.sidebar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    margin-top: 7.2rem;
+    margin-left: -7.2rem;
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    margin-top: 7.2rem;
+    text-align: center;
+    float: none;
   }
 }

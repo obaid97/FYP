@@ -22,7 +22,7 @@ router.post("/login",UserController.userLogin);
 router.get("/unverifiedusers",UserController.findUnverifiedUsers);
 router.get("/verifiedusers",UserController.findVerifiedUsers);
 router.get("/allusers",UserController.findallusers);
-
+router.post("/accstatus",UserController.accountstatus)
 router.get("/getcnicnum",UserController.getcnicNumber);
 //router.post("/dummy",UserController.dummy);
 
@@ -32,7 +32,7 @@ router.post("/disable",UserController.disableuser);
 router.get("/userdetails/:cnicNumber",UserController.userdetails);
 router.post("/deleteuser",UserController.deleteUser);
 //router.delete("/delete/:cnicNumber",UserController.deleteUser);
-
+router.post("/chat",UserController.startchat);
 router.post("/updateuserdetails",UserController.updateuserdetails);
 router.put("/forgotpassword",UserController.forgotpassword);
 router.post("/reset",UserController.resetpassword);

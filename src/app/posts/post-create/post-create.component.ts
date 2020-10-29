@@ -152,7 +152,6 @@ export class PostCreateComponent implements OnInit, OnDestroy
         //images
         image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]  }),
 
-
         //additional information
         enginetype : new FormControl(null,{validators:[ Validators.required ]}),
         enginecapacity : new FormControl(null,{validators:[ Validators.required ]}),
@@ -193,7 +192,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
              assembly: postData.assembly,
              features: postData.features,
              mobilenumber: postData.mobilenumber.toString(),
-            creator: postData.creator
+             creator: postData.creator
           };
           this.form.setValue(
             {

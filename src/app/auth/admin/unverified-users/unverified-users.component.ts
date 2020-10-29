@@ -52,7 +52,12 @@ export class UnverifiedUsersComponent
     this.isloading = true;
     this.authService.deleteUser(cnicNumber);
     this.isloading=false;
-    this.router.navigate(["auth/unverified"]);
+    this.router.navigate(['auth/unverified'])
+      .then(() => {
+        this.unverifiedUsers = this.authService.getUnverifiedUsers();
+      window.location.reload();
+
+  });
   }
 
   onApprove(cnicNumber:number)
@@ -60,7 +65,13 @@ export class UnverifiedUsersComponent
     this.isloading=true;
     this.authService.approveUser(cnicNumber);
     this.isloading=false;
-    this.router.navigate(["auth/unverified"]);
+    //this.router.navigate(["auth/unverified"]);
+    this.router.navigate(['auth/unverified'])
+      .then(() => {
+        this.unverifiedUsers = this.authService.getUnverifiedUsers();
+      window.location.reload();
+
+  });
   }
 
 }

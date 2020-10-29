@@ -58,7 +58,10 @@ onDelete(cnicNumber: number)
   this.isloading = true;
   this.authService.deleteUser(cnicNumber);
   this.isloading=false;
-  this.router.navigate(["auth/verified"]);
+  this.router.navigate(['auth/verified'])
+      .then(() => {
+      window.location.reload();
+  });
 }
 
 ondisbale(cnicNumber:number)
@@ -66,7 +69,10 @@ ondisbale(cnicNumber:number)
   this.isloading=true;
   this.authService.disableUser(cnicNumber);
   this.isloading=false;
-  this.router.navigate(["auth/verified"]);
+  this.router.navigate(['auth/verified'])
+      .then(() => {
+      window.location.reload();
+  });
 }
 
   }

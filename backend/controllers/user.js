@@ -3,9 +3,12 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { findOne } = require("../models/user");
 const crypto =require("crypto");
-const Admin = require("../models/admin");
 
-
+const express = require('express');
+const app = express();
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
+const ChatMessgae = require("../models/chat");
 
 
 exports.createUser =  (req,res,next)=>{
@@ -554,4 +557,93 @@ exports.getcnicNumber = (req,res) =>
     .catch(error =>res.status(500).send())
 }
 
+exports.accountstatus = (req,res) =>
+{
+  User.findOne({cnicNumber: req.body.cnicNumber}).then( result =>
+    {
+      if(result)
+      {
+        res.status(200).send(result.accountStatus);
+      }
+      else
+      {
+        res.status(404).json({message:"No User Found"});
+      }
 
+    }
+  ).catch(err => res.status(500).json({message:"Server Error"}));
+}
+
+
+///////////////
+
+exports.startchat = (req,res) =>
+{
+  var portno;
+  test = [];
+  var portid1;
+  var portid2;
+/*
+  this.test[0] = this.currentUser.toString();
+    console.log(this.test[0]);
+    this.portid1 = Number(this.test[0].slice(11,13));
+
+    console.log(this.portid1);
+    this.port = Number(this.portid1);
+    console.log(this.port);
+    this.portid2 = Number(this.port.toString().concat(this.portid1.toString()));
+    console.log(this.portid2)*/
+
+  User.findById(req.body.creatorid).then(user =>
+    {
+      var portno1;
+      var port1 = req.body.cnicNumber;
+      var temp1 = port1.toString().slice(11,13);
+      var port2 = user.cnicNumber;
+      var temp2 = port2.toString().slice(11,13);
+      var portno1 = temp1.concat(temp2);
+      http.listen(portno1, () =>
+        {
+       console.log('listening on *'+portno1);
+
+        });
+      io.on('connection', (socket) => {
+        //console.log('a user connected');
+
+        const chat =new ChatMessgae
+          ({
+            portno:portno1,
+            sendercnicNumber:req.body.cnicNumber,
+            recievercnicNumber:port2,
+            message:req.body.message,
+
+          });
+      chat.save().then(result =>
+        {
+          res.status(201).json({
+            message: "messsage saved Sucessfully",
+            result: result
+          });
+        })
+          .catch(error => {
+            res.status(500).json({
+                message: "Couldnt save message",
+                result: error
+            });
+          });
+        var bodymsg = req.body.message;
+        socket.on('message', (bodymsg ) => {
+          //console.log(msg);
+          socket.broadcast.emit('message-broadcast', bodymsg );
+        });
+      });
+      res.status(200).send(portno1);
+
+    })
+
+
+
+    app.get('/', (req, res) => res.send('hello!'));
+
+
+}
