@@ -486,10 +486,16 @@ resetpassword(cnicNumber: number, password: string)
     console.log(email);
     console.log(subject);
     console.log(message);
-
-    this.http.post(BACKEND_URL +"mail",{email,subject,message}).subscribe(res =>
+    let mail =
+    {
+      email: email,
+      subject: subject,
+      message: message
+    };
+    this.http.post(BACKEND_URL +"mail",mail).subscribe(data =>
       {
-        console.log(res);
+        //let res:any =data;
+        //console.log(res);
         this.router.navigate(["/contactus"]);
       });
 

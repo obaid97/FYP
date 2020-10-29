@@ -651,34 +651,46 @@ exports.startchat = (req,res) =>
 
 exports.sendemail = (req,res,next) =>
 {
+  let user =req.body;
 
-const {email} = req.body;
-console.log(req.params.message);
-console.log(req.params.email);
-console.log(req.params.subject);
+
+  console.log(user.message);
+  console.log(user.email);
+  console.log(user.subject);
 
  async function main() {
-  // Generate test SMTP service account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
+
     let testAccount = await nodemailer.createTestAccount();
 
-    // create reusable transporter object using the default SMTP transport
 
+/*
     let transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
+      //host: "smtp.ethereal.email",
+       host: "smtp.ethereal.email",
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: 'janelle.bednar@ethereal.email', // generated ethereal user
+        user: 'janelle.bednar@ethereal.email ', // generated ethereal user
         pass: 'QcqXte9FC6RPC539dT', // generated ethereal password
       },
-    });
+    });*/
+
+    let transporter = nodemailer.createTransport({
+      //host: "smtp.ethereal.email",
+       host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: 'muzammilwaqar02@gmail.com ', // generated ethereal user
+        pass: 'leomuzi6894', // generated ethereal password
+      },
+    })
 
     const msg ={
-      from: req.body.email, // sender address
-      to: "muzammilawan0@gmail.com, janelle.bednar@ethereal.email", // list of receivers
-      subject: req.body.subject, // Subject line
-      text: req.body.message // plain text body
+      from: "muzammilwaqar02@gmail.com", /*muzammilwaqar02@gmail.com*/// if not working send through this
+      to: "muzammilawan0@gmail.com,obaid6968@gmail.com janelle.bednar@ethereal.email", // list of receivers
+      subject: user.subject , // Subject line
+      text:user.email+"  -  "+ user.message // plain text body
     };
 
     // send mail with defined transport object

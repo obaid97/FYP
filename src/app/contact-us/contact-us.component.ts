@@ -80,12 +80,12 @@ import { AuthService } from '../auth/auth.service';
         this.contactform.value.message
       );
         this.isloading = true;
-        //this.contactform.reset();
-       /* this.router.navigate(['/contactus'])
+        this.contactform.reset();
+       this.router.navigate(['/contactus'])
       .then(() => {
       window.location.reload();
       this.authService.getallUsers();
-      });*/
+      });
     }
 
   }

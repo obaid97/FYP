@@ -250,7 +250,7 @@
           <form [formGroup]="contactform" (submit)="onsend()"  *ngIf="!isloading">
 
             <input type="text"  placeholder="Enter your Email"  formControlName="email">
-            <mat-error *ngIf="contactform.get('email').invalid">Please Enter A valid Email</mat-error>
+
 
           <br>
 
