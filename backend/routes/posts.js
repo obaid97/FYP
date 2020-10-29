@@ -24,7 +24,7 @@ router.get("/cnic/:id",PostController.getcnicNumber);
 router.get('/:id',PostController.getPost);
 //router.post('/:id',PostController.getPost);
 
-router.get('/search/:searchText', SearchController.searchPosts);
+router.post('/search', SearchController.searchPosts);
 
 router.delete("/:id",checkAuth,PostController.deletePost);
 

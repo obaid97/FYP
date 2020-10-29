@@ -174,17 +174,37 @@ exports.getPosts = (req, res, next) => {
 }
 
 exports.searchPosts = (req, res, next) => {
-  console.log(req.body);
-  Post.find({
-    $and: [
-      {
-        $or: [{ make: new RegExp(req.body.searchText) },
-        { model: new RegExp(req.body.searchText) }]
-      },
-      { city: new RegExp(req.body.city) }, 
-      // { price: { $lt: 1000000 } }
-    ]
-  }).then(documents => {
+  console.log("received", req.body);
+  let count = 0;
+  let condition;
+  let index;
+  let conditionMapping = {
+    price : { price: { $lt: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min  } },
+    model: { model: new RegExp(req.body.model) },
+    brand: { brand: new RegExp(req.body.brand) },
+    city: { city: new RegExp(req.body.city) },
+    color: { color: new RegExp(req.body.color) },
+  }
+  Object.values(req.body).forEach((element) => {
+    if(element !== null) {
+      index = element.index;
+      count++;
+    }
+  });
+
+  if(count < 2) {
+      condition = conditionMapping[Object.keys[index]];
+  } else if (count >= 2) {
+    let condArray = [];
+    Object.values(req.body).forEach(element => {
+      if(element !== null) {
+        condArray.push(conditionMapping[Object.keys(req.body)[element.index]])
+      }
+    });
+    condition = {$and: condArray}
+  }
+  
+  Post.find(condition).then(documents => {
     fetchedPosts = documents
     return Post.count();
   }).then(count => {

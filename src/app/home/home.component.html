@@ -198,7 +198,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
 
       <div class="ppb_wrapper  ">
           <div class="one withsmallpadding ppb_car_search_background parallax withbg " style="padding-top: 150px !important;text-align:center;height:800px;background-image:url(../../assets/web-image-asset/pexels/pexels-albin-berlin-919073.jpg);background-position: center center;color:#ffffff; width:100%;">
-              <div class="overlay_background" style="background:#000000;background:rgb(0,0,0,0.2);background:rgba(0,0,0,0.2);"></div>
+              <div class="overlay_background" style="background:#000000;background:rgb(0,0,0,0.2);background:rgba(36, 18, 18, 0.2);"></div>
               <div class="center_wrapper">
                   <div class="inner_content">
                       <div class="standard_wrapper">
@@ -206,65 +206,47 @@ style="width: 126.5%; margin-left: -10.5rem;">
                             Find Your Dream Car
                           </h2>
                           <div class="page_tagline" style="color:#ffffff;"></div>
-                          <form class="car_search_form" method="get" action="#">
+                          <form class="car_search_form" (submit)="searching()"  method="get" action="#">
                               <div class="car_search_wrapper" style="margin-left: 15rem;">
                                   <div class="one_fourth themeborder">
-                                      <select id="brand" name="brand">
-                                          <option value="">Any Brand</option>
-                                          <option value="Audi">Audi</option>
-                                          <option value="BMW">BMW</option>
-                                          <option value="Lexus">Lexus</option>
-                                          <option value="Mercedes Benz">Mercedes</option>
-                                          <option value="toyota">Toyota</option>
-                                          <option value="Honda">Honda</option>
-                                          <option value="Suzuki">Suzuki</option>
-                                          <option value="Kia">Kia</option>
+                                      <select id="brand" name="brand" [(ngModel)]="selectedBrand">
+                                          <option [selected] = "b.value === ''" *ngFor = "let b of brands">
+                                              {{b.name}}
+                                        </option>
                                       </select>
                                       <span class="ti-angle-down"></span>
                                   </div>
                                   <div class="one_fourth themeborder">
-                                      <select id="type" name="type">
-                                          <option value="">Any Type</option>
-                                          <option value="Coupe">Coupe</option>
-                                          <option value="Sedan">Sedan</option>
-                                          <option value="SUV">SUV</option>
-                                      </select>
-                                      <span class="ti-angle-down"></span>
-                                  </div>
-                                  <div class="one_fourth themeborder">
-                                    <select id="type" name="type">
-                                        <option value="">Any Type</option>
-                                        <option value="Coupe">Coupe</option>
-                                        <option value="Sedan">Sedan</option>
-                                        <option value="SUV">SUV</option>
-                                    </select>
+                                    <input type= "text" (keyup)="onKey($event)">
                                     <span class="ti-angle-down"></span>
                                 </div>
+                                  <div class="one_fourth themeborder">
+                                      <select id="type" name="type" [(ngModel)]="selectedColour">
+                                        <option *ngFor = "let c of colours">
+                                            {{c.name}}
+                                      </option>
+                                      </select>
+                                      <span class="ti-angle-down"></span>
+                                  </div>
                                 <div class="one_fourth themeborder">
-                                  <select id="type" name="type">
-                                      <option value="">Any Type</option>
-                                      <option value="Coupe">Coupe</option>
-                                      <option value="Sedan">Sedan</option>
-                                      <option value="SUV">SUV</option>
+                                  <select id="type" name="type" [(ngModel)]="selectedCity">
+                                    <option *ngFor = "let c of cities">
+                                        {{c.name}}
+                                  </option>
                                   </select>
                                   <span class="ti-angle-down"></span>
                               </div>
                                   <div class="one_fourth themeborder">
                                     <span style="margin-bottom: 2px;">RS</span>
-                                    <select id="sort_by" name="sort_by">
-                                          <option value="500000"> < 500000</option>
-                                          <option value="1000000">500000 - 1000000</option>
-                                          <option value="1500000">1000000 - 1500000</option>
-                                          <option value="2000000">1500000 - 2000000</option>
-                                          <option value="3000000">2000000 - 3000000</option>
-                                          <option value="4000000">3000000 - 4000000</option>
-                                          <option value="5000000">4000000 - 5000000</option>
-                                          <option value="5000001"> > 5000000 </option>
+                                    <select id="sort_by" name="sort_by" [(ngModel)]="selectedPrice">
+                                        <option *ngFor = "let p of prices">
+                                            {{p.name}}
+                                      </option>
                                       </select>
                                       <span class="ti-angle-down"></span>
                                   </div>
                                   <div class="one_fourth themeborder">
-                                      <input id="car_search_btn" type="submit" class="button" value="Search" />
+                                      <button id="car_search_btn" type="submit" class="button" value="Searcheee"></button>
                                   </div>
                               </div>
                           </form>

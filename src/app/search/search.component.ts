@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-
+    console.log("here in search");
     // console.log("Search text:", this.myForm.value.searchText);
     this.searchService.search(this.myForm.value.searchText).subscribe(postData => {
 
