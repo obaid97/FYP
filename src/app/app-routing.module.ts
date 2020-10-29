@@ -16,6 +16,7 @@ import { BlogComponent } from './blog/blog.component.ts';
 import { FAQComponent } from './FAQ/FAQ.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { AboutUsComponent } from './About-us/About-us.component';
+import { SingleBlogComponent } from './blog/single-blog/single-blog.component';
 
 const routes: Routes=[
   { path:'', component: HomeComponent },
@@ -25,9 +26,11 @@ const routes: Routes=[
   { path:'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path:'blog', component:BlogComponent },
+  { path:'singleblog', component:SingleBlogComponent },
   { path:'faq', component:FAQComponent },
   { path:'contactus', component:ContactUsComponent },
   { path:'about', component:AboutUsComponent },
+
   { path:'userdetail/:userId', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path:'smartcontract', component: SmartContractComponent, canActivate: [AuthGuard] },
   { path:'forgotpassword',component:ForgotPasswordComponent},

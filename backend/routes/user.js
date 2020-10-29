@@ -36,5 +36,5 @@ router.post("/chat",UserController.startchat);
 router.post("/updateuserdetails",UserController.updateuserdetails);
 router.put("/forgotpassword",UserController.forgotpassword);
 router.post("/reset",UserController.resetpassword);
-
+router.post("/mail",UserController.sendemail);
 module.exports = router;

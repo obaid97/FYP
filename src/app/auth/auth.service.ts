@@ -475,5 +475,27 @@ resetpassword(cnicNumber: number, password: string)
       });*/
   }
 
+
+  sendmail(email:string, subject:string, message:string)
+  {
+    const mailData =new FormData();
+    mailData.append("email",email);
+    mailData.append("subject",subject);
+    mailData.append("message",message);
+    console.log(mailData);
+    console.log(email);
+    console.log(subject);
+    console.log(message);
+
+    this.http.post(BACKEND_URL +"mail",{email,subject,message}).subscribe(res =>
+      {
+        console.log(res);
+        this.router.navigate(["/contactus"]);
+      });
+
+
+  //this.router.navigate(["/contactus"]);
+  }
+
 }
 //

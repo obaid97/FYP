@@ -31,7 +31,7 @@ import { BlogComponent } from './blog/blog.component.ts';
 import { AboutUsComponent } from './About-us/About-us.component';
 import { FAQComponent } from './FAQ/FAQ.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-
+import { SingleBlogComponent } from './blog/single-blog/single-blog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +50,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     BlogComponent,
     AboutUsComponent,
     FAQComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    SingleBlogComponent
 
   ],
   imports: [
