@@ -91,6 +91,7 @@ mat-card-header
 }
 .edit-btn
 {
+
   float: center;
  margin-bottom: 7px;
  margin-right: 5px;
@@ -111,3 +112,4 @@ mat-card-header
   margin-bottom:5rem;
   margin-top:2rem;
 }
+

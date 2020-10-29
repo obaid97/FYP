@@ -12,6 +12,10 @@ import { SinglePostComponent } from './posts/single-post/single-post.component';
 import { ChatInboxComponent } from './auth/chat-inbox/chat-inbox.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { DisplayNewPasswordComponent } from './auth/forgot-password/display-new-password/display-new-password';
+import { BlogComponent } from './blog/blog.component.ts';
+import { FAQComponent } from './FAQ/FAQ.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { AboutUsComponent } from './About-us/About-us.component';
 
 const routes: Routes=[
   { path:'', component: HomeComponent },
@@ -20,6 +24,10 @@ const routes: Routes=[
   { path:'create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },
+  { path:'blog', component:BlogComponent },
+  { path:'faq', component:FAQComponent },
+  { path:'contactus', component:ContactUsComponent },
+  { path:'about', component:AboutUsComponent },
   { path:'userdetail/:userId', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path:'smartcontract', component: SmartContractComponent, canActivate: [AuthGuard] },
   { path:'forgotpassword',component:ForgotPasswordComponent},

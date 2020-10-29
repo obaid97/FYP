@@ -16,6 +16,7 @@ export class PostsService {
   private check:any;
   private creatorid:string;
   constructor(private http: HttpClient, private router: Router) { }
+  private signlepost:Post;
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
@@ -124,8 +125,8 @@ getpostobser()
 
 getsinglepost(id:string)
 {
-  this.getpostcreator();
-  console.log( this.http.get<
+  //this.getpostcreator();
+  /*console.log( this.http.get<
   {
     _id: string,
     city: string,
@@ -152,12 +153,16 @@ getsinglepost(id:string)
     mobilenumber: number,
     creator: string
   }
->(BACKEND_URL + id));
+>(BACKEND_URL + id));*/
+ this.http.post(BACKEND_URL,id).subscribe(postres =>
+  {
+    console.log(postres);
+  })
 //this.creatorid = this.check.creatorid;
 }
 
 getPost(id: string) {
-  this.getsinglepost(id);
+  //this.getsinglepost(id);
     return this.http.get<
       {
         _id: string,
@@ -230,11 +235,11 @@ getPost(id: string) {
   deletepost(postId: string) {
     return this.http.delete(BACKEND_URL + postId);
   }
-
+/*
   getpostcreator()
   {
     console.log(this.creatorid);
-  }
+  }*/
 
   //this bracket is last below
 }

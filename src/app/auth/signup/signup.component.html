@@ -8,8 +8,12 @@
       <mat-card class="main-card">
 
         <mat-card-header class="mat-header">
-          <mat-card-title class="mat-header-title main-heading">Come Join Us</mat-card-title>
-          <mat-card-subtitle class="mat-header-subtitle sub-heading">Reach Out To Millions of Buyers & Sellers</mat-card-subtitle>
+          <mat-card-title class="mat-header-title main-heading " style="font-weight:bold; font-size:35px; letter-spacing:1.2px; word-spacing:1px;margin-left: 15rem; margin-top:1rem;">
+            Come Join Us
+          </mat-card-title>
+          <mat-card-subtitle class="mat-header-subtitle sub-heading" style="font-weight:bold; font-size:22px; letter-spacing:1.2px; word-spacing:1px;margin-left: 9rem; margin-top:1rem;">
+            Reach Out To Millions of Buyers & Sellers
+          </mat-card-subtitle>
         </mat-card-header>
                 <!-- Full name Field Field -->
                 <mat-form-field class="matformfield-left" >
@@ -41,19 +45,19 @@
 
                 <!-- Address Field -->
                 <mat-form-field class="matformfield-left">
-                  <input  matInput    type="text" placeholder="Full Address" formControlName="fullAddress">
+                  <input  matInput    type="text" placeholder="Full Address" formControlName="fullAddress" style="padding-left:5px;">
                    <mat-error *ngIf="signupform.get('fullAddress').invalid">Please Enter A valid Address</mat-error>
                 </mat-form-field>
 
                 <!-- C.N.I.C Number Field -->
                 <mat-form-field class="matformfield-left">
-                  <input  matInput    type="number" placeholder="CNIC Number"  formControlName="cnicNumber">
+                  <input  matInput    type="number" placeholder="CNIC Number"  formControlName="cnicNumber" style="padding-left:5px;">
                    <mat-error *ngIf="signupform.get('cnicNumber').invalid">Please Enter A valid CNIC Number without dashes in it</mat-error>
                 </mat-form-field>
 
                 <!-- Date of Birth -->
                 <mat-form-field class="matformfield-left">
-                  <input  matInput type="date" placeholder="Date of Birth" formControlName="dob">
+                  <input  matInput type="date" placeholder="Date of Birth" formControlName="dob" style="padding-left:5px;">
                 </mat-form-field>
 
                 <!--Gender-->
@@ -104,4 +108,3 @@
 </form>
 
 </div>
-

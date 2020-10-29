@@ -1,51 +1,400 @@
 
+
+
 <mat-spinner *ngIf="isloading"></mat-spinner>
-<div *ngIf="posts.length>0 && !isloading">
-<div class="container">
-  <div class="row">
-    <div class="col col-lg-4 col-md-6 col-xl-4 col-sm-12 col-xs-12">
-      <table class="col col-lg-4 col-md-6 col-xl-4 col-sm-12 col-xs-12">
-        <tr colspan="12" class="">
-          <td  colspan="4">
-            <mat-card class="example-card mt-2"   *ngFor="let post of posts" >
-              <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>{{post.make+" - "+post.model}} - {{post.enginecapacity+"cc"}} - {{post.exteriorcolor}}</mat-card-title>
-                <mat-card-subtitle>{{post.city}}</mat-card-subtitle>
-              </mat-card-header>
-              <a ><img mat-card-image  [src]="post.imagePath" [alt]="post.make"></a>
-              <mat-card-content>
-                <p>
-                   {{"Description : "+post.description}}
-                   <br>
-                   {{"Engine Type : "+post.enginetype}}
-                   <br>
-                   {{"Price : "+post.price}}
-                   <br>
-                   {{"Assembled : "+post.assembly}}
-                </p>
-              </mat-card-content><!--&& userId === post.creator"-->
-              <mat-card-footer>safaf</mat-card-footer>
-              <mat-card-actions >
-                <a *ngIf="userIsAuthenticated && this.post.creator == userId " mat-flat-button color="primary" class="action-buttons" [routerLink]="['/edit',post.id]" > EDIT</a>
-                <button *ngIf="userIsAuthenticated && this.post.creator == userId " mat-flat-button color="warn" class="action-buttons" (click)="onDelete(post.id)" > DELETE</button>
-                <button *ngIf="userIsAuthenticated && authorizedStatus " mat-flat-button color="accent" class="action-buttons">Chat</button>
-                <a mat-flat-button color="primary" class="action-buttons" [routerLink]="['/post',post.id]" (click)="singlepostview(post.id)" >View</a>
 
-              </mat-card-actions>
 
-            </mat-card>
-          <td>
-        </tr>
-      </table>
+<a id="close_mobile_menu" href="javascript:;"></a>
 
-    </div>
+  <div class="mobile_menu_wrapper">
+      <a id="mobile_menu_close" href="javascript:;" class="button"><span class="ti-close"></span></a>
+
+      <div class="mobile_menu_content">
+
+          <div class="menu-main-menu-container">
+              <ul id="mobile_main_menu" class="mobile_main_nav">
+                  <li class="menu-item current-menu-item menu-item-has-children"><a routerLink="/">Home</a>
+                  </li>
+                  <li class="menu-item menu-item-has-children"><a routerLink="/posts">Cars</a>
+                  </li>
+                  <li class="menu-item menu-item-has-children"><a href="about-us.html">About Us</a></li>
+                  <li class="menu-item menu-item-has-children"><a href="contact-us.html">Contact Us</a></li>
+                  <li class="menu-item menu-item-has-children"><a href="faqs.html">FAQs</a></li>
+                  <li class="menu-item menu-item-has-children"><a href="blog-left-sidebar.html">Blog</a>
+                  </li>
+              </ul>
+          </div>
+
+          <!-- Begin side menu sidebar -->
+          <div class="page_content_wrapper">
+              <div class="sidebar_wrapper">
+                  <div class="sidebar">
+
+                      <div class="content">
+
+                          <ul class="sidebar_widget">
+                              <li id="text-8" class="widget widget_text">
+                                  <h2 class="widgettitle">For More Informations</h2>
+                                  <div class="textwidget"><span class="ti-mobile" style="margin-right:10px;"></span>1-567-124-44227
+                                      <br/>
+                                      <span class="ti-alarm-clock" style="margin-right:10px;"></span>Mon - Sat 8.00 - 18.00 </div>
+                              </li>
+                          </ul>
+
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+          <!-- End side menu sidebar -->
+
+          <div class="social_wrapper">
+              <ul><!--social links-->
+                  <li class="facebook"><a target="_blank" href="#"><i class="fa fa-facebook-official"></i></a></li>
+                  <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li class="youtube"><a target="_blank" title="Youtube" href="#"><i class="fa fa-youtube"></i></a></li>
+                  <li class="pinterest"><a target="_blank" title="Pinterest" href="#"><i class="fa fa-pinterest"></i></a></li>
+                  <li class="instagram"><a target="_blank" title="Instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+
+
+
+<div class="header_style_wrapper">
+
+  <!-- Begin top bar -->
+  <div class="above_top_bar">
+      <div class="page_content_wrapper">
+
+          <div class="social_wrapper">
+              <ul><!--social links-->
+                  <li class="facebook" *ngIf="userIsAuthenticated">
+                    <a  routerLink="/userprofile" routerLinkActive="mat-accent">
+                      Profile
+                    </a>
+                  </li>
+                  <li class="facebook" *ngIf="!userIsAuthenticated">
+                    <a  routerLink="/auth/login" routerLinkActive="mat-accent">
+                      Login
+                    </a>
+                  </li>
+                  <li class="facebook" *ngIf="!userIsAuthenticated">
+                    <a >
+                      |
+                    </a>
+                  </li>
+                  <li class="facebook" *ngIf="!userIsAuthenticated">
+                    <a  routerLink="/auth/signup" routerLinkActive="mat-accent">
+                      Sign Up
+                    </a>
+                  </li>
+
+                  <li class="facebook" *ngIf="userIsAuthenticated">
+                    <a  routerLink="" (click)="onLogout()" >
+                      Logout
+                    </a>
+                  </li>
+              </ul>
+          </div>
+          <div class="top_contact_info">
+              <div class="company_address">
+                  <div id="top_contact_address"><span class="ti-location-pin"></span>2 Floor Pak Plaza Double Road PWD</div>
+              </div>
+              <div>
+                  <div id="top_contact_number"><a href="tel:+92-335-5423119"><span class="ti-mobile"></span>+92-335-5423119</a></div>
+              </div>
+              <div>
+                  <div id="top_contact_hours"><span class="ti-alarm-clock"></span>Mon-Fri 09.00 - 17.00 </div>
+              </div>
+          </div>
+          <br class="clear" />
+      </div>
+  </div>
+  <!-- End top bar -->
+  <div class="top_bar scroll"  >
+      <div class="standard_wrapper" >
+          <!-- Begin logo -->
+          <div id="logo_wrapper">
+
+              <div id="logo_normal" class="logo_container">
+                  <div class="logo_align">
+                      <a id="custom_logo" class="logo_wrapper hidden" routerLink="/">
+                          <!--<img src="../../assets/images/vemb logo new.png" alt="" width="175" height="24" />-->
+                          <h2 style="color:#ffffff; width:100%">V.E.M.B</h2>
+                      </a><!--../../assets/images/logo@2x_white.png-->
+                  </div>
+              </div>
+
+              <div id="logo_transparent" class="logo_container">
+                  <div class="logo_align">
+                      <a id="custom_logo_transparent" class="logo_wrapper default" routerLink="/">
+                        <h2 style="color:#ffffff; width:100%">V.E.M.B</h2>
+                        <!--<img src="../../assets/images/vemb logo new.png" alt="" width="165" height="24" />-->
+                      </a>
+                  </div>
+
+              <!-- End logo -->
+
+              <div id="menu_wrapper" style="float: right; margin-left: 75rem; ">
+                  <div id="nav_wrapper">
+                      <div class="nav_wrapper_inner">
+                          <div id="menu_border_wrapper">
+                              <div class="menu-main-menu-container">
+                                  <ul id="main_menu" class="nav">
+                                      <li class="menu-item  menu-item-has-children ">
+                                        <a routerLink="/" style="font-size:15px;">
+                                          Home
+                                        </a>
+                                      </li>
+                                      <li class="menu-item  menu-item-has-children ">
+                                        <a style="font-size:16px;">
+                                          |
+                                        </a>
+                                      </li>
+                                      <li class="menu-item menu-item-has-children ">
+                                        <a routerLink="/posts" style="font-size:15px;">
+                                          Cars
+                                        </a>
+                                      </li>
+                                      <li class="menu-item  menu-item-has-children ">
+                                        <a style="font-size:16px;">
+                                          |
+                                        </a>
+                                      </li>
+                                      <li class="menu-item menu-item-has-children">
+                                        <a routerLink="/about" style="font-size:15px;">
+                                          About Us
+                                        </a>
+                                      </li>
+                                      <li class="menu-item  menu-item-has-children ">
+                                        <a style="font-size:16px;">
+                                          |
+                                        </a>
+                                      </li>
+                                      <li class="menu-item menu-item-has-children">
+                                        <a routerLink="/contactus" style="font-size:15px;">
+                                          Contact Us
+                                        </a>
+                                      </li>
+                                      <li class="menu-item  menu-item-has-children ">
+                                        <a style="font-size:16px;">
+                                          |
+                                        </a>
+                                      </li>
+                                      <li class="menu-item menu-item-has-children">
+                                        <a routerLink="/faq" style="font-size:15px;">
+                                          FAQs
+                                        </a>
+                                      </li>
+                                      <li class="menu-item  menu-item-has-children ">
+                                        <a style="font-size:16px;">
+                                          |
+                                        </a>
+                                      </li>
+                                      <li class="menu-item menu-item-has-children ">
+                                        <a routerLink="/blog" style="font-size:15px;">
+                                          Blog
+                                        </a>
+                                      </li>
+                                      <li class="menu-item  menu-item-has-children ">
+                                        <a style="font-size:16px;">
+                                          |
+                                        </a>
+                                      </li>
+                                      <li class="menu-item  menu-item-has-children ">
+                                        <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff; font-size:18px; height:34px; border-radius: 50px 50px 50px 50px; width:140px;">
+                                          Sell Your Car
+                                        </button>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- End right corner buttons -->
+                  </div>
+                  <!-- End main nav -->
+              </div>
+            </div>
+          </div>
+      </div>
   </div>
 </div>
+
+
+
+<div class="main_div" style="margin-top: 7.2rem;">
+<div id="page_caption" class="hasbg parallax  withtopbar  " style="background-image:url(../../../assets/web-image-asset/pexels/pexels-jae-park-4141954.jpg);">
+
+  <div class="page_title_wrapper">
+      <div class="page_title_inner">
+          <div class="page_title_content">
+              <h1 class="withtopbar">All Available Cars TO Buy</h1>
+              <div class="page_tagline">
+                  Buying Your Dream Car is Not A Dream Anymore. </div>
+          </div>
+      </div>
+  </div>
+
 </div>
 
-<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length>0">
+<!-- Begin content -->
+<div id="page_content_wrapper" class="hasbg withtopbar ">
+  <form id="car_search_form" name="searchform" [formGroup]="searchform">
+      <div class="car_search_wrapper">
+          <div class="one_fourth themeborder">
+              <select id="brand" name="brand" formControlName="make" placeholder="Make">
+                  <option value="">Any Brand</option>
+                  <option value="Audi">Audi</option>
+                  <option value="BMW">BMW</option>
+                  <option value="Lexus">Lexus</option>
+                  <option value="Mercedes Benz">Mercedes Benz</option>
+                  <option value="toyota">Toyota</option>
+                  <option value="Honda">Honda</option>
+                  <option value="suzuki">Suzuki</option>
+                  <option value="kia">KIA</option>
 
-</mat-paginator>
+              </select>
+              <span class="ti-angle-down"></span>
+          </div>
+          <div class="one_fourth themeborder">
+              <input type="text" formControlName="model" placeholder="Model">
 
-<p class="info-text mat-body-1" *ngIf="posts.length<=0 && !isloading">No Posts Availables.!</p>
+          </div>
+          <div class="one_fourth themeborder">
+              <select id="sort_by" name="sort_by" formControlName="price" Placeholder="Price">
+                  <option value=500000> < 50000 </option>
+                  <option value=1000000>500000 - 1000000</option>
+                  <option value=2000000>1000000 - 2000000</option>
+                  <option value=3000000>2000000 - 3000000</option>
+                  <option value=3000001> > 3000000</option>
+              </select>
+              <span class="ti-exchange-vertical"></span>
+          </div>
+          <div class="one_fourth last themeborder">
+              <input id="car_search_btn" type="submit" class="button" value="Search" />
+          </div>
+      </div>
+  </form>
+          <div class="standard_wrapper">
+            <div class="inner">
+              <div class="inner_wrapper">
+                <div class="row car_card_row"   *ngFor="let post of posts" >
+                <div class="col col-lg-4 col-md-4 col-xl-4 col-sm-4 col-xs-4">
+                  <img mat-card-image  [src]="post.imagePath" [alt]="post.make" style="padding-top:2px;" width="100%" height="100%">
+                  </div>
+                  <div class="col col-lg-8 col-md-8 col-xl-8 col-sm-8 col-xs-8 ">
+                    <div class="row head_content">
+                      {{post.make+" - "+post.model}} - {{post.enginecapacity+"cc"}} - {{post.exteriorcolor}}
+                    </div>
+                    <div class="row price_city_content">
+                      {{post.city}} - Rs {{post.price}}
+                    </div>
+                    <div class="row description_content">
+                      Seller Comments :  {{post.description}}
+                    </div>
+                    <div class="row Engine_content">
+                      Engine Type :  {{post.enginetype}}
+                    </div>
+                    <div class="row Engine_content">
+                      Assembly : {{post.assembly}}
+                    </div>
+
+                    <div class="row action_content">
+                      <a style="margin-right: 15px;" *ngIf="userIsAuthenticated && userId === post.creator " mat-flat-button color="primary" class="action-buttons" [routerLink]="['/edit',post.id]" > EDIT</a>
+                      <button style="margin: 15px;" *ngIf="userIsAuthenticated && userId === post.creator" mat-flat-button color="warn" class="action-buttons" (click)="onDelete(post.id)" > DELETE</button>
+                      <button style="margin: 5px;" *ngIf="userIsAuthenticated && userId != post.creator " (click)="onchat(post.creator)" mat-flat-button color="accent" class="action-buttons">Chat</button>
+                      <a style="margin: 5px;" mat-flat-button color="primary" class="action-buttons" [routerLink]="['/post',post.id]" (click)="singlepostview(post.id)" >View</a>
+
+                    </div>
+                  </div>
+
+                </div>
+                <mat-paginator style="margin-top:1rem;" [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length>0">
+
+                </mat-paginator>
+
+                <p class="info-text mat-body-1" *ngIf="posts.length<=0 && !isloading">No Posts Availables.!</p>
+
+              </div>
+              </div>
+
+          </div>
+</div>
+
+
+<!--footer-->
+
+
+<p style="height: 45px;">
+
+</p>
+    <div id="footer" class=" ppb_wrapper" style="position: relative;">
+      <ul class="sidebar_widget three">
+          <li id="text-2" class="widget widget_text">
+              <h2 class="widgettitle">About Us</h2>
+              <div class="textwidget">
+                  <p>Getting dressed up and traveling with good friends makes for a shared, unforgettable experience. </p>
+                  <!--put logo-->
+                  <!--<p><img src="../../assets/images/logo@2x_white.png" alt="" width="175" height="24"></p>-->
+              </div>
+          </li>
+          <li id="text-3" class="widget widget_text">
+              <h2 class="widgettitle">Contact Info</h2>
+              <div class="textwidget">
+                  <p><span class="ti-mobile" style="margin-right:10px;"></span>+92-335-5423119</p>
+                  <p><span class="ti-location-pin" style="margin-right:10px;"></span>2 Floor Pak Plaza Main Pwd Double </p>
+                  <p><span class="ti-alarm-clock" style="margin-right:10px;"></span>Mon - Sat 8.00 - 18.00 Sunday CLOSED</p>
+                  <div style="margin-top:20px;">
+                      <div class="social_wrapper shortcode dark ">
+                          <ul><!--Social Links-->
+                              <li class="facebook"><a target="_blank" title="Facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                              <li class="twitter"><a target="_blank" title="Twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                              <li class="youtube"><a target="_blank" title="Youtube" href="#"><i class="fa fa-youtube"></i></a></li>
+                              <li class="pinterest"><a target="_blank" title="Pinterest" href="#"><i class="fa fa-pinterest"></i></a></li>
+                              <li class="instagram"><a target="_blank" title="Instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li id="mc4wp_form_widget-5" class="widget widget_mc4wp_form_widget">
+              <h2 class="widgettitle">Newsletter</h2>
+
+              <div id="mc4wp-form-1" class="mc4wp-form mc4wp-form-27"  data-id="27" data-name="Newsletter">
+                  <div class="mc4wp-form-fields">Don't miss a thing! Sign up to receive daily deals
+
+                      <input type="email" name="EMAIL" placeholder="Your Email Address" required />
+                      <br/>
+                      <input type="submit" value="Subscribe" />
+                  </div>
+                  <label style="display: none !important;">Leave this field empty if you're human:
+                      <input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" />
+                  </label>
+
+                  <div class="mc4wp-response"></div>
+                </div>
+          </li>
+      </ul>
+  </div>
+  <div class="footer_bar  ppb_wrapper ">
+
+    <div class="footer_bar_wrapper ">
+        <div class="menu-footer-menu-container">
+          <ul id="footer_menu" class="footer_nav">
+            <li class="menu-item"><a routerLink="/about">About Us</a></li>
+            <li class="menu-item"><a routerLink="/posts">Cars</a></li>
+            <li class="menu-item"><a routerLink="/faq">FAQs</a></li>
+            <li class="menu-item"><a routerLink="/contactus">Contact Us</a></li>
+        </ul>
+        </div>
+        <div id="copyright">© Copyright V.E.M.B</div>
+        <br class="clear" />
+    </div>
+</div>

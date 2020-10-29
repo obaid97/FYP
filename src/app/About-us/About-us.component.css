@@ -1,0 +1,59 @@
+.about_us_container
+{
+  width: 125.6%;
+  margin-left: -10rem;
+}
+
+.glow {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #009cf7, 0 0 40px #0099ff, 0 0 45px #00aeff, 0 0 50px #03b2f7, 0 0 55px #12a5e9;
+  }
+
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #27B803, 0 0 40px #27B803, 0 0 45px #27B803, 0 0 50px #27B803, 0 0 55px #27B803, 0 0 60px #27B803;
+  }
+}
+
+.glowing_btn_buy:hover
+{
+  background: #f81d00;
+  color:white;
+  box-shadow: 0 0 5px #f81d00,
+              0 0 25px #f81d00,
+              0 0 50px #f81d00,
+              0 0 200px #f81d00;
+  font-size:22px;
+  height: 2.9rem;
+  width: 16.5rem;
+  margin:5px;
+  padding:5px;
+}
+.glowing_btn_buy:nth-child(1)
+{
+  top: 0;
+  left:-100%;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(180deg, transparent, #f81d00);
+  animation: animate2 2s linear infinite
+}
+@keyframes animate2
+{
+  0%
+  {
+    left:-100%;
+  }
+  50%,100%
+  {
+    left:100%;
+  }
+}

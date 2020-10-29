@@ -8,6 +8,14 @@ import { map } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
 import {PostsService} from '../posts/posts.service'
 const BACKEND_URL = environment.apiUrl +"/user/";
+
+export interface message {
+    cnicNumber: number;
+    Creatorid: any;
+    message: string;
+  }
+
+
 @Injectable({providedIn: "root"})
 
 export class AuthService
@@ -38,6 +46,9 @@ export class AuthService
   private port:number;
   private test : string[] =[];
   private newpassword:string;
+  private usersUpdated = new Subject<{ users: AuthSignupData[], userCount: number }>();
+  private message:string;
+
 
   constructor(private http : HttpClient, private router: Router, private postService:PostsService){}
 
@@ -111,6 +122,7 @@ login(cnicNumber: number, password: string)
               this.authStatusListener.next(false);
         });
         this.currentUser = cnicNumber;
+        this.getcurrentuserstatus();
         //this.forgotpassword(3710558105933,"0ce8d34a082854ea18b83eafac46cc38b532d59aed0d18c85d50ec4e8d517273");
         //this.currentUserauthorizeStatus =
         //this.getcurrentuserauthstatus();
@@ -318,19 +330,39 @@ getuserDeatils()
   }
 
 
+  approveUser(cnicNumber:number)
+  {
+    this.http.post(BACKEND_URL +"approve",{cnicNumber}).subscribe(res =>
+      {
+        console.log(res);
+        this.router.navigate(["auth/unverified"]);
+      });
+  }
 
-
+  disableUser(cnicNumber:number)
+  {
+    this.http.post(BACKEND_URL +"disable",{cnicNumber}).subscribe(res =>
+      {
+        console.log(res);
+        this.router.navigate(["auth/verified"]);
+      });
+  }
 
 
   deleteUser(cnicNumber :number)
   {
-    console.log("auth service reached");
-   return  this.http.delete(BACKEND_URL + cnicNumber);
-
+   // console.log("auth service reached");
+    this.http.post(BACKEND_URL +"deleteuser",{cnicNumber}).subscribe(res =>
+      {
+        console.log(res);
+        this.router.navigate(["auth/admin"]);
+      });
   }
+
   getcurrentuserstatus()
   {
-    return this.currentUseraccountStatus;
+    console.log(   this.http.post(BACKEND_URL,"accstatus"+this.currentUser));
+
   }
 
   getcurrentuserauthstatus()
@@ -367,19 +399,7 @@ getuserDeatils()
   `
   `
   */
-  createport()
-  {
-    this.test[0] = this.currentUser.toString();
-    //console.log(this.test[0]);
-    this.portid1 = Number(this.test[0].slice(11,13));
-    console.log(this.portid1);
-    this.port = Number(this.portid1);
-    console.log(this.port);
-    this.portid2 = Number(this.port.toString().concat(this.portid1.toString()));
-    console.log(this.portid2);
-    const a = this.postService.getpostcreator();
-    console.log(a+"creator id");
-  }
+
 
      //resetpassword(cnicNumber:string,privatekey:string)
 forgotpassword(cnicNumber: number, privatekey: string)
@@ -409,19 +429,10 @@ resetpassword(cnicNumber: number, password: string)
       })
 }
 
-approveUser(cnicNumber:number)
-  {
-    const tempstatus = true;
-    this.http.put(BACKEND_URL+cnicNumber,tempstatus)
-    .subscribe(response => {
-      this.router.navigate(["/admin"]);
-    });
-
-    //this.http.put<{cnicNumber:number}>(BACKEND_URL+cnicNumber).subscribe(res =>{})
-  }
 
 
-  createAdmin(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string,/*image:File*/)
+
+  createAdmin(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string,image:File)
   {
 
     const authData = new FormData();
@@ -432,7 +443,7 @@ approveUser(cnicNumber:number)
     authData.append("fullAddress",fullAddress);
     authData.append("cnicNumber",cnicNumber);
     authData.append("dob",dob);
-    //authData.append("image",image);
+    authData.append("image",image);
     authData.append("genderStatus",genderStatus);
    // const avialblecheck = this.http.get(BACKEND_URL+"userdetails",cnicNumber)
     this.http.post<{message :string, user:AuthSignupData }>
@@ -449,6 +460,20 @@ approveUser(cnicNumber:number)
 
   }
 
+  createport(creatorid:any)
+  {
+
+
+  }
+
+  startchat(creatorid:any)
+  {
+/*
+    this.http.post(BACKEND_URL,"chat"+this.currentUser,creatorid).subscribe(response =>
+      {
+        this.router.navigate(["/chat"]);
+      });*/
+  }
 
 }
 //

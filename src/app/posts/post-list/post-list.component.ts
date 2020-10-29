@@ -5,7 +5,13 @@ import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SearchComponent } from '../../search/search.component';
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+export interface Tile {
+  cols: number;
+  rows: number;
+}
 
 @Component({
   selector: 'app-post-list',
@@ -19,19 +25,51 @@ import { SearchComponent } from '../../search/search.component';
 export class PostListComponent implements OnInit, OnDestroy {
   count = 0;
   posts: Post[] = [];
+  curretnusercnicNumber: number;
   isloading = false;
   totalPosts = 0;
   postsPerPage = 2;
   currentPage = 1;
-  pageSizeOptions = [1, 2, 5, 10];
+  pageSizeOptions = [10, 15, 20, 25];
   userId: string;
   private postsSub: Subscription;
   private authServiceSub: Subscription;
   userIsAuthenticated = false;
   authorizedStatus:boolean;
-  constructor(public postsService: PostsService, private authService: AuthService) { }
+  searchform : FormGroup;
 
+
+  constructor(public postsService: PostsService, private authService: AuthService,private router: Router) { }
+
+  tiles: Tile[] = [
+    {cols: 1, rows: 2},
+    { cols: 3, rows: 1,},
+    { cols: 1, rows: 1,},
+    { cols: 2, rows: 1,},
+  ];
+
+/*
+tiles: Tile[] = [
+    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
+    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
+    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
+    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
+  ];
+
+*/
   ngOnInit() {
+
+    this.searchform= new FormGroup(
+      {
+      //basic car info
+        make : new FormControl(null),
+        model: new FormControl(null),
+        price: new FormControl(null),
+
+      }
+    );
+
+
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
     this.isloading = true;
     this.userId = this.authService.getUserId();
@@ -48,7 +86,8 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.userId = this.authService.getUserId();
     });
     this.count = this.posts.length % 3;
-    console.log(this.count);
+    this.curretnusercnicNumber = this.authService.getUsercnic();
+    //console.log(this.count);
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -72,11 +111,21 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.postsService.getsinglepost(postid);
   }
 
-
+  onLogout()
+  {
+    this.authService.logout();
+  }
 
   ngOnDestroy() {
     this.postsSub.unsubscribe();
     this.authServiceSub.unsubscribe();
+  }
+
+  onchat(creatorid: any)
+  {
+   //this.authService.createport(creatorid);
+   this.router.navigate(["/chat"]);
+   //this.authService.startchat(creatorid);
   }
 
   //end

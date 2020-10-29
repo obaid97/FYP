@@ -18,10 +18,16 @@ router.get('/',PostController.getPosts);
 //router.patch can also be used to patch only updated data and put can be used to full change data
 
 router.put("/:id",checkAuth,extractFile,PostController.updatePost);
+
 router.get("/cnic/:id",PostController.getcnicNumber);
+
 router.get('/:id',PostController.getPost);
-router.post('/search', SearchController.searchPosts);
+//router.post('/:id',PostController.getPost);
+
+router.get('/search/:searchText', SearchController.searchPosts);
+
 router.delete("/:id",checkAuth,PostController.deletePost);
+
 
 
 module.exports = router;

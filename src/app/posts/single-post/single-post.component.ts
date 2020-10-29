@@ -53,7 +53,7 @@ export class SinglePostComponent
   ngOnInit()
   {
 
-    const a = this.postsService.getpostobser();
+    //this.post = this.postsService.getsinglepost();
     console.log()
   }
 

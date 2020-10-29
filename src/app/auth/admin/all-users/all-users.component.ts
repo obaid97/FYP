@@ -5,6 +5,8 @@ import { PostsService } from '../../../posts/posts.service';
 import {Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 
 @Component(
   {
@@ -15,7 +17,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 
 export class AllUsersComponent
   {
-    unverifiedUsers: AuthSignupData[] = [];
+    allusers: AuthSignupData[] = [];
     isloading =false;
     totalUnverifiedUsers = 0;
     unverifiedUsersPerPage = 5;
@@ -33,25 +35,15 @@ export class AllUsersComponent
 
 
 
-    constructor(public authService: AuthService)
+    constructor(public authService: AuthService,public route: ActivatedRoute, private _formBuilder: FormBuilder,private router: Router)
     {}
 
 
     ngOnInit()
       {this.isloading=true;
-        this.unverifiedUsers = this.authService.getallUsers();
-
-      // this.userId = this.authService.getUserId();
-        /*this.authServiceSub = this.authService.getUnverifiedUsersupdate()
-          .subscribe((userData: {unverifiedUsers:AuthSignupData[], unverifiedUsersCount:number})=>
-          {
-            this.isloading=false;
-            this.totalUnverifiedUsers = userData.unverifiedUsersCount;
-            this.unverifiedUsers = userData.unverifiedUsers;
-          });
-          this.userIsAuthenticated = this.authService.getIsAuth();
-    */
+        this.allusers = this.authService.getallUsers();
         this.isloading=false;
+
       }
 
 
@@ -68,18 +60,25 @@ export class AllUsersComponent
     onDelete(cnicNumber: number)
     {
       this.isloading = true;
-      this.authService.deleteUser(cnicNumber).subscribe(()=>
-      {
-        this.authService.getUnverifiedUsers();
-      },()=>
-      {
-        this.isloading=false;
-      });
-    }
+      this.authService.deleteUser(cnicNumber);
+      this.isloading=false;
+      this.router.navigate(['auth/allusers'])
+      .then(() => {
 
-    onApprove(cnicNumber:number)
+      window.location.reload();
+      this.authService.getallUsers();
+  });
+}
+
+    ondisbale(cnicNumber:number)
     {
       this.isloading=true;
-
+      this.authService.disableUser(cnicNumber);
+      this.isloading=false;
+      this.router.navigate(['auth/allusers'])
+      .then(() => {
+      window.location.reload();
+      this.authService.getallUsers();
+      });
     }
   }

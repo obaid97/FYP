@@ -19,16 +19,6 @@ interface genericarray {
   viewValue: string;
 }
 
-interface features
-{
-  group: string;
-  value: string;
-  viewValue: string;
-}
-interface features_hold
-{
-  value: string;
-}
 export interface Fruit {
   name: string;
 }
@@ -60,18 +50,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
   assembly: genericarray[] = [{value: 'local', viewValue: 'Local'},{value: 'imported', viewValue: 'Imported'}];
   make: genericarray[] = [{value: 'Toyota', viewValue: 'Toyota'},{value: 'Suzuki', viewValue: 'Suzuki'},{value: 'Honda', viewValue: 'Honda'},{value: 'BMW', viewValue: 'BMW'},{value: 'Audi', viewValue: 'Audi'}];
   exteriorcolor: genericarray[] = [{value: 'Red', viewValue: 'Red'},{value: 'White', viewValue: 'White'},{value: 'Black', viewValue: 'Black'},{value: 'Silver', viewValue: 'Silver'},{value: 'Blue', viewValue: 'Blue'},{value: 'Green', viewValue: 'Green'},{value: 'Yellow', viewValue: 'Yellow'}];
- /*
-  all_features :features[]=[{group: 'features',value:'ABS',viewValue: 'ABS'},{group: 'features',value:'Air Bags',viewValue: 'Air Bags'},{group: 'features',value:'Air Conditioning',viewValue: 'Air Conditioning'},
-  {group: 'features',value:'Alloy Rims',viewValue: 'Alloy Rims'},{group: 'features',value:'AM/FM Radio',viewValue: 'AM/FM Radio'},{group: 'features',value:'CD Player',viewValue: 'CD Player'},
-  {group: 'features',value:'Cassette Player',viewValue: 'Cassette Player'},{group: 'features',value:'Cool Box',viewValue: 'Cool Box'},{group: 'features',value:'Cruise Control',viewValue: 'Cruise Control'},
-  {group: 'features',value:'Climate Control',viewValue: 'Climate Control'},{group: 'features',value:'DVD Player',viewValue: 'DVD Player'},{group: 'features',value:'Front Speakers',viewValue: 'Front Speakers'},
-  {group: 'features',value:'Front Camera',viewValue: 'Front Camera'},{group: 'features',value:'Heated Seats',viewValue: 'Heated Seats'},{group: 'features',value:'Immobilizer Key',viewValue: 'Immobilizer Key'},
-  {group: 'features',value:'Keyless Entry',viewValue: 'Keyless Entry'},{group: 'features',value:'Navigation System',viewValue: 'Navigation System'},{group: 'features',value:'Power Locks',viewValue: 'Power Locks'},
-  {group: 'features',value:'Power Mirrors',viewValue: 'Power Mirrors'},{group: 'features',value:'Power Steering',viewValue: 'Power Steering'},{group: 'features',value:'Power Windows',viewValue: 'Power Windows'},
-  {group: 'features',value:'Rear Seat Entertainment',viewValue: 'Rear Seat Entertainment'},{group: 'features',value:'Rear AC Vents',viewValue: 'Rear AC Vents'},{group: 'features',value:'Rear speakers',viewValue: 'Rear speakers'},
-  {group: 'features',value:'Rear Camera',viewValue: 'Rear Camera'},{group: 'features',value:'Sun Roof',viewValue: 'Sun Roof'},{group: 'features',value:'Steering Switches',viewValue: 'Steering Switches'},
-  {group: 'features',value:'USB and Auxillary Cable',viewValue: 'USB and Auxillary Cable'}];
-*/
+
 
   allfeatures : string[] =['ABS','Air Bags','Air Conditioning','Alloy Rims','AM/FM Radio','CD Player','Cassette Player','Cool Box','Cruise Control',
   'Climate Control','DVD Player','Front Speakers',
@@ -173,7 +152,6 @@ export class PostCreateComponent implements OnInit, OnDestroy
         //images
         image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]  }),
 
-
         //additional information
         enginetype : new FormControl(null,{validators:[ Validators.required ]}),
         enginecapacity : new FormControl(null,{validators:[ Validators.required ]}),
@@ -214,7 +192,7 @@ export class PostCreateComponent implements OnInit, OnDestroy
              assembly: postData.assembly,
              features: postData.features,
              mobilenumber: postData.mobilenumber.toString(),
-            creator: postData.creator
+             creator: postData.creator
           };
           this.form.setValue(
             {

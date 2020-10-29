@@ -1,0 +1,19 @@
+.break_heading
+{
+  height: 1rem;
+}
+mat-expansion-panel-header
+{
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  word-spacing: 1.5px;
+  border-bottom: 1px solid rgb(150, 148, 148);
+}
+ mat-expansion-panel
+ {
+  margin-bottom: 10px;
+   font-weight: 400;
+   letter-spacing:1px;
+   word-spacing: 1.5px;;
+ }
+

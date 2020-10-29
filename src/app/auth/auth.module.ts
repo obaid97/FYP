@@ -31,7 +31,8 @@ import { UnverifiedUsersComponent } from './admin/unverified-users/unverified-us
       AngularMaterialModule,
       FormsModule,
       ReactiveFormsModule,
-      AuthRoutingModuel
+      AuthRoutingModuel,
+
     ]
 })
 

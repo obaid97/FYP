@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
 
 
-const SOCKET_ENDPOINT = 'localhost:5000';
 
+const SOCKET_ENDPOINT = 'localhost:5000';
 
 
 @Component({
