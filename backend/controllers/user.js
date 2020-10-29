@@ -654,9 +654,9 @@ exports.sendemail = (req,res,next) =>
   let user =req.body;
 
 
-  console.log(user.message);
+ /* console.log(user.message);
   console.log(user.email);
-  console.log(user.subject);
+  console.log(user.subject);*/
 
  async function main() {
 

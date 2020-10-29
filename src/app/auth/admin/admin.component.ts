@@ -91,5 +91,8 @@ onApprove(cnicNumber:number)
   this.authService.approveUser(cnicNumber);
   this.isloading=false;
 }
-
+onLogout()
+    {
+      this.authService.logout();
+    }
 }

@@ -78,7 +78,7 @@
     <a routerLink='/auth/createblog' routerLinkActive="mat-accent">Create Blog</a>
     <a routerLink='/auth/allblogs' routerLinkActive="mat-accent">All Blogs</a>
 -->
-<div class="container" style="margin-top: 7.2rem; width:125.6; margin-left:-10.2rem;">
+<div class="container" style="width:125.6; margin-left:-10.2rem;">
 <div class="sidebar">
   <a class="active"  routerLink='/auth/admin'>Home</a>
   <a routerLink='/auth/create-admin'>Create Admin</a>
@@ -87,6 +87,8 @@
   <a routerLink='/auth/verified'>Verified Users</a>
   <a routerLink='/auth/createblog' routerLinkActive="mat-accent">Create Blog</a>
   <a routerLink='/auth/allblogs' routerLinkActive="mat-accent">All Blogs</a>
+  <a (click)="onLogout()">Logout</a>
+
 </div>
 
 <div class="content" >

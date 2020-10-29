@@ -100,4 +100,10 @@ import { mimeType } from 'src/app/posts/post-create/mime-type.validator';
     reader.readAsDataURL(file);
     //reader.onload and reader.readAsDataURL works asynchronusly
   }
+
+  onLogout()
+  {
+    this.authService.logout();
+  }
+
   }

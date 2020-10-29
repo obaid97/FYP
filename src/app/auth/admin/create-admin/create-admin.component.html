@@ -2,15 +2,17 @@
 <div class="container-fluid">
 
 
-    <div class="sidenav">
-      <a  routerLink='/auth/admin' routerLinkActive="mat-accent">Dashboard</a>
-      <a  routerLink='/auth/create-admin' routerLinkActive="mat-accent">Create Admin</a>
-      <a routerLink='/auth/allusers' routerLinkActive="mat-accent">All Users</a>
-      <a routerLink='/auth/unverified' routerLinkActive="mat-accent">Unverified Users</a>
-      <a routerLink='/auth/verified' routerLinkActive="mat-accent">Verified Users</a>
-      <a routerLink='/auth/createblog' routerLinkActive="mat-accent">Create Blog</a>
-      <a routerLink='/auth/allblogs' routerLinkActive="mat-accent">All Blogs</a>
-    </div>
+  <div class="sidebar">
+    <a class="active"  routerLink='/auth/admin'>Home</a>
+    <a routerLink='/auth/create-admin'>Create Admin</a>
+    <a routerLink='/auth/allusers'>All Users</a>
+    <a routerLink='/auth/unverified' >Unverified Users</a>
+    <a routerLink='/auth/verified'>Verified Users</a>
+    <a routerLink='/auth/createblog' routerLinkActive="mat-accent">Create Blog</a>
+    <a routerLink='/auth/allblogs' routerLinkActive="mat-accent">All Blogs</a>
+    <a (click)="onLogout()">Logout</a>
+
+  </div>
 
 <div class="main">
   <form [formGroup]="signupform" (submit)="onSignup()"  *ngIf="!isloading">
