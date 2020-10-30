@@ -5,7 +5,20 @@ const bodyparser = require("body-parser");
 const path = require('path');
 const app = express();
 var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+var io = require('socket.io')(http,{
+  handlePreflightRequest: (req, res) => {
+      const headers = {
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+          "Access-Control-Allow-Credentials": true
+      };
+      res.writeHead(200, headers);
+      res.end();
+  }
+});
+
+
+
 //newProjectRoot
 const User = require("./models/user");
 
@@ -14,6 +27,11 @@ const postsRoutes = require("./routes/posts");
 const mongoose = require("mongoose");
 const { json } = require('body-parser');
 const userRoutes = require('./routes/user');
+const checkSocket = require('./middleware/checkSocket');
+const { Socket } = require('socket.io-client');
+const socketController = require('./controllers/socket');
+
+const chatController = require('./controllers/chat');
 
 
 //resmongo "mongodb+srv://cluster0.lz7af.mongodb.net/<dbname>" --username muzammil
@@ -39,14 +57,113 @@ app.use("/userimages", express.static(path.join("backend/userimages")));
 
 
 app.get('/', (req, res) => res.send('hello!'));
+
+
+
 io.on('connection', (socket) => {
-  //console.log('a user connected');
+  // console.log(socket.id+ " socket id",socket.handshake);
+
+if ( socket.handshake.headers.authorization){
+
+  socket.userData = checkSocket(socket.handshake.headers.authorization)
+
+  socketController.authUser(socket);
+
+
+  }
+
+  // else{
+  //   console.log("ELse");
+  //   io.close()
+  // }
+
   socket.on('message', (msg) => {
     //console.log(msg);
     socket.broadcast.emit('message-broadcast', msg);
    });
+
+
+   socket.on('sendMessage',(data, callback) => {
+    console.log("Sending message",data);
+    // console.log("CALLBACK",callback);
+
+    chatController.sendChatMessage(data, socket, callback)
+
+   });
+
 });
 
+
+
+
+// var socketioJwt = require('socketio-jwt');
+
+// io.sockets
+//   .on('connection', socketioJwt.authorize({
+//     secret: process.env.JWT_KEY,
+//     timeout: 15000 // 15 seconds to send the authentication message
+//   })).on('authenticated', function(socket) {
+
+//   console.log("AUthenticated: ",socket.id);
+
+//   //  SocketModel.findOne({ where: { userId:socket.decoded_token.id } }).then(data=>{
+//   //   if(data){
+//   //       //update the socket record for existing users
+//   //   SocketModel.findOne({ where: { userId:socket.decoded_token.id,
+//   //                                  socketId: {[Sequelize.Op.ne]: socket.id}
+
+//   //   } })
+//   //   .then(record => {
+//   //       if (!record) {
+//   //          console.log('No need to update...');
+//   //       }
+//   //       record.update({
+//   //           socketId: socket.id
+//   //       }).then(updatedRecord => {
+//   //           console.log("Socket ID updated");
+
+//   //       })
+//   //   })
+//   //   .catch((error) => {
+//   //       // do seomthing with the error
+//   //       console.log(error);
+//   //   })
+
+//   //   }else{
+//   //       //create a new record
+
+//   //       SocketModel.create({
+//   //           userId: socket.decoded_token.id,
+//   //           socketId: socket.id
+//   //       }).then(data => {
+//   //           console.log("Socket ID saved");
+
+//   //       }).catch(err => {
+//   //           console.log("Err: ", err);
+
+//   //       })
+
+//   //   }
+//   //  });
+
+
+
+
+//     socket.on('test', ()=>{
+//         console.log("Hayy!");
+
+
+//     })
+//     socket.on('tes2t', ()=>{
+//         console.log("Hayy!");
+
+//     })
+
+//     //this socket is authenticated, we are good to handle more events from it.
+//     console.log('hello! ' + JSON.stringify(socket.decoded_token));
+//   }).on('unauthorized', (msg) => {
+//     console.log(`unauthorized: ${JSON.stringify(msg.data)}`);
+//   })
 
 
 

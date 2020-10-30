@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { mimeType } from '../../posts/post-create/mime-type.validator';
 import { AuthSignupData } from '../auth-signup-data.model';
 import { PageEvent } from '@angular/material/paginator';
+
 export interface userData
 {
   fullName:string;
@@ -51,7 +52,7 @@ export class UserProfileComponent implements OnInit
   authorizedStatus:boolean;
   try:any[];
 
-  userdetails: AuthSignupData[] = [];
+  userdetails: any
 
   totalUnverifiedUsers = 0;
 
@@ -60,19 +61,34 @@ export class UserProfileComponent implements OnInit
   verified:boolean ;
 
   constructor(public authService: AuthService)
-{}
+{
+
+  this.authService.getuserDeatils().subscribe(data =>{
+    this.userdetails= data
+},err=>{
+  console.log(err);
+
+});
+}
 
 
   ngOnInit()
 {
-  this.isloading=true;
-  //this.userdetails = this.authService.getuserDeatils();
-  this.isloading=false;
+
   //this.authService.getuserDeatils();
   //this.currentusercnic = this.authService.getUsercnic();
   //console.log(this.authService.getuserDeatils());
  // alert(this.userdf);
   //alert(this.fullName);
+
+
+  this.isloading=true;
+
+  // console.log( this.authService.getcurrentuserdetails());
+  this.isloading=false;
+
+  console.log(this.userdetails);
+
 
 }
 

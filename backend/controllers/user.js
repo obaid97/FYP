@@ -156,7 +156,7 @@ exports.userLogin= (req,res,next) =>
 exports.userdetails = (req,res,next) =>
 {
 
-User.find({cnicNumber: req.params.cnicNumber}).then(result =>{
+User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
 
   if(result)
   {
@@ -663,18 +663,6 @@ exports.sendemail = (req,res,next) =>
     let testAccount = await nodemailer.createTestAccount();
 
 
-/*
-    let transporter = nodemailer.createTransport({
-      //host: "smtp.ethereal.email",
-       host: "smtp.ethereal.email",
-      port: 587,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: 'janelle.bednar@ethereal.email ', // generated ethereal user
-        pass: 'QcqXte9FC6RPC539dT', // generated ethereal password
-      },
-    });*/
-
     let transporter = nodemailer.createTransport({
       //host: "smtp.ethereal.email",
        host: "smtp.gmail.com",
@@ -696,14 +684,7 @@ exports.sendemail = (req,res,next) =>
     // send mail with defined transport object
     const info = await transporter.sendMail(msg);
 
-   // console.log("Message sent: %s", info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-    // Preview only available when sending through an Ethereal account
-
-    //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
   main().catch(console.error);

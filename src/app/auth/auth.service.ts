@@ -48,7 +48,7 @@ export class AuthService
   private newpassword:string;
   private usersUpdated = new Subject<{ users: AuthSignupData[], userCount: number }>();
   private message:string;
-
+  private curretnuserdetails:any;
 
   constructor(private http : HttpClient, private router: Router, private postService:PostsService){}
 
@@ -255,20 +255,16 @@ login(cnicNumber: number, password: string)
 
 getuserDeatils()
 {
-  this.http.get<{ user:any }>(BACKEND_URL+"/userdetails/"+this.currentUser)
-   .subscribe(response =>
-    {
-      var i;
-      for (i = 0; i < response.user.length; i++)
-      {
-        this.userdet[i] = response.user[i];
-      }
 
-    })
+console.log(BACKEND_URL+"userdetails");
 
-    return this.userdet;
+  return  this.http.get<{ user:any }>(BACKEND_URL+"userdetails")
 }
 
+getcurrentuserdetails()
+{
+  return this.curretnuserdetails;
+}
 
 
   verifieduserdata(verifieduser:any)
@@ -494,7 +490,7 @@ resetpassword(cnicNumber: number, password: string)
     };
     this.http.post(BACKEND_URL +"mail",mail).subscribe(data =>
       {
-        //let res:any =data;
+        let res:any =data;
         //console.log(res);
         this.router.navigate(["/contactus"]);
       });
