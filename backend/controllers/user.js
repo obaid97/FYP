@@ -427,6 +427,41 @@ exports.forgotpassword= (req,res,next) =>
             ({
               message:"Successfully updated password",
               result:newpass});
+
+
+              async function main() {
+
+                let testAccount = await nodemailer.createTestAccount();
+
+
+                let transporter = nodemailer.createTransport({
+                  //host: "smtp.ethereal.email",
+                   host: "smtp.gmail.com",
+                  port: 587,
+                  secure: false, // true for 465, false for other ports
+                  auth: {
+                    user: 'muzammilwaqar02@gmail.com ', // generated ethereal user
+                    pass: 'leomuzi6894', // generated ethereal password
+                  },
+                })
+
+                const msg ={
+                  from: "muzammilwaqar02@gmail.com", /*muzammilwaqar02@gmail.com*/// if not working send through this
+                  to: foundobject.email, // list of receivers
+                  subject: "New Password" , // Subject line
+                  text:"Your New Password is : "+"  -  "+ newpass // plain text body
+                };
+
+                // send mail with defined transport object
+                const info = await transporter.sendMail(msg);
+
+
+            }
+
+              main().catch(console.error);
+
+
+
           }
         })
           });

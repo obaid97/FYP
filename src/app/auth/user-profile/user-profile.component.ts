@@ -64,7 +64,9 @@ export class UserProfileComponent implements OnInit
 {
 
   this.authService.getuserDeatils().subscribe(data =>{
-    this.userdetails= data
+    let dataincome= data;
+    this.userdetails = dataincome.user;
+    console.log(this.userdetails);
 },err=>{
   console.log(err);
 
@@ -75,13 +77,11 @@ export class UserProfileComponent implements OnInit
   ngOnInit()
 {
 
-  this.userIsAuthenticated = this.authService.getIsAuth();
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
     this.userIsAuthenticated = isAuthenticated;
     this.accountStatus = this.authService.getcurrentuserstatus();
 
-    //this.authorizedStatus =
-     //console.log(this.authService.getcurrentuserauthorizestatus()+ " - header");
    if(this.accountStatus == "user")
    {
      this.userandadminstatus = true;
@@ -105,7 +105,6 @@ export class UserProfileComponent implements OnInit
   // console.log( this.authService.getcurrentuserdetails());
   this.isloading=false;
 
-  console.log(this.userdetails);
 
 
 }

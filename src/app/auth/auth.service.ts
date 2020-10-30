@@ -409,10 +409,11 @@ forgotpassword(cnicNumber: number, privatekey: string)
       this.http.post<{password:string}>(BACKEND_URL+"login",authData)
       .subscribe(response =>
         {
-          console.log(response);
-          console.log(response.password);
+          //console.log(response);
+          //console.log(response.password);
+          this.router.navigate(["/auth/login"]);
         })
-
+        this.router.navigate(["/auth/login"]);
 }
 
 resetpassword(cnicNumber: number, password: string)
