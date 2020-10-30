@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
 import * as io from 'socket.io-client';
 import { PostsService } from 'src/app/posts/posts.service';
 import { AuthService } from '../auth.service';
@@ -19,6 +20,11 @@ export class ChatInboxComponent implements OnInit {
   socket;
   message: string;
   usertoken:string;
+  userIsAuthenticated = false;
+  private authListenerSubs: Subscription;
+  accountStatus :any;
+  userandadminstatus:boolean;
+
 
   constructor(public authService: AuthService, public postService:PostsService) {
     this.usertoken =this.authService.getToken();
@@ -29,7 +35,22 @@ export class ChatInboxComponent implements OnInit {
   {
     this.setupSocketConnection();
     this.usertoken =this.authService.getToken();
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.userIsAuthenticated = isAuthenticated;
+    this.accountStatus = this.authService.getcurrentuserstatus();
 
+    //this.authorizedStatus =
+     //console.log(this.authService.getcurrentuserauthorizestatus()+ " - header");
+   if(this.accountStatus == "user")
+   {
+     this.userandadminstatus = true;
+   }
+   else
+   {
+     this.userandadminstatus = false;
+   }
+  });
   }
 
   /*setupSocketConnection() {
@@ -113,9 +134,15 @@ SendMessage() {
 
   element.style.background = 'green';
 
+  element.style.color="white"
+
+  element.style.fontSize="14px"
+
   element.style.padding =  '15px 30px';
 
   element.style.margin = '10px';
+
+  element.style.borderRadius = "20px 20px 20px 20px";
 
   element.style.textAlign = 'right';
 
@@ -123,6 +150,12 @@ SendMessage() {
 
   this.message = '';
 
+}
+
+
+onLogout()
+{
+  this.authService.logout();
 }
 
 }

@@ -48,12 +48,12 @@ export class UserProfileComponent implements OnInit
   dob:Date;
   phoneNumber:string;
   genderStatus:string;
-  accountStatus:string;
+  accountStatus:any;
   authorizedStatus:boolean;
   try:any[];
-
+  private authListenerSubs: Subscription;
   userdetails: any
-
+  userandadminstatus:boolean;
   totalUnverifiedUsers = 0;
 
   currentPage = 1;
@@ -74,6 +74,24 @@ export class UserProfileComponent implements OnInit
 
   ngOnInit()
 {
+
+  this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+    this.userIsAuthenticated = isAuthenticated;
+    this.accountStatus = this.authService.getcurrentuserstatus();
+
+    //this.authorizedStatus =
+     //console.log(this.authService.getcurrentuserauthorizestatus()+ " - header");
+   if(this.accountStatus == "user")
+   {
+     this.userandadminstatus = true;
+   }
+   else
+   {
+     this.userandadminstatus = false;
+   }
+  });
+
 
   //this.authService.getuserDeatils();
   //this.currentusercnic = this.authService.getUsercnic();
@@ -101,7 +119,10 @@ onedit()
 
 }
 
-
+onLogout()
+{
+  this.authService.logout();
+}
 onDelete()
 {
 
