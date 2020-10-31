@@ -179,32 +179,49 @@ exports.searchPosts = (req, res, next) => {
   let condition;
   let index;
   let conditionMapping = {
-    price : { price: { $lt: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min  } },
     model: { model: new RegExp(req.body.model) },
-    brand: { brand: new RegExp(req.body.brand) },
+    make: { make: new RegExp(req.body.make) },
     city: { city: new RegExp(req.body.city) },
-    color: { color: new RegExp(req.body.color) },
+    exteriorcolor: { exteriorcolor: new RegExp(req.body.exteriorcolor) },
   }
-  Object.values(req.body).forEach((element) => {
+  if(req.body.price !== null) {
+    conditionMapping = Object.assign({price : { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min  }}}, conditionMapping);
+  }
+  console.log("request", conditionMapping);
+  Object.values(req.body).forEach((element, ind) => {
+    console.log("insidefirstloop", element);
     if(element !== null) {
-      index = element.index;
+      console.log("elem", element);
+      index = ind;
+      console.log("elemind", index);
       count++;
     }
   });
 
+  console.log("count", count);
   if(count < 2) {
-      condition = conditionMapping[Object.keys[index]];
+    console.log("insidefirstif", Object.keys(req.body)[index]);
+    console.log("insidefirstifcondi", conditionMapping[Object.keys(req.body)[index]]);
+      condition = conditionMapping[Object.keys(req.body)[index]];
+      console.log("iii", condition);
   } else if (count >= 2) {
+    console.log("insideelseif",count);
     let condArray = [];
-    Object.values(req.body).forEach(element => {
+    Object.values(req.body).forEach((element, ind) => {
       if(element !== null) {
-        condArray.push(conditionMapping[Object.keys(req.body)[element.index]])
+        console.log("elementeseif", element);
+        console.log("elementeseimapppinf", Object.keys(req.body));
+        console.log("elementeseimapppinf1", Object.keys(req.body)[ind]);
+        console.log("elementeseimapppinf2", conditionMapping[Object.keys(req.body)[ind]]);
+        condArray.push(conditionMapping[Object.keys(req.body)[ind]])
       }
+      console.log(condArray);
     });
     condition = {$and: condArray}
   }
-  
+ // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
   Post.find(condition).then(documents => {
+    console.log("results", documents);
     fetchedPosts = documents
     return Post.count();
   }).then(count => {
