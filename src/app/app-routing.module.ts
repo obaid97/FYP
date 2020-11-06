@@ -17,6 +17,8 @@ import { FAQComponent } from './FAQ/FAQ.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { AboutUsComponent } from './About-us/About-us.component';
 import { SingleBlogComponent } from './blog/single-blog/single-blog.component';
+import { EditUserProfileComponent } from './auth/user-profile/edit-details/edit-details.component';
+
 
 const routes: Routes=[
   { path:'', component: HomeComponent },
@@ -30,7 +32,7 @@ const routes: Routes=[
   { path:'faq', component:FAQComponent },
   { path:'contactus', component:ContactUsComponent },
   { path:'about', component:AboutUsComponent },
-
+  { path:'editprofile',component:EditUserProfileComponent },
   { path:'userdetail/:userId', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path:'smartcontract', component: SmartContractComponent, canActivate: [AuthGuard] },
   { path:'forgotpassword',component:ForgotPasswordComponent},

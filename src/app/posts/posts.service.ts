@@ -256,4 +256,13 @@ getPost(id: string) {
   }*/
 
   //this bracket is last below
+
+
+
+  getuserposts(userid: string)
+  {
+    console.log(userid);
+   return this.http.get<{ posts:any }>(BACKEND_URL+"userposts/"+userid);
+  }
+
 }

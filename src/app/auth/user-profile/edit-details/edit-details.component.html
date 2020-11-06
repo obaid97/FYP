@@ -1,0 +1,104 @@
+<div class="container">
+
+<mat-card class="main_card" *ngIf="userdetails">
+  <div class="help-tip">
+    <p>All Fields are not allowed to be chnaged such as Full Name, CNIC Number. If you any issues head over to <a routerLink="/contactus">Contact Us</a> and send an email</p>
+  </div>
+  <mat-card-header>
+    <h2 Class="edit_header">
+      Edit Profile Details
+    </h2>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="editform" (submit)="oneditsave()"  *ngIf="!isloading">
+    <table style="width: 100%; border: 0">
+      <h3 style="margin-left:3rem;margin-top:1rem;margin-bottom: 0;font-weight: 400; font-size:18px;">&#8595; Not Changeable:  </h3>
+      <tr>
+        <td style="margin-left:15%; margin-right:15%;" colspan="1">
+          Full Name :
+          <mat-form-field  >
+            <input class="input_smal disabled_field main_card" type="text" value={{userdetails.fullName}} disabled="disabled" formControlName="fullName">
+          </mat-form-field>
+        </td>
+        <td style="margin-left:auto; margin-right:auto;">
+          Gender :
+          <mat-form-field>
+            <input type="text" value="{{userdetails.genderStatus}}" disabled formControlName="genderStatus">
+          </mat-form-field>
+        </td>
+
+      </tr>
+      <tr>
+        <td style="margin-left:auto; margin-right:auto;">
+          Date of Birth:
+          <mat-form-field>
+            <input type="text" value={{userdetails.dob}} disabled formControlName="dob">
+          </mat-form-field>
+        </td>
+        <td style="margin-left:15%; margin-right:15rem;" colspan="1">
+          C.N.I.C Number :
+          <mat-form-field >
+            <input class="input_smal disabled_field main_card" type="text" value={{userdetails.cnicNumber}} disabled formControlName="cnicNumber">
+          </mat-form-field>
+        </td>
+      </tr>
+      <h3 style="margin-left:3rem;margin-top:1rem;margin-bottom: 0;font-weight: 400; font-size:18px;">&#8595; Changeable:  </h3>
+      <tr>
+
+        <td style="margin-left:20%; margin-right:20%;" colspan="1">
+          Email :
+          <mat-form-field >
+            <input class="input_smal main_card" type="text" value={{userdetails.email}} formControlName="email">
+          </mat-form-field>
+        </td>
+        <td style="margin-left:auto; margin-right:auto;">
+          Password :
+          <mat-form-field>
+            <input type="password" placeholder="********" formControlName="password">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td style="margin-left:auto; margin-right:auto;">
+          Phone Number :
+          <mat-form-field>
+            <input type="text" placeholder="0308555555" formControlName="phoneNumber">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" style="margin-left:auto; margin-right:auto;">
+          Address :
+          <mat-form-field style="width: 100%;">
+             <input type="text" style="width:100%;" value="{{userdetails.fullAddress}}" formControlName="fullAddress">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td style="margin-left:auto; margin-right:auto;">
+          <div>
+            <button mat-stroked-button type="button" (click)="filepicker.click()">Choose Profile Pic</button>
+            <input type="file" #filepicker (change)="onImagePicked($event)" multiple>
+          </div>
+        </td>
+        <td style="margin-left:auto; margin-right:auto;">
+          <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && editform.get('image').valid">
+            <img [src]="imagePreview" [alt]="editform.value.fullName" width="150px" height="150px">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+  </mat-card-content>
+  <mat-card-footer>
+    <button class="submit_button "  type="submit" mat-raised-button>Submit </button>
+  </mat-card-footer>
+</mat-card>
+<!--
+
+  <div class="help-tip">
+    <p>This is the inline help tip! It can contain all kinds of HTML. Style it as you please.</p>
+</div>
+
+-->
+</div>

@@ -230,18 +230,18 @@
       <div mat-card-avatar class="example-header-image"></div>
     </mat-card-header>
     <mat-card-content *ngIf="userdetails">
-       <p><b>Full Name :</b> {{userdetails.fullName}}</p><br>
-       <p><b>CNIC : </b> {{userdetails.cnicNumber}}</p><br>
-        <p><b>Email: </b> {{userdetails.email}}</p><br>
-        <p><b>Address: </b> {{userdetails.fullAddress}}</p><br>
-        <p><b>Phone number: </b> {{userdetails.phoneNumber}}</p><br>
-        <p><b>Date of birth: </b> {{userdetails.dob}}</p><br>
-        <p><b>Gender: </b>{{ userdetails.genderStatus}}</p><br>
-        <p><b>Private Key: </b> {{userdetails.privateKey}}</p>
+       <p class="showfield"><b>Full Name :</b> {{userdetails.fullName}}</p><br>
+       <p class="showfield"><b>CNIC : </b> {{userdetails.cnicNumber}}</p><br>
+        <p class="showfield"><b>Email: </b> {{userdetails.email}}</p><br>
+        <p class="showfield"><b>Address: </b> {{userdetails.fullAddress}}</p><br>
+        <p class="showfield"><b>Phone number: </b> {{userdetails.phoneNumber}}</p><br>
+        <p class="showfield"><b>Date of birth: </b> {{userdetails.dob}}</p><br>
+        <p class="showfield"><b>Gender: </b>{{ userdetails.genderStatus}}</p><br>
+        <p class="showfield"><b>Private Key: </b> {{userdetails.privateKey}}</p>
     </mat-card-content>
     <mat-card-actions>
         <button mat-raised-button color="accent" class="edit-btn" (click)="onedit()" >Edit Deatils</button>
-        <button mat-raised-button color="warn" class="delete-btn" (click)="onDelete()">Delete Account</button>
+        <button mat-raised-button color="warn" class="delete-btn" (click)="onuserDelete()">Delete Account</button>
     </mat-card-actions>
 </mat-card>
 <mat-card class="report-card">
@@ -252,8 +252,40 @@
 </mat-card>
 </div>
 <div>
-  <mat-card>
-    <h2>all posts</h2>
+  <mat-card *ngIf="allposts">
+    <h2>Total Ads : "{{allposts.length}}"</h2>
+    <mat-card *ngFor="let post of allposts" style="margin-bottom:10px;">
+      <div class="row">
+        <div class="col col-xs-3 col-md-3 col-sm-3 col-lg-3 col-xl-3" >
+          <img [src]="post.imagePath" width="180px" height="100px">
+        </div>
+        <div class="col col-xs-3 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+          <ul>
+            <li><b>Make : </b> {{post.make}}</li>
+            <li><b>Model : </b>{{post.model}}</li>
+            <li><b>Color : </b>{{post.exteriorcolor}}</li>
+            <li><b>Current City : </b>{{post.city}}</li>
+            <li><b>Assembly : </b>{{post.assembly}}</li>
+          </ul>
+        </div>
+        <div class="col col-xs-3 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+          <ul>
+            <li><b>Price : </b>{{post.price}}</li>
+            <li><b>Engine Type : </b>{{post.enginetype}}</li>
+            <li><b>Engine Capacity : </b>{{post.enginecapacity}}cc</li>
+            <li><b>Transmission : </b>{{post.transmission}}</li>
+            <li><b>Registration City : </b>{{post.registrationcity}}</li>
+          </ul>
+        </div>
+        <div class="col col-xs-3 col-md-3 col-sm-3 col-lg-3 col-xl-3">
+          <ul>
+            <li style="list-style-type: none;"><a style="margin-right: 15px;"  mat-flat-button color="primary" class="action-buttons" [routerLink]="['/edit',post._id]" > EDIT</a></li>
+            <li style="list-style-type: none;"></li>
+            <li style="list-style-type: none;"><a style="margin: 15px;"  mat-flat-button color="warn" class="action-buttons" (click)="onpostDelete(post._id)" > DELETE</a></li>
+          </ul>
+        </div>
+      </div>
+    </mat-card>
   </mat-card>
 </div>
 
@@ -325,3 +357,31 @@
         <br class="clear" />
     </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+  $("#myCarousel").on("slide.bs.carousel", function(e) {
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 3;
+    var totalItems = $(".carousel-item").length;
+
+    if (idx >= totalItems - (itemsPerSlide - 1)) {
+      var it = itemsPerSlide - (totalItems - idx);
+      for (var i = 0; i < it; i++) {
+        // append slides to end
+        if (e.direction == "left") {
+          $(".carousel-item")
+            .eq(i)
+            .appendTo(".carousel-inner");
+        } else {
+          $(".carousel-item")
+            .eq(0)
+            .appendTo($(this).find(".carousel-inner"));
+        }
+      }
+    }
+  });
+});
+
+</script>

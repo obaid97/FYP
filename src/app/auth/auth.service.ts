@@ -256,7 +256,7 @@ login(cnicNumber: number, password: string)
 getuserDeatils()
 {
 
-console.log(BACKEND_URL+"userdetails");
+//console.log(BACKEND_URL+"userdetails");
 
   return  this.http.get<{ user:any }>(BACKEND_URL+"userdetails")
 }
@@ -499,6 +499,22 @@ resetpassword(cnicNumber: number, password: string)
 
   //this.router.navigate(["/contactus"]);
   }
+
+
+  edituserdetails(cnicNumber:string, email:string, password:string, phoneNumber:string, fullAddress:string,image:File)
+  {
+    const authData = new FormData();
+    authData.append("cnicNumber",cnicNumber);
+    authData.append("email", email);
+    authData.append("password", password);
+    authData.append("phoneNumber", phoneNumber);
+    authData.append("fullAddress", fullAddress);
+    authData.append("profileimage", image);
+
+    this.http.post(BACKEND_URL+"updateuserdetails",authData);
+    this.router.navigate(["/userprofile"]);
+  }
+
 
 }
 //

@@ -28,6 +28,6 @@ router.get('/search/:searchText', SearchController.searchPosts);
 
 router.delete("/:id",checkAuth,PostController.deletePost);
 
-
+router.get("/userposts/:userid",PostController.getuserposts)
 
 module.exports = router;

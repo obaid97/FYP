@@ -519,8 +519,8 @@ exports.resetpassword = (req,res,next) =>
 
 exports.updateuserdetails =  (req,res,next) =>
 {
-
-  User.findOne({cnicNumber: req.body.cnicNumber}, function(err, foundobject)
+  const url = req.protocol + '://' + req.get("host");
+  User.findOne({cnicNumber: req.params.cnicNumber}, function(err, foundobject)
   {
     //console.log(req.params.cnicNumber + " found");
     if(err)
@@ -554,6 +554,10 @@ exports.updateuserdetails =  (req,res,next) =>
           {
             foundobject.password=hash;
           });
+        }
+        if(req.body.image)
+        {
+          foundobject.imagePath = url+"/images/" + req.file.filename;
         }
         //can apply as many fields as we can like above
 
