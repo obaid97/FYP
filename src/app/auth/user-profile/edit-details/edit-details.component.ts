@@ -7,7 +7,7 @@ import { mimeType } from '../../../posts/post-create/mime-type.validator';
 import { AuthSignupData } from '../../auth-signup-data.model';
 import { PageEvent } from '@angular/material/paginator';
 import { MatFormFieldModule} from '@angular/material/form-field';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-userprofile',
@@ -43,16 +43,14 @@ export class EditUserProfileComponent implements OnInit
     this.editform = new FormGroup(
       {
 
-        fullName: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
+
       email: new FormControl(null, {validators:[Validators.required, Validators.email]}),
       password: new FormControl(null, {validators:[Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]}),
       phoneNumber: new FormControl(null, {validators:[Validators.required, Validators.minLength(11),Validators.maxLength(11)]}),
       fullAddress: new FormControl(null, {validators:[Validators.required]}),
-      cnicNumber: new FormControl(null, {validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13)]}),
-      dob: new FormControl(null, {validators:[Validators.required]}),
-      genderStatus: new FormControl(null, {validators:[Validators.required]}),
+
       //accountStatus: new FormControl(null,{validators:[Validators.required]}),
-      image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
+      //image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
 
       });
   }
@@ -73,7 +71,7 @@ export class EditUserProfileComponent implements OnInit
     //reader.onload and reader.readAsDataURL works asynchronusly
   }
 
-  oneditsave()
+  /*oneditsave()
   {
     if(this.editform.invalid)
     {
@@ -92,7 +90,8 @@ export class EditUserProfileComponent implements OnInit
       this.editform.value.phoneNumber,
       this.editform.value.fullAddress,
       //this.editform.value.accountStatus,
-      this.editform.value.image);
+      //this.editform.value.image
+      );
       //console.log("onsignup form sucessful");
 
       this.isloading =false;
@@ -100,5 +99,17 @@ export class EditUserProfileComponent implements OnInit
     }
     this.editform.reset();
 
+  }
+*/
+oneditsave(form : NgForm)
+  {
+    if(form.invalid)
+    {
+      return;
+    }
+    this.isloading = true;
+    this.authService.edituserdetails(this.userdetails.cnicNumber,form.value.email, form.value.password, form.value.phoneNumber, form.value.fullAddress);
+    this.isloading = false;
+    //console.log(form.value.email, form.value.password);
   }
 }

@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema({
   imagePath : { type:String, required:true },
   authorizedStatus: {type:Boolean,required:true},
   privateKey: {type:String, required:true},
+  //profileimage: { type:String, required:true },
   socket_id: {type:String},
   socket_status:{type:Boolean}
 });

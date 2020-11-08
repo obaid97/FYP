@@ -501,17 +501,16 @@ resetpassword(cnicNumber: number, password: string)
   }
 
 
-  edituserdetails(cnicNumber:string, email:string, password:string, phoneNumber:string, fullAddress:string,image:File)
+  edituserdetails(cnicNumber:number, email:string, password:string, phoneNumber:string, fullAddress:string)
   {
-    const authData = new FormData();
-    authData.append("cnicNumber",cnicNumber);
-    authData.append("email", email);
-    authData.append("password", password);
-    authData.append("phoneNumber", phoneNumber);
-    authData.append("fullAddress", fullAddress);
-    authData.append("profileimage", image);
+    const authData = {cnicNumber: cnicNumber, password:password,email:email,phoneNumber:phoneNumber,fullAddress:fullAddress};
+    console.log(authData);
+    //authData.append("profileimage", image);
 
-    this.http.post(BACKEND_URL+"updateuserdetails",authData);
+    this.http.post(BACKEND_URL+"updateuserdetails",authData).subscribe(response =>
+      {
+        console.log(response);
+      });
     this.router.navigate(["/userprofile"]);
   }
 

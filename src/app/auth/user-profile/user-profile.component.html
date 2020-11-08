@@ -225,11 +225,13 @@
 
 
 <div>
-<mat-card class="user-details" style="margin-top:10rem ;" >
+<mat-card class="user-details" style="margin-top:10rem ;" *ngIf="userdetails">
     <mat-card-header style="align-items: center">
-      <div mat-card-avatar class="example-header-image"></div>
+      <div mat-card-avatar class="example-header-image">
+        <img id="myImg" [src]="userdetails.imagePath" [alt]="userdetails.fullName" style="width:110%;max-width:400px">
+      </div>
     </mat-card-header>
-    <mat-card-content *ngIf="userdetails">
+    <mat-card-content >
        <p class="showfield"><b>Full Name :</b> {{userdetails.fullName}}</p><br>
        <p class="showfield"><b>CNIC : </b> {{userdetails.cnicNumber}}</p><br>
         <p class="showfield"><b>Email: </b> {{userdetails.email}}</p><br>

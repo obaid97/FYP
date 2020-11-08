@@ -84,7 +84,7 @@ if ( socket.handshake.headers.authorization){
 
 
    socket.on('sendMessage',(data, callback) => {
-    console.log("Sending message",data);
+    //console.log("Sending message",data);
     // console.log("CALLBACK",callback);
 
     chatController.sendChatMessage(data, socket, callback)
@@ -168,7 +168,7 @@ if ( socket.handshake.headers.authorization){
 
 
 http.listen(5000, () => {
-  console.log('listening on *5000');
+  //console.log('listening on *5000');
 });
 
 

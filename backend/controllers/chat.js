@@ -25,7 +25,6 @@ module.exports.sendChatMessage = async (data, socket, callback) => {
           var obj = {
               from: data.from,
               to: data.to,
-
               message: data.message,
               created_at: created_at
           };
@@ -47,7 +46,6 @@ module.exports.sendChatMessage = async (data, socket, callback) => {
               msg_list: [{
                   from: socket.userData.userId,
                   to: data.to_id,
-
                   message: data.message,
                   created_at: created_at
               }],

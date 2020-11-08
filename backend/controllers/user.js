@@ -12,9 +12,6 @@ const ChatMessgae = require("../models/chat");
 const nodemailer = require("nodemailer");
 
 exports.createUser =  (req,res,next)=>{
-
-  //const privatek = crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex');
-  //console.log(privatek);
   const tempuserstatus = "user";
   const url = req.protocol + '://' + req.get("host");
   bcrypt.hash(req.body.password, 10)
@@ -33,6 +30,7 @@ exports.createUser =  (req,res,next)=>{
           imagePath: url+"/images/" + req.file.filename,
           authorizedStatus: false,
           privateKey :crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex')
+          //profileimage:null
       });
       user.save().then(result =>
         {
@@ -520,7 +518,7 @@ exports.resetpassword = (req,res,next) =>
 exports.updateuserdetails =  (req,res,next) =>
 {
   const url = req.protocol + '://' + req.get("host");
-  User.findOne({cnicNumber: req.params.cnicNumber}, function(err, foundobject)
+  User.findOne({cnicNumber: req.body.cnicNumber}, function(err, foundobject)
   {
     //console.log(req.params.cnicNumber + " found");
     if(err)

@@ -10,9 +10,9 @@
 
 }
 
-mat-card
+.main-card
 {
-  margin-top: 2rem;
+  margin-top: 4rem;
   background-color: #ffff;
   border-radius: 50px 50px 50px 50px;
   border: 1px solid;
@@ -20,7 +20,18 @@ mat-card
   margin-bottom: 2rem;
 }
 
-mat-card:hover
+.upper_card
+{
+  margin-top: 15px;
+  margin-bottom:15px;
+}
+
+.lower_card
+{
+  margin-top: 7px;
+  margin-bottom: 5px;
+}
+.main-card:hover
 {
   box-shadow: 15px 15px 15px 15px #888888;
 }
@@ -56,11 +67,16 @@ mat-card:hover
 }
 
 .help-tip:hover p{
-  display:block;
-  transform-origin: 100% 0%;
+  display:inline;
+  transform-origin: 100% ;
   -webkit-animation: fadeIn 0.3s ease-in-out;
   animation: fadeIn 0.3s ease-in-out;
 
+}
+
+.contact_link:hover
+{
+  color: #FF4081;
 }
 
 .help-tip p{    /* The tooltip */
@@ -68,14 +84,14 @@ mat-card:hover
   text-align: left;
   background-color: #1E2021;
   padding: 20px;
-  width: 300px;
+  width: 500px;
   position: absolute;
   border-radius: 3px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   right: -4px;
   color: #FFF;
   font-size: 13px;
-  line-height: 1.4;
+  line-height: 1;
 }
 
 .help-tip p:before{ /* The pointer of the tooltip */
