@@ -4,10 +4,10 @@ const userChatModel = require('../models/chat');
 
 module.exports.sendChatMessage = async (data, socket, callback) => {
 
-  console.log("CALLBACK ",callback);
+ // console.log("CALLBACK ",callback);
 
-  console.log("sending Chat...");
-  console.log("socket of this user" + socket.id);
+ // console.log("sending Chat...");
+ // console.log("socket of this user" + socket.id);
   // socket.emit(recieveChatMessage, data);
 
   var [toUserData, fromUserData] = await Promise.all([
@@ -57,10 +57,10 @@ module.exports.sendChatMessage = async (data, socket, callback) => {
           // console.log(updatedChat);
       }
 
-      console.log("2");
+      //console.log("2");
       if (updatedChat) {
-          console.log("3");
-          console.log(toUserData);
+          //console.log("3");
+          //console.log(toUserData);
           if (toUserData.socket_status) {
               console.log("SENDING DATA to other user");
               console.log(data);

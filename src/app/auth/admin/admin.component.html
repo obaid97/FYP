@@ -1,83 +1,5 @@
 
 <mat-spinner *ngIf="isloading"></mat-spinner>
-<!--
-
-  <div class="sidebar">
-    <a class="active" href="#home">Home</a>
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
-  </div>
-
-
-    <div class="row">
-
-      <div class="col col-lg-4 col-md-4 col-sm-12">
-        <mat-card>
-          <mat-card-header>
-            Total Registered Users
-          </mat-card-header>
-          <mat-card-content>
-            <h3>8</h3>
-          </mat-card-content>
-        </mat-card>
-      </div>
-
-      <div class="col col-lg-4 col-md-4 col-sm-12">
-        <mat-card>
-          <mat-card-header>
-            Total Verified Users
-          </mat-card-header>
-          <mat-card-content>
-            <h3>5</h3>
-          </mat-card-content>
-        </mat-card>
-      </div>
-
-      <div class="col col-lg-4 col-md-4 col-sm-12">
-        <mat-card>
-          <mat-card-header>
-            Total UnVerified Users
-          </mat-card-header>
-          <mat-card-content>
-           <h3> 3</h3>
-          </mat-card-content>
-        </mat-card>
-      </div>
-
-      <div class="col col-lg-4 col-md-4 col-sm-12">
-        <mat-card>
-          <mat-card-header>
-            Total Ads
-          </mat-card-header>
-          <mat-card-content>
-           <h3> {{totalPosts}}</h3>
-          </mat-card-content>
-        </mat-card>
-      </div>
-
-      <div class="col col-lg-4 col-md-4 col-sm-12">
-        <mat-card>
-          <mat-card-header>
-            Total Blogs
-          </mat-card-header>
-          <mat-card-content>
-           <h3> 0</h3>
-          </mat-card-content>
-        </mat-card>
-      </div>
-
-</div>
-
-
-    <a  routerLink='/auth/admin' routerLinkActive="mat-accent">Dashboard</a>
-    <a  routerLink='/auth/create-admin' routerLinkActive="mat-accent">Create Admin</a>
-    <a routerLink='/auth/allusers' routerLinkActive="mat-accent">All Users</a>
-    <a routerLink='/auth/unverified' routerLinkActive="mat-accent">Unverified Users</a>
-    <a routerLink='/auth/verified' routerLinkActive="mat-accent">Verified Users</a>
-    <a routerLink='/auth/createblog' routerLinkActive="mat-accent">Create Blog</a>
-    <a routerLink='/auth/allblogs' routerLinkActive="mat-accent">All Blogs</a>
--->
 <div class="container" style="width:125.6; margin-left:-10.2rem;">
 <div class="sidebar">
   <a class="active"  routerLink='/auth/admin'>Home</a>
@@ -92,14 +14,14 @@
 </div>
 
 <div class="content" >
-  <div class="row" style="margin-top: 7.8rem;" >
+  <div class="row"  >
   <div class="col col-lg-6 col-md-6 col-sm-12">
     <mat-card>
       <mat-card-header>
         Total Registered Users
       </mat-card-header>
       <mat-card-content>
-        <h3>8</h3>
+        <canvas id="myChart" width="400" height="400"></canvas>
       </mat-card-content>
     </mat-card>
   </div>
@@ -110,7 +32,7 @@
         Total Verified Users
       </mat-card-header>
       <mat-card-content>
-        <h3>5</h3>
+        <h3>3</h3>
       </mat-card-content>
     </mat-card>
   </div>
@@ -121,7 +43,7 @@
         Total UnVerified Users
       </mat-card-header>
       <mat-card-content>
-       <h3> 3</h3>
+       <h3> 2</h3>
       </mat-card-content>
     </mat-card>
   </div>
@@ -133,6 +55,7 @@
       </mat-card-header>
       <mat-card-content>
        <h3> {{totalPosts}}</h3>
+        <canvas id="linechart" ></canvas>
       </mat-card-content>
     </mat-card>
   </div>

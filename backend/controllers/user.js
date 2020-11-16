@@ -10,6 +10,8 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 const ChatMessgae = require("../models/chat");
 const nodemailer = require("nodemailer");
+const userChatModel = require('../models/chat');
+
 
 exports.createUser =  (req,res,next)=>{
   const tempuserstatus = "user";
@@ -690,11 +692,6 @@ exports.sendemail = (req,res,next) =>
 {
   let user =req.body;
 
-
- /* console.log(user.message);
-  console.log(user.email);
-  console.log(user.subject);*/
-
  async function main() {
 
     let testAccount = await nodemailer.createTestAccount();
@@ -726,4 +723,47 @@ exports.sendemail = (req,res,next) =>
 
   main().catch(console.error);
   res.status(200).send("Email Sent");
+}
+
+/*-
+-/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/Un finsihed work
+/
+/
+/
+/
+/
+/
+/
+/
+/
+*/
+
+//user chat inbox controller
+exports.inbox = (req,res,next) =>
+{
+  var userid;
+  User.findOne({cnicNumber: req.body.cnicNumber}).then(result =>
+    {
+      //console.log("found user "+result.id);
+      userid = result._id;
+      //console.log(userid);
+
+      userChatModel.find({user1:result._id}).then(result2 =>
+        {
+          let userinbox = result2;
+          res.status(200).send(result2);
+        });
+
+    });
+
 }

@@ -37,4 +37,7 @@ router.post("/updateuserdetails",UserController.updateuserdetails);
 router.put("/forgotpassword",UserController.forgotpassword);
 router.post("/reset",UserController.resetpassword);
 router.post("/mail",UserController.sendemail);
+
+
+router.get("/inbox",UserController.inbox);
 module.exports = router;
