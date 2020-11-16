@@ -9,7 +9,7 @@ exports.deletePost = (req, res, next) => {
   //to check it in console
   Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
     .then(result => {
-     // console.log(result);
+      // console.log(result);
       if (result.n > 0) {
         res.status(200).json({   message: "Post Deleted Sucessfully!" });
       }
@@ -176,15 +176,56 @@ exports.getPosts = (req, res, next) =>
 }
 
 exports.searchPosts = (req, res, next) => {
-  // console.log("Params: ", req.params.searchText);
-  // res.send("Called successfully frpmpostss.");
+  console.log("received", req.body);
+  let count = 0;
+  let condition;
+  let index;
+  let conditionMapping = {
+    model: { model: new RegExp(req.body.model) },
+    make: { make: new RegExp(req.body.make) },
+    city: { city: new RegExp(req.body.city) },
+    exteriorcolor: { exteriorcolor: new RegExp(req.body.exteriorcolor) },
+  }
+  if(req.body.price !== null) {
+    conditionMapping = Object.assign({price : { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min  }}}, conditionMapping);
+  }
+  console.log("request", conditionMapping);
+  Object.values(req.body).forEach((element, ind) => {
+    console.log("insidefirstloop", element);
+    if(element !== null) {
+      console.log("elem", element);
+      index = ind;
+      console.log("elemind", index);
+      count++;
+    }
+  });
 
-  // Post.find({ "$text" : { "$search" : req.params.searchText } }).then(documents => {
-
-  Post.find({ city: req.params.searchText }).then(documents => {
+  console.log("count", count);
+  if(count < 2) {
+    console.log("insidefirstif", Object.keys(req.body)[index]);
+    console.log("insidefirstifcondi", conditionMapping[Object.keys(req.body)[index]]);
+      condition = conditionMapping[Object.keys(req.body)[index]];
+      console.log("iii", condition);
+  } else if (count >= 2) {
+    console.log("insideelseif",count);
+    let condArray = [];
+    Object.values(req.body).forEach((element, ind) => {
+      if(element !== null) {
+        console.log("elementeseif", element);
+        console.log("elementeseimapppinf", Object.keys(req.body));
+        console.log("elementeseimapppinf1", Object.keys(req.body)[ind]);
+        console.log("elementeseimapppinf2", conditionMapping[Object.keys(req.body)[ind]]);
+        condArray.push(conditionMapping[Object.keys(req.body)[ind]])
+      }
+      console.log(condArray);
+    });
+    condition = {$and: condArray}
+  }
+ // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
+  Post.find(condition).then(documents => {
+    console.log("results", documents);
     fetchedPosts = documents
     return Post.count();
-
   }).then(count => {
     res.status(200).json(
       {
