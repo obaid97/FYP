@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
     searchText: new FormControl('', [Validators.required]),
   });
   sharedData: any[];
+  price : any;
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
   accountStatus :any;
@@ -25,8 +26,9 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharedData = this.dataService.getData();
+    console.log("this.sharedData");
    
-   console.log(this.sharedData);
+   this.price= 2450;
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
     this.userIsAuthenticated = isAuthenticated;

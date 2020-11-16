@@ -288,85 +288,91 @@
 
   <!-- Begin content -->
 
-  <div class="inner" style="width: 125.6% ; margin-left:-10rem;">
+  <div class="inner" style="widows: 70% ; margin-left:-10rem;">
 
       <div class="inner_wrapper nopadding">
 
           <div id="page_main_content" class="sidebar_content left_sidebar fixed_column">
 
-              <div class="standard_wrapper" *ngFor="let post of sharedData">
+              <div class="standard_wrapper">
 
                   <div id="portfolio_filter_wrapper" class="gallery classic two_cols portfolio-content section content clearfix" data-columns="3">
 
-                      <div class="car_list_wrapper floatleft noborder">
-                          <div class="one">
-                              <a class="car_image" href="#">
-                                  <img  [src]="post.imagePath" alt={{post.model+post.make}} width="350px" height="300px" />
-                              </a>
-                          </div>
+                    <div *ngFor = "let post of sharedData">
+                    <div class="car_list_wrapper floatleft noborder">
+                      <div class="one">
+                          <a class="car_image" href="#">
+                              <img src={{post.imagePath}} alt="BMW 3 Series" />
+                          </a>
+                      </div>
 
-                          <div class="one">
-                              <div class="car_attribute_wrapper car_list">
-                                  <a class="car_link" href="#"><h3>{{post.make}}+{{post.model}}</h3></a>
-                                  <div class="car_attribute_rating">
-                                      <div class="br-theme-fontawesome-stars-o">
-                                          <div class="br-widget">
-                                              <a href="javascript:;" class="br-selected"></a>
-                                              <a href="javascript:;" class="br-selected"></a>
-                                              <a href="javascript:;" class="br-selected"></a>
-                                              <a href="javascript:;" class="br-selected"></a>
-                                              <a href="javascript:;"></a>
-                                          </div>
+                      <div class="one">
+                          <div class="car_attribute_wrapper car_list">
+                              <a class="car_link" href="#"><h3>{{post.make + " " + post.model}}</h3></a>
+                              <div class="car_attribute_rating">
+                                  <div class="br-theme-fontawesome-stars-o">
+                                      <div class="br-widget">
+                                          <a href="javascript:;" class="br-selected"></a>
+                                          <a href="javascript:;" class="br-selected"></a>
+                                          <a href="javascript:;" class="br-selected"></a>
+                                          <a href="javascript:;" class="br-selected"></a>
+                                          <a href="javascript:;"></a>
                                       </div>
-                                      <!--<div class="car_attribute_rating_count">
-                                          4&nbsp; reviews </div>-->
-                                    </div>
-                                  <br class="clear" />
-                                  <div class="one_third">
-                                      <div class="car_attribute_wrapper_icon">
-                                          <div class="one_fourth">
-                                              <div class="car_attribute_icon ti-user"></div>
-                                              <div class="car_attribute_content">
-                                                  4 </div>
-                                          </div>
-
-                                          <div class="one_fourth">
-                                              <div class="car_attribute_icon ti-briefcase"></div>
-                                              <div class="car_attribute_content">
-                                                  2 </div>
-                                          </div>
-
-                                          <div class="one_fourth">
-                                              <div class="car_attribute_icon ti-panel"></div>
-                                              <div class="car_attribute_content">
-                                                 {{post.transmission}} </div>
-                                          </div>
-
-                                      </div>
-                                      <br class="clear" />
                                   </div>
-
-                                  <div class="two_third last">
-                                      <ul class="single_car_departure_wrapper themeborder">
-                                          <li>
-                                              <div class="single_car_departure_content full_width">
-                                                  <div class="one_half ">
-                                                      <span class="ti-check"></span>{{post.features}} </div>
-                                                  
-                                              </div>
-                                          </li>
-                                      </ul>
-                                  </div>
-
+                                  <div class="car_attribute_rating_count">
+                                      4&nbsp; reviews </div>
                               </div>
-                              <div class="car_attribute_price car_list">
-                                  <div class="car_attribute_price_day two_cols">
-                                      <span class="single_car_currency">Rs</span><span class="single_car_price">{{post.price}}</span> <span class="car_unit_day">Per Day</span>
+                              <br class="clear" />
+                              <div class="one_third">
+                                  <div class="car_attribute_wrapper_icon">
+                                      <div class="one_fourth"></div>
+
+                                      <div class="one_fourth">
+                                          <div class="car_attribute_icon ti-briefcase"></div>
+                                          <div class="car_attribute_content">
+                                              2 </div>
+                                      </div>
+
+                                      <div class="one_fourth">
+                                          <div class="car_attribute_icon ti-panel"></div>
+                                          <div class="car_attribute_content">
+                                              Auto </div>
+                                      </div>
+
                                   </div>
+                                  <br class="clear" />
+                              </div>
+
+                              <div class="two_third last">
+                                  <ul class="single_car_departure_wrapper themeborder">
+                                      <li>
+                                          <div class="single_car_departure_content full_width">
+                                              <div class="one_half ">
+                                                  <span class="ti-check"></span>Audio input </div>
+                                              <div class="one_half last">
+                                                  <span class="ti-check"></span>All Wheel drive </div>
+                                              <div class="one_half ">
+                                                  <span class="ti-check"></span>Bluetooth </div>
+                                              <div class="one_half last">
+                                                  <span class="ti-check"></span>USB input </div>
+                                              <div class="one_half ">
+                                                  <span class="ti-check"></span>Heated seats </div>
+                                              <div class="one_half last">
+                                                  <span class="ti-check"></span>FM Radio </div>
+                                          </div>
+                                      </li>
+                                  </ul>
+                              </div>
+
+                          </div>
+                          <div class="car_attribute_price car_list">
+                              <div class="car_attribute_price_day four_cols">
+                                  <span class="single_car_currency">Rs.</span><span class="single_car_price">{{post.price}}</span>
                               </div>
                           </div>
                       </div>
-
+                  </div>
+                </div>
 
                   <br class="clear" />
                   
