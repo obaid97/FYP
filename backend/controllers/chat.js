@@ -4,6 +4,8 @@ const userChatModel = require('../models/chat');
 
 module.exports.sendChatMessage = async (data, socket, callback) => {
 
+  console.log("inside send chat");
+
  // console.log("CALLBACK ",callback);
 
  // console.log("sending Chat...");
@@ -15,12 +17,22 @@ module.exports.sendChatMessage = async (data, socket, callback) => {
       userModel.findOne({ _id: socket.userData.userId })
   ]);
 
+  console.log("data.to_id: ",data.to_id );
+  console.log("socket.userData.userId: ",socket.userData.userId);
 
   var updatedChat = null;
+
+  console.log("toUserData: ",toUserData);
+
   if (toUserData) {
-      console.log("1",socket.userData.userId);
-     let userChatData = await userChatModel.findOne({ $and:[{$or:[{user1:data.to_id},{user2:socket.userData.userId}], $or:[{user2:data.to_id},{user1:socket.userData.userId}]} ] });
-      if (userChatData) {
+      console.log("Inside toUserData check");
+     let userChatData = await userChatModel.findOne( { 'users.user_id': { $all: [ socket.userData.userId, data.to_id] } });
+
+
+     console.log("userChatData======: ",userChatData);
+
+
+     if (userChatData) {
           var created_at = new Date();
           var obj = {
               from: data.from,
@@ -29,7 +41,7 @@ module.exports.sendChatMessage = async (data, socket, callback) => {
               created_at: created_at
           };
           data.created_at = created_at;
-          updatedChat = await userChatModel.updateOne({ $and:[{$or:[{user1:data.to_id},{user2:socket.userData.userId}], $or:[{user2:data.to_id},{user1:socket.userData.userId}]} ] }, {
+          updatedChat = await userChatModel.updateOne({ _id: userChatData._id }, {
               $set: {
                   updated_at: created_at
               },
@@ -41,8 +53,8 @@ module.exports.sendChatMessage = async (data, socket, callback) => {
       else {
           var created_at = new Date();
           var obj = {
-              user1:socket.userData.userId,
-              user2:data.to_id,
+
+              users:[{user_id:socket.userData.userId},{user_id:data.to_id}],
               msg_list: [{
                   from: socket.userData.userId,
                   to: data.to_id,
@@ -62,15 +74,21 @@ module.exports.sendChatMessage = async (data, socket, callback) => {
           //console.log("3");
           //console.log(toUserData);
           if (toUserData.socket_status) {
-              console.log("SENDING DATA to other user");
-              console.log(data);
+
+            data.from_id = socket.userData.userId;
+
+             // console.log("SENDING DATA to other user");
+             // console.log(data);
+
+              //console.log("toUserData.socket_id: ",toUserData.socket_id);
+
               socket.broadcast.to(toUserData.socket_id).emit("recieveChatMessage", data);
           }
 
           // callback({ status: true, message: "message sent successfully!" });
       }
       else {
-          console.log("4");
+          //console.log("4");
           // callback({ status: false, message: "something went wrong!" });
       }
   }

@@ -725,6 +725,47 @@ exports.sendemail = (req,res,next) =>
   res.status(200).send("Email Sent");
 }
 
+
+
+
+exports.getChatBox = async (req,res,next) =>
+{
+  var userids=[];
+  var usernames=[];
+  //console.log(req.params._id);
+  //console.log(req.body._id);
+  var currentuser = req.params._id;
+  let userChatData = await userChatModel.find( { 'users.user_id':  req.params._id });
+  let count =userChatData.length;
+  //console.log(count)
+  var users=[];
+  for (let i=0;i<userChatData.length;i++)
+  {
+    if(currentuser != userChatData[i].users[1].user_id)
+    {
+      userids[i] = userChatData[i].users[1].user_id;
+    }
+    else if(currentuser != userChatData[i].users[0].user_id)
+    {
+      userids[i] = userChatData[i].users[0].user_id;
+    }
+  }
+  for (let j=0;j<userids.length;j++)
+  {
+    //console.log("length of id"+userids.length)
+    let a = await User.findById(userids[j]);
+    users.push(a);
+  }
+  if(users){
+    res.status(200).send(users);
+  }else{
+    res.status(400).send({message: "No chat found"});
+  }
+
+
+}
+
+
 /*-
 -/
 /
@@ -749,21 +790,27 @@ exports.sendemail = (req,res,next) =>
 */
 
 //user chat inbox controller
-exports.inbox = (req,res,next) =>
-{
-  var userid;
-  User.findOne({cnicNumber: req.body.cnicNumber}).then(result =>
-    {
-      //console.log("found user "+result.id);
-      userid = result._id;
-      //console.log(userid);
 
-      userChatModel.find({user1:result._id}).then(result2 =>
-        {
-          let userinbox = result2;
-          res.status(200).send(result2);
-        });
+exports.inboxmessage = (req,res,next) =>
+{
+
+  console.log("current user id: "+req.body.currentuserid);
+  console.log("chat user id: "+req.body.chatuserid);
+  var userinbox;
+//    {"users.user_id":req.body.currentuserid}
+//$and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ]
+//{ $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] }
+// $or: [ { 'users': { user_id: req.body.currentuser} }, { price: 10 }
+userChatModel.findOne({ 'users.user_id': { $all: [ req.body.currentuserid, req.body.chatuserid] } })
+  .then(result2 =>
+    {
+      userinbox = result2;
+      //console.log( "Curretn usre chats : "+result2);
+
+      res.status(200).send(result2.msg_list);
 
     });
 
+
 }
+

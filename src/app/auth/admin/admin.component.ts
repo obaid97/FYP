@@ -43,6 +43,9 @@ allposts:Post[]=[];
 totalPosts = 0;
 
 Linechart =[];
+piedata=[8,5,3];
+pieoptions=["All Users","UnVerified","verified"];
+/*pie chart data */
 
 
 constructor(public authService: AuthService,public postsService: PostsService)
@@ -89,7 +92,7 @@ ngOnInit()
       {
         title:
         {text:"Line Chart",
-        display:true
+        display:false
       },
       scales:
       {
@@ -146,11 +149,45 @@ ngOnInit()
         }
     });
 
-
-
-
     /*chart chk end */
-  }
+
+    /*pie chart*/
+    /*var myPieChart = new Chart("piechart", {
+      type: 'pie',
+      data: this.piedata,
+      options: this.pieoptions
+  });*/
+  var piechart = new Chart("pieChart", {
+    type: 'pie',
+    data: {
+        labels: ['All Users', 'Unverified Users', 'Verified Users'],
+        datasets: [{
+            label: '# of Users',
+            data: this.piedata,
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+  });
+}
 
 
 onChangedPage(pageData: PageEvent)

@@ -24,8 +24,8 @@ export class ChatInboxComponent implements OnInit {
   private authListenerSubs: Subscription;
   accountStatus :any;
   userandadminstatus:boolean;
-
-
+ fromId: string
+  chat;
   constructor(public authService: AuthService, public postService:PostsService) {
     this.usertoken =this.authService.getToken();
 
@@ -78,6 +78,7 @@ export class ChatInboxComponent implements OnInit {
   this.socket.on('recieveChatMessage', (data) => {
   if (data) {
 
+    this.fromId = data.from_id;
     console.log("DATA: ",data);
 
 
@@ -126,8 +127,8 @@ export class ChatInboxComponent implements OnInit {
 
 SendMessage() {
 
-  this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()});
-
+  this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.fromId});
+  //console.log(this.postService.getCreatorId());
   var element = document.createElement("LI");
 
   element.innerHTML = this.message;

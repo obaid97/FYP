@@ -14,8 +14,14 @@ const mongoose = require('mongoose');
 
 const chatSchema = mongoose.Schema({
 
-  user1: {type:String, required:true},
-  user2: {type:String, required:true},
+  // user1: {type:String, required:true},
+  // user2: {type:String, required:true},
+
+
+  users: [{
+    _id: false,
+    user_id: { type: String }
+}],
 
   msg_list: [{
       from: String,

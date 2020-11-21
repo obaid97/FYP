@@ -16,8 +16,55 @@ import { AuthService } from '../auth.service';
 
 export class InboxComponent
 {
-  constructor(private authService: AuthService,public router: Router)
+  userIsAuthenticated = false;
+  private authListenerSubs: Subscription;
+  accountStatus: any;
+  userandadminstatus: boolean;
+  status: string;
+  authorizedStatus: boolean;
+  users=[];
+  constructor(private authService: AuthService, private router:Router)
   {
+    this.authService.getuserchats().subscribe(userchat =>
+      {
+        let temp =userchat;
+        //console.log();
+        for(let i = 0; i<2;i++)
+        {
+          this.users[i] = temp[i];
+        }
+      });
+  }
 
+  ngOnInit()
+  {
+    // document.getElementById('car_search_form').submit(this.searching());
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+      this.accountStatus = this.authService.getcurrentuserstatus();
+
+      //this.authorizedStatus =
+      //console.log(this.authService.getcurrentuserauthorizestatus()+ " - header");
+      if (this.accountStatus == "user") {
+        this.userandadminstatus = true;
+      }
+      else {
+        this.userandadminstatus = false;
+      }
+    });
+
+
+  }
+
+  onchat(userid:string)
+  {
+    this.authService.getchats(userid);
+    this.router.navigate(["/chat"]);
+
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

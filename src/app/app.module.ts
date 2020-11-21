@@ -33,6 +33,7 @@ import { FAQComponent } from './FAQ/FAQ.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { SingleBlogComponent } from './blog/single-blog/single-blog.component';
 import { EditUserProfileComponent } from './auth/user-profile/edit-details/edit-details.component';
+import { InboxComponent } from './auth/inbox/inbox.component';
 
 @NgModule({
   declarations: [
@@ -54,8 +55,8 @@ import { EditUserProfileComponent } from './auth/user-profile/edit-details/edit-
     FAQComponent,
     ContactUsComponent,
     SingleBlogComponent,
-    EditUserProfileComponent
-
+    EditUserProfileComponent,
+    InboxComponent
   ],
   imports: [
     BrowserModule,

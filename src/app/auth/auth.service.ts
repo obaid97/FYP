@@ -23,6 +23,7 @@ export class AuthService
   private unverifiedUsers: AuthSignupData[] = [];
   private verifiedUsers: AuthSignupData[] = [];
   private allUsers: AuthSignupData[] = [];
+  private alluserchats=[];
   private userdet: AuthSignupData[]=[];
   private userdata:AuthSignupData;
   private userstatus:AuthSignupData;
@@ -49,7 +50,7 @@ export class AuthService
   private usersUpdated = new Subject<{ users: AuthSignupData[], userCount: number }>();
   private message:string;
   private curretnuserdetails:any;
-
+  private userchat=[];
   constructor(private http : HttpClient, private router: Router, private postService:PostsService){}
 
 
@@ -129,6 +130,11 @@ login(cnicNumber: number, password: string)
        // this.createport();
        // this.getuserDeatils();
   }
+/*
+  private setcnicNumber(cnic:number)
+  {
+    localStorage.setItem('cnicNumber',cnic);
+  }*/
 
   autoAuthUser()
   {
@@ -374,6 +380,78 @@ getcurrentuserdetails()
    return this.currentUserauthorizeStatus;
   }
 
+
+  sendmail(email:string, subject:string, message:string)
+  {
+    const mailData =new FormData();
+    mailData.append("email",email);
+    mailData.append("subject",subject);
+    mailData.append("message",message);
+   // console.log(mailData);
+    /////console.log(email);
+  //  console.log(subject);
+   // console.log(message);
+    let mail =
+    {
+      email: email,
+      subject: subject,
+      message: message
+    };
+    this.http.post(BACKEND_URL +"mail",mail).subscribe(data =>
+      {
+        let res:any =data;
+        //console.log(res);
+        this.router.navigate(["/contactus"]);
+      });
+
+
+    //this.router.navigate(["/contactus"]);
+    }
+
+  forgotpassword(cnicNumber: number, privatekey: string)
+    {
+    const authData = {cnicNumber, privatekey};
+      //return this.http.put(BACKEND_URL +"forgotpassword",authData);*/
+        /*.subscribe(response =>
+          {
+            console.log(response);
+          })*/
+          this.http.post<{password:string}>(BACKEND_URL+"login",authData)
+          .subscribe(response =>
+            {
+              //console.log(response);
+              //console.log(response.password);
+              this.router.navigate(["/auth/login"]);
+            })
+            this.router.navigate(["/auth/login"]);
+    }
+
+
+    edituserdetails(cnicNumber:number, email:string, password:string, phoneNumber:string, fullAddress:string)
+    {
+      const authData = {cnicNumber: cnicNumber, password:password,email:email,phoneNumber:phoneNumber,fullAddress:fullAddress};
+      console.log(authData);
+      //authData.append("profileimage", image);
+
+      this.http.post(BACKEND_URL+"updateuserdetails",authData).subscribe(response =>
+        {
+          console.log(response);
+        });
+      this.router.navigate(["/userprofile"]);
+    }
+
+
+
+    getuserchats()
+    {
+      const userId = localStorage.getItem('userId');
+      //console.log(userId);
+      return this.http.get(BACKEND_URL+"getChatBox/"+userId);
+    }
+
+
+
+
   //not yet fixed /completed
   /*
   -
@@ -398,23 +476,6 @@ getcurrentuserdetails()
 
 
      //resetpassword(cnicNumber:string,privatekey:string)
-forgotpassword(cnicNumber: number, privatekey: string)
-{
- const authData = {cnicNumber, privatekey};
-  //return this.http.put(BACKEND_URL +"forgotpassword",authData);*/
-    /*.subscribe(response =>
-      {
-        console.log(response);
-      })*/
-      this.http.post<{password:string}>(BACKEND_URL+"login",authData)
-      .subscribe(response =>
-        {
-          //console.log(response);
-          //console.log(response.password);
-          this.router.navigate(["/auth/login"]);
-        })
-        this.router.navigate(["/auth/login"]);
-}
 
 resetpassword(cnicNumber: number, password: string)
 {
@@ -457,63 +518,18 @@ resetpassword(cnicNumber: number, password: string)
 
   }
 
-  createport(creatorid:any)
+
+
+  getchats(chatuserid:string)
   {
-
-
-  }
-
-  startchat(creatorid:any)
-  {
-/*
-    this.http.post(BACKEND_URL,"chat"+this.currentUser,creatorid).subscribe(response =>
-      {
-        this.router.navigate(["/chat"]);
-      });*/
-  }
-
-
-  sendmail(email:string, subject:string, message:string)
-  {
-    const mailData =new FormData();
-    mailData.append("email",email);
-    mailData.append("subject",subject);
-    mailData.append("message",message);
-    console.log(mailData);
-    console.log(email);
-    console.log(subject);
-    console.log(message);
-    let mail =
-    {
-      email: email,
-      subject: subject,
-      message: message
-    };
-    this.http.post(BACKEND_URL +"mail",mail).subscribe(data =>
-      {
-        let res:any =data;
-        //console.log(res);
-        this.router.navigate(["/contactus"]);
-      });
-
-
-  //this.router.navigate(["/contactus"]);
-  }
-
-
-  edituserdetails(cnicNumber:number, email:string, password:string, phoneNumber:string, fullAddress:string)
-  {
-    const authData = {cnicNumber: cnicNumber, password:password,email:email,phoneNumber:phoneNumber,fullAddress:fullAddress};
-    console.log(authData);
-    //authData.append("profileimage", image);
-
-    this.http.post(BACKEND_URL+"updateuserdetails",authData).subscribe(response =>
+    const currentuserId = localStorage.getItem('userId');
+    //console.log(currentuserId);
+    const data = {currentuserid:currentuserId, chatuserid:chatuserid};
+    //console.log(data);
+    this.http.post(BACKEND_URL+"inboxmessage/",data).subscribe(response =>
       {
         console.log(response);
-      });
-    this.router.navigate(["/userprofile"]);
+      })
   }
-
-
 }
 //

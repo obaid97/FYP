@@ -38,6 +38,6 @@ router.put("/forgotpassword",UserController.forgotpassword);
 router.post("/reset",UserController.resetpassword);
 router.post("/mail",UserController.sendemail);
 
-
-router.get("/inbox",UserController.inbox);
+router.get("/getChatBox/:_id",UserController.getChatBox);
+router.post("/inboxmessage",UserController.inboxmessage);
 module.exports = router;
