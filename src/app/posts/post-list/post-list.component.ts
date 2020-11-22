@@ -108,8 +108,8 @@ tiles: Tile[] = [
 
   singlepostview(postid:string)
   {
-    this.postsService.getsinglepost(postid);
-  }
+    this.router.navigate(["/post",postid]);
+      }
 
   onLogout()
   {

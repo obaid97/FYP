@@ -310,7 +310,7 @@
                       <a style="margin-right: 15px;" *ngIf="userIsAuthenticated && userId === post.creator " mat-flat-button color="primary" class="action-buttons" [routerLink]="['/edit',post.id]" > EDIT</a>
                       <button style="margin: 15px;" *ngIf="userIsAuthenticated && userId === post.creator" mat-flat-button color="warn" class="action-buttons" (click)="onDelete(post.id)" > DELETE</button>
                       <button style="margin: 5px;" *ngIf="userIsAuthenticated && userId != post.creator " (click)="onchat(post.creator)" mat-flat-button color="accent" class="action-buttons">Chat</button>
-                      <a style="margin: 5px;" mat-flat-button color="primary" class="action-buttons" [routerLink]="['/post',post.id]" (click)="singlepostview(post.id)" >View</a>
+                      <a style="margin: 5px;" mat-flat-button color="primary" class="action-buttons"  (click)="singlepostview(post.id)" >View</a>
 
                     </div>
                   </div>

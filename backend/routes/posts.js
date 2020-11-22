@@ -29,7 +29,7 @@ router.post('/search', SearchController.searchPosts);
 router.post('/searchPost', SearchController.searchSinglePost);
 
 
-router.get("/userposts/:userid",PostController.getuserposts)
+router.get('/userposts/:userid',PostController.getuserposts);
 
 console.log("router", router.stack);
 module.exports = router;

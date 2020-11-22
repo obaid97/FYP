@@ -52,15 +52,25 @@ export class SinglePostComponent
     {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
   ];
-
-  constructor(public postsService: PostsService, private authService: AuthService, private dataService: DataService, private searchService: SearchService, private activatedRoute: ActivatedRoute) { }
+postid:string;
+  constructor(public postsService: PostsService, private authService: AuthService, private dataService: DataService, private searchService: SearchService, private activatedRoute: ActivatedRoute) 
+  {
+    this.postid =  this.activatedRoute.snapshot.paramMap.get('id');
+    console.log(this.activatedRoute.snapshot.paramMap.get('id'))
+   }
 
   ngOnInit(): void {
     console.log("in this sngle");
-    this.activatedRoute.queryParams.subscribe(params => {
-      console.log("params", params);
-      });
-    this.singleDataId = this.dataService.getSingleData();
+    
+      
+     console.log(this.postid); 
+      //isko kl live dekhun ga 
+    
+    
+    
+    
+    
+      this.singleDataId = this.dataService.getSingleData();
     console.log("singleId", this.singleDataId);
     if (this.singleDataId) {
       this.searchService.singleSearch(this.singleDataId).subscribe(postData => {

@@ -283,3 +283,11 @@ exports.getcnicNumber = (req,res) =>
         });
       });
     }
+
+    //this method was not pulled completely in the pull request thats why it was giving error next pull main complete pull ho jayega ye 
+    //ni to code dy dun ga main ye connect ho gia hai and post single dekh rha hun thek hai yahan sy single fetch kr k ly gia agy kdr masla
+    
+    exports.getuserposts = (req,res) => 
+    {
+      console.log("i work");
+    }
