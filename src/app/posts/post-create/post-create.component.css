@@ -33,6 +33,7 @@ input[type="file"]
 {
   margin-top: 3rem ;
   width:100%;
+  border-radius: 10px 10px 10px 10px;
 }
 .title-card
 {
@@ -65,19 +66,22 @@ input[type="file"]
   padding-top: 2rem;
   font-family: Merriweather;
   font-size: 45px;
-  background-color: #38D39F;
-  border: 3px solid #38D39F;
+  background-color: #0d0e0de8;
+  border: 3px solid#0d0e0de8;
   width: 100%;
   margin: 0;
+  border-radius: 20px 20px 0px 0px;
 }
 .sub-heading
 {
   font-family: Merriweather;
   font-size: 25px;
   color: rgb(255, 253, 253);
-  background-color: #38D39F;
-  border: 5px solid #38D39F;
+  background-color:#0d0e0de8;;
+  border: 5px solid #0d0e0de8;
   width: 100%;
+  border-radius: 0px 0px 20px 20px;
+
 }
 .mat-header-title
 {

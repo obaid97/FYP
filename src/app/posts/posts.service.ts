@@ -18,6 +18,20 @@ export class PostsService {
   constructor(private http: HttpClient, private router: Router) { }
   private signlepost:Post;
 
+
+  setCreatorId(creatorid:string){
+
+      this.creatorid = creatorid
+
+  }
+
+
+  getCreatorId(){
+
+   return this.creatorid
+
+  }
+
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     //spread operator ... the three dots to take data from another array and add to this array
@@ -242,4 +256,13 @@ getPost(id: string) {
   }*/
 
   //this bracket is last below
+
+
+
+  getuserposts(userid: string)
+  {
+    console.log(userid);
+   return this.http.get<{ posts:any }>(BACKEND_URL+"userposts/"+userid);
+  }
+
 }

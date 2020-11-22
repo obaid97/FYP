@@ -124,6 +124,8 @@ tiles: Tile[] = [
   onchat(creatorid: any)
   {
    //this.authService.createport(creatorid);
+
+   this.postsService.setCreatorId(creatorid);
    this.router.navigate(["/chat"]);
    //this.authService.startchat(creatorid);
   }

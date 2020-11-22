@@ -29,8 +29,7 @@ router.post('/search', SearchController.searchPosts);
 router.post('/searchPost', SearchController.searchSinglePost);
 
 
-router.delete("/:id",checkAuth,PostController.deletePost);
-
+router.get("/userposts/:userid",PostController.getuserposts)
 
 console.log("router", router.stack);
 module.exports = router;

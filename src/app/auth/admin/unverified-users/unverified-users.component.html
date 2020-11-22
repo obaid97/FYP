@@ -2,7 +2,7 @@
 <mat-spinner *ngIf="isloading"></mat-spinner>
 
 
-<div class="container container-fluid" style="margin-top: 7.2rem; width:125.6; margin-left:-10.2rem;">
+<div class="container container-fluid" style=" width:125.6; margin-left:-10.2rem;">
   <div class="sidebar">
     <a class="active"  routerLink='/auth/admin'>Home</a>
     <a routerLink='/auth/create-admin'>Create Admin</a>
@@ -14,7 +14,7 @@
   </div>
 
   <div class="content" >
-    <div class="row" style="margin-top: 7.8rem; margin-left:5rem; width: 12.5.6% n;" >
+    <div class="row" style="margin-top:3rem; margin-left:5rem; width: 12.5.6% ;" >
 
       <mat-accordion multi="true" *ngIf="unverifiedUsers.length>0 && !isloading" style="width:125.6%">
         <mat-expansion-panel *ngFor="let user of unverifiedUsers">

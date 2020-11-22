@@ -16,6 +16,9 @@ mat-form-field
 input
 {
   width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
 }
 .text_area
 {
@@ -27,6 +30,8 @@ input
 {
   width: 50%;
   height:3rem;
+  margin-top:7px;
+  margin-bottom: 5px;
 }
 mat-card:hover
 {

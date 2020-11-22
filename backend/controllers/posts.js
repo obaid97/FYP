@@ -2,6 +2,7 @@ const Post = require('../models/post');
 //const multer = require('multer');
 const checkAuth = require('../middleware/check-auth');
 const User = require('../models/user');
+ObjectID = require('mongodb').ObjectID;
 
 exports.deletePost = (req, res, next) => {
   //console.log(req.params.id);
@@ -10,7 +11,7 @@ exports.deletePost = (req, res, next) => {
     .then(result => {
       // console.log(result);
       if (result.n > 0) {
-        res.status(200).json({ message: "Post Deleted Sucessfully!" });
+        res.status(200).json({   message: "Post Deleted Sucessfully!" });
       }
       else {
         res.status(401).json({ message: "Not Authorized!" });
@@ -144,7 +145,8 @@ exports.getPost = (req, res, next) => {
 }
 
 //fetch all posts
-exports.getPosts = (req, res, next) => {
+exports.getPosts = (req, res, next) =>
+ {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
   const postQuery = Post.find();
@@ -240,27 +242,24 @@ exports.searchPosts = (req, res, next) => {
 }
 
     //fetch all posts
-    exports.getcnicNumber = (req,res) =>
-    {
-      Post.findById(req.params.id).then(post => {
-        //console.log(post);
-        if (post) {
-          console.log(post);
-          //res.status(200).json(post);
-          User.find({_id: post.creator}).then(result =>
-            {
-              if(result)
-              {
-              res.status(200).json(result);
-              }
-              else
-              {
-                res.status(404).json({message: 'User not found'});
-              }
-            })
-            }
-        else {
-          res.status(404).json({ message: '404 not Found!' });
+exports.getcnicNumber = (req,res) =>
+{
+  Post.findById(req.params.id).then(post => {
+    //console.log(post);
+    if (post) {
+      console.log(post);
+      //res.status(200).json(post);
+      User.find({_id: post.creator}).then(result =>
+        {
+          if(result)
+          {
+          res.status(200).json(result);
+          }
+          else
+          {
+            res.status(404).json({message: 'User not found'});
+          }
+        })
         }
       }).catch(error => {
         res.status(500).json({

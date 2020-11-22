@@ -1,46 +1,4 @@
 
-<!--
-  div class="container-fluid" style="width:126%; margin-left:-10.52rem; background-color:aqua">
-  <div class="row">
-    <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12">
-      <div id="navbar">
-        <a class="active" >Home</a>
-        <a >News</a>
-        <a >Contact</a>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12">
-      <div class="content">
-        <h3>Sticky Navigation Example</h3>
-        <p>The navbar will stick to the top when you reach its scroll position.</p>
-        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-        <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-  window.onscroll = function() {myFunction()};
-
-  var navbar = document.getElementById("navbar");
-  var sticky = navbar.offsetTop;
-
-  function myFunction() {
-    if (window.pageYOffset >= sticky) {
-      navbar.classList.add("sticky")
-    } else {
-      navbar.classList.remove("sticky");
-    }
-  }
-  </script>
--->
 
 <div class="home page-template-default page page-id-3075 woocommerce-no-js ppb_enable responsive-media container-fluid"
 style="width: 126.5%; margin-left: -10.5rem;">
@@ -127,113 +85,35 @@ style="width: 126.5%; margin-left: -10.5rem;">
         </div>
     </div>
     <!-- End top bar -->
-    <div class="top_bar scroll"  >
-        <div class="standard_wrapper" >
-            <!-- Begin logo -->
-            <div id="logo_wrapper">
+    <!--Responsive nav bar start-->
 
-                <div id="logo_normal" class="logo_container">
-                    <div class="logo_align">
-                        <a id="custom_logo" class="logo_wrapper hidden" routerLink="/">
-                            <!--<img src="../../assets/images/vemb logo new.png" alt="" width="175" height="24" />-->
-                            <h2 style="color:#ffffff; width:100%">V.E.M.B</h2>
-                        </a><!--../../assets/images/logo@2x_white.png-->
-                    </div>
-                </div>
-
-                <div id="logo_transparent" class="logo_container">
-                    <div class="logo_align">
-                        <a id="custom_logo_transparent" class="logo_wrapper default" routerLink="/">
-                          <h2 style="color:#ffffff; width:100%">V.E.M.B</h2>
-                          <!--<img src="../../assets/images/vemb logo new.png" alt="" width="165" height="24" />-->
-                        </a>
-                    </div>
-
-                <!-- End logo -->
-
-                <div id="menu_wrapper" style="float: right; margin-left: 75rem; ">
-                    <div id="nav_wrapper">
-                        <div class="nav_wrapper_inner">
-                            <div id="menu_border_wrapper">
-                                <div class="menu-main-menu-container">
-                                    <ul id="main_menu" class="nav">
-                                        <li class="menu-item  menu-item-has-children ">
-                                          <a routerLink="/" style="font-size:15px;">
-                                            Home
-                                          </a>
-                                        </li>
-                                        <li class="menu-item  menu-item-has-children ">
-                                          <a style="font-size:16px;">
-                                            |
-                                          </a>
-                                        </li>
-                                        <li class="menu-item menu-item-has-children ">
-                                          <a routerLink="/posts" style="font-size:15px;">
-                                            Cars
-                                          </a>
-                                        </li>
-                                        <li class="menu-item  menu-item-has-children ">
-                                          <a style="font-size:16px;">
-                                            |
-                                          </a>
-                                        </li>
-                                        <li class="menu-item menu-item-has-children">
-                                          <a routerLink="/about" style="font-size:15px;">
-                                            About Us
-                                          </a>
-                                        </li>
-                                        <li class="menu-item  menu-item-has-children ">
-                                          <a style="font-size:16px;">
-                                            |
-                                          </a>
-                                        </li>
-                                        <li class="menu-item menu-item-has-children">
-                                          <a routerLink="/contactus" style="font-size:15px;">
-                                            Contact Us
-                                          </a>
-                                        </li>
-                                        <li class="menu-item  menu-item-has-children ">
-                                          <a style="font-size:16px;">
-                                            |
-                                          </a>
-                                        </li>
-                                        <li class="menu-item menu-item-has-children">
-                                          <a routerLink="/faq" style="font-size:15px;">
-                                            FAQs
-                                          </a>
-                                        </li>
-                                        <li class="menu-item  menu-item-has-children ">
-                                          <a style="font-size:16px;">
-                                            |
-                                          </a>
-                                        </li>
-                                        <li class="menu-item menu-item-has-children ">
-                                          <a routerLink="/blog" style="font-size:15px;">
-                                            Blog
-                                          </a>
-                                        </li>
-                                        <li class="menu-item  menu-item-has-children ">
-                                          <a style="font-size:16px;">
-                                            |
-                                          </a>
-                                        </li>
-                                        <li class="menu-item  menu-item-has-children ">
-                                          <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff; font-size:18px; height:34px; border-radius: 50px 50px 50px 50px; width:140px;">
-                                            Sell Your Car
-                                          </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End right corner buttons -->
-                    </div>
-                    <!-- End main nav -->
-                </div>
-              </div>
-            </div>
-        </div>
+  <div class="nav">
+    <input type="checkbox" id="nav-check">
+    <div class="nav-header">
+      <div class="nav-title">
+        V.E.M.B
+      </div>
     </div>
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    <div class="nav-links" style="float: right;margin-left: 50%;">
+      <a routerLink="/" style="margin-left:10px;" >Home</a>
+      <a routerLink="/posts" >Cars</a>
+      <a routerLink="/about">About Us</a>
+      <a routerLink="/contactus">Contact Us</a>
+      <a routerLink="/faq">F.A.Q</a>
+      <a routerLink="/blog">Blog</a>
+      <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff;  height:34px; border-radius: 50px 50px 50px 50px; width:140px;padding-top: 5px;padding-bottom:5px;">Sell Your Car</button>
+    </div>
+  </div>
+
+  <!--Responsive nav bar end-->
   </div>
 
 
@@ -253,6 +133,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
   </div>
 
   <!-- Begin content -->
+  <div class="mobile_responsive_content">
   <div id="page_content_wrapper" class="hasbg withtopbar ">
       <div class="inner">
 
@@ -345,11 +226,22 @@ style="width: 126.5%; margin-left: -10.5rem;">
           <!-- End main content -->
       </div>
   </div>
-
+</div>
 
 <p style="height: 45px;">
 
 </p>
+
+
+
+
+
+
+
+
+
+
+
     <div id="footer" class=" ppb_wrapper" style="position: relative;">
       <ul class="sidebar_widget three">
           <li id="text-2" class="widget widget_text">

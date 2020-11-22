@@ -13,7 +13,10 @@ const userSchema = mongoose.Schema({
   accountStatus: { type:String, required:true },
   imagePath : { type:String, required:true },
   authorizedStatus: {type:Boolean,required:true},
-  privateKey: {type:String, required:true}
+  privateKey: {type:String, required:true},
+  //profileimage: { type:String, required:true },
+  socket_id: {type:String},
+  socket_status:{type:Boolean}
 });
 
 userSchema.plugin(uniqueValidator);

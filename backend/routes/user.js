@@ -29,12 +29,15 @@ router.get("/getcnicnum",UserController.getcnicNumber);
 //router.put("/approve/:cnicNumber",UserController.approveuser);
 router.post("/approve",UserController.approveuser);
 router.post("/disable",UserController.disableuser);
-router.get("/userdetails/:cnicNumber",UserController.userdetails);
+router.get("/userdetails",checkAuth,UserController.userdetails);
 router.post("/deleteuser",UserController.deleteUser);
 //router.delete("/delete/:cnicNumber",UserController.deleteUser);
 router.post("/chat",UserController.startchat);
 router.post("/updateuserdetails",UserController.updateuserdetails);
 router.put("/forgotpassword",UserController.forgotpassword);
 router.post("/reset",UserController.resetpassword);
+router.post("/mail",UserController.sendemail);
 
+router.get("/getChatBox/:_id",UserController.getChatBox);
+router.post("/inboxmessage",UserController.inboxmessage);
 module.exports = router;

@@ -154,7 +154,7 @@ a
   width: 200px;
   background-color: #f1f1f1;
   position: fixed;
-  height: 80%;
+  height: 100%;
   overflow: auto;
 }
 
@@ -183,20 +183,36 @@ div.content {
 
 @media screen and (max-width: 700px) {
   .sidebar {
-    margin-top: 7.2rem;
-    margin-left: -7.2rem;
+
+    margin-left: 16rem;
     width: 100%;
     height: auto;
     position: relative;
   }
   .sidebar a {float: left;}
-  div.content {margin-left: 0;}
+  div.content {margin-left: 7rem;}
 }
 
 @media screen and (max-width: 400px) {
+  .sidebar {
+
+    margin-left: 16rem;
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
   .sidebar a {
-    margin-top: 7.2rem;
+
     text-align: center;
     float: none;
   }
+}
+@media screen and (max-width: 1200px) {
+  .sidebar
+  {
+    margin-left: 5rem;
+  }
+
+  div.content
+  {margin-top: 2rem;}
 }

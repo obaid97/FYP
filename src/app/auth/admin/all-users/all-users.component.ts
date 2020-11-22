@@ -81,4 +81,10 @@ export class AllUsersComponent
       this.authService.getallUsers();
       });
     }
+
+
+    onLogout()
+    {
+      this.authService.logout();
+    }
   }

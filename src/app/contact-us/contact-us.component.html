@@ -247,19 +247,22 @@
     <div class="col col-xl-12 col-md-12 col-sm-12 col-xs-12 col-lg-12">
       <mat-card >
         <mat-card-content>
-          <mat-form-field>
-            <input type="text" placeholder="Enter your Email"/>
-          </mat-form-field>
+          <form [formGroup]="contactform" (submit)="onsend()"  *ngIf="!isloading">
+
+            <input type="text"  placeholder="Enter your Email"  formControlName="email">
+
+
           <br>
-          <mat-form-field>
-            <input type="text" placeholder="Name">
-          </mat-form-field>
+
+            <input type="text" formControlName="subject" placeholder="Subject">
+
           <br>
-          <mat-form-field>
-            <input  class="text_area" type="textarea" placeholder="Enter Your Message">
-          </mat-form-field>
+
+            <input  class="text_area" formControlName="message" type="textarea" placeholder="Enter Your Message">
+
           <br>
-          <button class="submit_button" mat-raised-button mat-raised-button color="accent">Send</button>
+          <button class="submit_button" mat-raised-button mat-raised-button color="accent" type="submit">Send</button>
+        </form>
         </mat-card-content>
       </mat-card>
     </div>

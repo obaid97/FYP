@@ -70,5 +70,6 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
   bootstrap: [AppComponent],
   entryComponents: [ErrorComponent]
 })
+
 export class AppModule { }
 

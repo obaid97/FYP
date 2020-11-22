@@ -9,12 +9,11 @@ const app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 const ChatMessgae = require("../models/chat");
+const nodemailer = require("nodemailer");
+const userChatModel = require('../models/chat');
 
 
 exports.createUser =  (req,res,next)=>{
-
-  //const privatek = crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex');
-  //console.log(privatek);
   const tempuserstatus = "user";
   const url = req.protocol + '://' + req.get("host");
   bcrypt.hash(req.body.password, 10)
@@ -33,6 +32,7 @@ exports.createUser =  (req,res,next)=>{
           imagePath: url+"/images/" + req.file.filename,
           authorizedStatus: false,
           privateKey :crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex')
+          //profileimage:null
       });
       user.save().then(result =>
         {
@@ -156,7 +156,7 @@ exports.userLogin= (req,res,next) =>
 exports.userdetails = (req,res,next) =>
 {
 
-User.find({cnicNumber: req.params.cnicNumber}).then(result =>{
+User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
 
   if(result)
   {
@@ -427,6 +427,41 @@ exports.forgotpassword= (req,res,next) =>
             ({
               message:"Successfully updated password",
               result:newpass});
+
+
+              async function main() {
+
+                let testAccount = await nodemailer.createTestAccount();
+
+
+                let transporter = nodemailer.createTransport({
+                  //host: "smtp.ethereal.email",
+                   host: "smtp.gmail.com",
+                  port: 587,
+                  secure: false, // true for 465, false for other ports
+                  auth: {
+                    user: 'muzammilwaqar02@gmail.com ', // generated ethereal user
+                    pass: 'leomuzi6894', // generated ethereal password
+                  },
+                })
+
+                const msg ={
+                  from: "muzammilwaqar02@gmail.com", /*muzammilwaqar02@gmail.com*/// if not working send through this
+                  to: foundobject.email, // list of receivers
+                  subject: "New Password" , // Subject line
+                  text:"Your New Password is : "+"  -  "+ newpass // plain text body
+                };
+
+                // send mail with defined transport object
+                const info = await transporter.sendMail(msg);
+
+
+            }
+
+              main().catch(console.error);
+
+
+
           }
         })
           });
@@ -484,7 +519,7 @@ exports.resetpassword = (req,res,next) =>
 
 exports.updateuserdetails =  (req,res,next) =>
 {
-
+  const url = req.protocol + '://' + req.get("host");
   User.findOne({cnicNumber: req.body.cnicNumber}, function(err, foundobject)
   {
     //console.log(req.params.cnicNumber + " found");
@@ -519,6 +554,10 @@ exports.updateuserdetails =  (req,res,next) =>
           {
             foundobject.password=hash;
           });
+        }
+        if(req.body.image)
+        {
+          foundobject.imagePath = url+"/images/" + req.file.filename;
         }
         //can apply as many fields as we can like above
 
@@ -647,3 +686,131 @@ exports.startchat = (req,res) =>
 
 
 }
+
+
+exports.sendemail = (req,res,next) =>
+{
+  let user =req.body;
+
+ async function main() {
+
+    let testAccount = await nodemailer.createTestAccount();
+
+
+    let transporter = nodemailer.createTransport({
+      //host: "smtp.ethereal.email",
+       host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: 'muzammilwaqar02@gmail.com ', // generated ethereal user
+        pass: 'leomuzi6894', // generated ethereal password
+      },
+    })
+
+    const msg ={
+      from: "muzammilwaqar02@gmail.com", /*muzammilwaqar02@gmail.com*/// if not working send through this
+      to: "muzammilawan0@gmail.com,obaid6968@gmail.com janelle.bednar@ethereal.email", // list of receivers
+      subject: user.subject , // Subject line
+      text:user.email+"  -  "+ user.message // plain text body
+    };
+
+    // send mail with defined transport object
+    const info = await transporter.sendMail(msg);
+
+
+}
+
+  main().catch(console.error);
+  res.status(200).send("Email Sent");
+}
+
+
+
+
+exports.getChatBox = async (req,res,next) =>
+{
+  var userids=[];
+  var usernames=[];
+  //console.log(req.params._id);
+  //console.log(req.body._id);
+  var currentuser = req.params._id;
+  let userChatData = await userChatModel.find( { 'users.user_id':  req.params._id });
+  let count =userChatData.length;
+  //console.log(count)
+  var users=[];
+  for (let i=0;i<userChatData.length;i++)
+  {
+    if(currentuser != userChatData[i].users[1].user_id)
+    {
+      userids[i] = userChatData[i].users[1].user_id;
+    }
+    else if(currentuser != userChatData[i].users[0].user_id)
+    {
+      userids[i] = userChatData[i].users[0].user_id;
+    }
+  }
+  for (let j=0;j<userids.length;j++)
+  {
+    //console.log("length of id"+userids.length)
+    let a = await User.findById(userids[j]);
+    users.push(a);
+  }
+  if(users){
+    res.status(200).send(users);
+  }else{
+    res.status(400).send({message: "No chat found"});
+  }
+
+
+}
+
+
+/*-
+-/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/Un finsihed work
+/
+/
+/
+/
+/
+/
+/
+/
+/
+*/
+
+//user chat inbox controller
+
+exports.inboxmessage = (req,res,next) =>
+{
+
+  console.log("current user id: "+req.body.currentuserid);
+  console.log("chat user id: "+req.body.chatuserid);
+  var userinbox;
+//    {"users.user_id":req.body.currentuserid}
+//$and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ]
+//{ $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] }
+// $or: [ { 'users': { user_id: req.body.currentuser} }, { price: 10 }
+userChatModel.findOne({ 'users.user_id': { $all: [ req.body.currentuserid, req.body.chatuserid] } })
+  .then(result2 =>
+    {
+      userinbox = result2;
+      //console.log( "Curretn usre chats : "+result2);
+
+      res.status(200).send(result2.msg_list);
+
+    });
+
+
+}
+

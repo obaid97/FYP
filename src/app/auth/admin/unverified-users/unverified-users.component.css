@@ -5,7 +5,7 @@
   width: 200px;
   background-color: #f1f1f1;
   position: fixed;
-  height: 80%;
+  height: 100%;
   overflow: auto;
 }
 
@@ -34,7 +34,7 @@ div.content {
 
 @media screen and (max-width: 700px) {
   .sidebar {
-    margin-top: 7.2rem;
+
     margin-left: -7.2rem;
     width: 100%;
     height: auto;
@@ -46,7 +46,7 @@ div.content {
 
 @media screen and (max-width: 400px) {
   .sidebar a {
-    margin-top: 7.2rem;
+
     text-align: center;
     float: none;
   }
