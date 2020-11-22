@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
   private sharedData: any[];
+  private postId : any;
 
 
   setData(data) {
@@ -13,6 +14,14 @@ export class DataService {
 
   getData() {
     return this.sharedData ;
+  }
+
+  setSingleData(postId) {
+    this.postId = postId;
+  }
+
+  getSingleData() {
+    return this.postId;
   }
   constructor() { }
 }

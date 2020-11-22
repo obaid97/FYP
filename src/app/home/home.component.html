@@ -210,7 +210,8 @@ style="width: 126.5%; margin-left: -10.5rem;">
                               <div class="car_search_wrapper" style="margin-left: 15rem;">
                                   <div class="one_fourth themeborder">
                                       <select id="brand" name="brand" [(ngModel)]="selectedBrand">
-                                          <option [selected] = "b.value === ''" *ngFor = "let b of brands">
+                                        <option value =""  selected> Any Brand </option>
+                                          <option *ngFor = "let b of brands">
                                               {{b.name}}
                                         </option>
                                       </select>
@@ -218,10 +219,11 @@ style="width: 126.5%; margin-left: -10.5rem;">
                                   </div>
                                   <div class="one_fourth themeborder">
                                     <input type= "text" (keyup)="onKey($event)">
-                                    <span class="ti-angle-down"></span>
+                                    <!-- <span class="ti-angle-down"></span> -->
                                 </div>
                                   <div class="one_fourth themeborder">
                                       <select id="type" name="type" [(ngModel)]="selectedColour">
+                                        <option value =""  selected> Any Colour </option>
                                         <option *ngFor = "let c of colours">
                                             {{c.name}}
                                       </option>
@@ -230,6 +232,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
                                   </div>
                                 <div class="one_fourth themeborder">
                                   <select id="type" name="type" [(ngModel)]="selectedCity">
+                                    <option value =""  selected> City </option>
                                     <option *ngFor = "let c of cities">
                                         {{c.name}}
                                   </option>
@@ -239,6 +242,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
                                   <div class="one_fourth themeborder">
                                     <span style="margin-bottom: 2px;">RS</span>
                                     <select id="sort_by" name="sort_by" [(ngModel)]="selectedPrice">
+                                        <option value =""  selected> Price </option>
                                         <option *ngFor = "let p of prices">
                                             {{p.name}}
                                       </option>
@@ -246,7 +250,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
                                       <span class="ti-angle-down"></span>
                                   </div>
                                   <div class="one_fourth themeborder">
-                                      <button id="car_search_btn" type="submit" class="button" value="Searcheee"></button>
+                                      <button id="car_search_btn" type="submit" class="button" value="Search"></button>
                                   </div>
                               </div>
                           </form>

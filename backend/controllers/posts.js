@@ -267,7 +267,20 @@ exports.searchPosts = (req, res, next) => {
           message: "Fetching Failed!"
         });
       });
+    }
 
-
-
+    exports.searchSinglePost = (req, res, next) => {
+      Post.findById(req.body.searchId).then(post => {
+        //console.log(post);
+        if (post) {
+          res.status(200).json(post);
+            }
+        else {
+          res.status(404).json({ message: 'Post not Found!' });
+        }
+      }).catch(error => {
+        res.status(500).json({
+          message: "Fetching Post Failed!"
+        });
+      });
     }

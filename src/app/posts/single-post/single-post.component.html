@@ -1,19 +1,23 @@
 
 <mat-card >
   <mat-card-header >
-    <h1>Car amke - Car Brand - Car Model</h1>
+    <!-- <h1>Car amke - Car Brand - Car Model</h1> -->
   </mat-card-header>
   <mat-card-subtitle>
-    <h3>Car Price - City - Registered City
+    <h3>Car Price {{this.data.price}} - City {{this.data.city}} - Registered City {{this.data.registrationcity}}
     </h3>
     </mat-card-subtitle>
     <mat-card-content>
+      <a class="car_image" href="{{data.imagePath}}">
+        <img src={{data.imagePath}} alt="{{data.make}}" />
+    </a>
       <p> Images</p>
-      <h4>Car Mileage - Car Color - Car Price </h4>
-      <p>Car - Description</p>
-      <p>Assembly - Transmission - Engine Type - Engine Capacity</p>
-      <p>features</p>
-      <p>mobile Number</p>
+      <h4>Car Mileage {{this.data.mileage}} - Car Color {{this.data.exteriorcolor}} - Car Price {{this.data.price}}</h4>
+      <p>Car Name {{this.data.make +" " + this.data.model}}</p>
+      <p>Assembly {{this.data.assembly}}- Transmission {{this.data.transmission}} - Engine Type {{this.data.enginetype}} - Engine Capacity{{this.data.enginecapacity}}</p>
+      <p>features{{this.data.features.toString()}}</p>
+      <p>mobile Number {{this.data.mobilenumber}}</p>
+      <p>Description {{this.data.description}}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" >Chat</button>

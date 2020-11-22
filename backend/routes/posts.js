@@ -26,8 +26,11 @@ router.get('/:id',PostController.getPost);
 
 router.post('/search', SearchController.searchPosts);
 
+router.post('/searchPost', SearchController.searchSinglePost);
+
+
 router.delete("/:id",checkAuth,PostController.deletePost);
 
 
-
+console.log("router", router.stack);
 module.exports = router;

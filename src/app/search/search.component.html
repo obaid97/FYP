@@ -302,14 +302,14 @@
                     <div class="car_list_wrapper floatleft noborder">
                       <div class="one">
                           <a class="car_image" href="#">
-                              <img src={{post.imagePath}} alt="BMW 3 Series" />
+                              <img src={{post.imagePath}} alt="{{post.make}}" />
                           </a>
                       </div>
 
                       <div class="one">
                           <div class="car_attribute_wrapper car_list">
-                              <a class="car_link" href="#"><h3>{{post.make + " " + post.model}}</h3></a>
-                              <div class="car_attribute_rating">
+                              <a class="car_link" (click) = "roting(post)" ><h3>{{post.make + " " + post.model}}</h3></a>
+                              <!-- <div class="car_attribute_rating">
                                   <div class="br-theme-fontawesome-stars-o">
                                       <div class="br-widget">
                                           <a href="javascript:;" class="br-selected"></a>
@@ -319,9 +319,9 @@
                                           <a href="javascript:;"></a>
                                       </div>
                                   </div>
-                                  <div class="car_attribute_rating_count">
+                                   <div class="car_attribute_rating_count">
                                       4&nbsp; reviews </div>
-                              </div>
+                              </div> -->
                               <br class="clear" />
                               <div class="one_third">
                                   <div class="car_attribute_wrapper_icon">

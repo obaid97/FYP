@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { DataService } from '../data.service';
@@ -22,13 +23,13 @@ export class SearchComponent implements OnInit {
   userandadminstatus:boolean;
   status :string;
   authorizedStatus:boolean;
-  constructor(public searchService: SearchService, private dataService: DataService, private authService: AuthService) { }
+  constructor(public searchService: SearchService, private dataService: DataService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.sharedData = this.dataService.getData();
-    console.log("this.sharedData");
+    console.log("this.sharedData", this.sharedData);
    
-   this.price= 2450;
+  //  this.price= 2450;
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
     this.userIsAuthenticated = isAuthenticated;
@@ -50,6 +51,7 @@ export class SearchComponent implements OnInit {
   search() {
     console.log("here in search");
     // console.log("Search text:", this.myForm.value.searchText);
+    console.log("form value");
     this.searchService.search(this.myForm.value.searchText).subscribe(postData => {
 
     });
@@ -63,4 +65,9 @@ export class SearchComponent implements OnInit {
     this.authService.logout();
   }
 
+  roting(post) {
+    this.dataService.setSingleData(post._id);
+    this.router.navigate(["/single-post"]);
+    
+  }
 }

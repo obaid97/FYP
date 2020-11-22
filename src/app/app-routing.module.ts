@@ -33,6 +33,7 @@ const routes: Routes=[
   { path:'forgotpassword',component:ForgotPasswordComponent},
   { path:'DNP',component: DisplayNewPasswordComponent},
   { path:'search', component: SearchComponent },
+  { path:'single-post', component: SinglePostComponent },
   { path:'chat', component:ChatInboxComponent, canActivate: [AuthGuard]},
   //this wont work in the newer version
   //another way to load children is

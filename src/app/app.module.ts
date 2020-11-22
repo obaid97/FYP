@@ -51,7 +51,6 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     AboutUsComponent,
     FAQComponent,
     ContactUsComponent
-
   ],
   imports: [
     BrowserModule,

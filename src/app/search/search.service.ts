@@ -15,4 +15,10 @@ export class SearchService {
     console.log("Search Text in service:", searchData);
     return this.http.post<any>(BACKEND_URL, searchData);
   }
+
+  singleSearch(searchId: any) {
+    console.log("Search Id in service:", searchId);
+    console.log("url",BACKEND_URL + 'Post');
+    return this.http.post<any>(BACKEND_URL + 'Post', {searchId});
+  }
 }

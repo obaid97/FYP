@@ -4,6 +4,9 @@ import { PostsService } from '../posts.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
+import { DataService } from 'src/app/data.service';
+import { SearchService } from 'src/app/search/search.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 export interface Tile {
@@ -39,6 +42,8 @@ export class SinglePostComponent
   enginecapacity:string;
   features:string;
   mobilenumber:number;
+  singleDataId : any ;
+  data: any;
 
 
   tiles: Tile[] = [
@@ -48,13 +53,22 @@ export class SinglePostComponent
     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
   ];
 
-  constructor(public postsService: PostsService, private authService: AuthService) { }
+  constructor(public postsService: PostsService, private authService: AuthService, private dataService: DataService, private searchService: SearchService, private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit()
-  {
-
-    //this.post = this.postsService.getsinglepost();
-    console.log()
+  ngOnInit(): void {
+    console.log("in this sngle");
+    this.activatedRoute.queryParams.subscribe(params => {
+      console.log("params", params);
+      });
+    this.singleDataId = this.dataService.getSingleData();
+    console.log("singleId", this.singleDataId);
+    if (this.singleDataId) {
+      this.searchService.singleSearch(this.singleDataId).subscribe(postData => {
+        console.log("searchsinge", postData);
+        this.data = postData;
+        // this.router.navigate(["/search"]);
+      });
+    }
   }
 
 
