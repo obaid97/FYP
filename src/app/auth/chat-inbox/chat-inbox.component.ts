@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import * as io from 'socket.io-client';
 import { PostsService } from 'src/app/posts/posts.service';
@@ -26,8 +27,22 @@ export class ChatInboxComponent implements OnInit {
   userandadminstatus:boolean;
  fromId: string
   chat;
-  constructor(public authService: AuthService, public postService:PostsService) {
+  chatUserId:string
+  messageList:any=[];
+  constructor(public authService: AuthService, public postService:PostsService, private route:ActivatedRoute, private router: Router) {
     this.usertoken =this.authService.getToken();
+
+    this.chatUserId =  this.route.snapshot.paramMap.get('id');
+    //console.log("CHAT ID: ", this.chatUserId);
+    this.authService.getchats(this.chatUserId).subscribe(data=>{
+
+      this.messageList = data
+
+     // console.log("chhhaat data: ", this.messageList)
+
+    },err=>{
+
+    });
 
   }
 
@@ -38,7 +53,6 @@ export class ChatInboxComponent implements OnInit {
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
     this.userIsAuthenticated = isAuthenticated;
-    this.accountStatus = this.authService.getcurrentuserstatus();
 
     //this.authorizedStatus =
      //console.log(this.authService.getcurrentuserauthorizestatus()+ " - header");
@@ -51,6 +65,8 @@ export class ChatInboxComponent implements OnInit {
      this.userandadminstatus = false;
    }
   });
+
+
   }
 
   /*setupSocketConnection() {
@@ -79,7 +95,7 @@ export class ChatInboxComponent implements OnInit {
   if (data) {
 
     this.fromId = data.from_id;
-    console.log("DATA: ",data);
+    console.log("formid on socket on : ",this.fromId );
 
 
 
@@ -126,11 +142,13 @@ export class ChatInboxComponent implements OnInit {
 
 
 SendMessage() {
+  //this.chatUserId
+  //this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.fromId});
+  this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.chatUserId});
 
-  this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.fromId});
   //console.log(this.postService.getCreatorId());
   var element = document.createElement("LI");
-
+  console.log("form id "+this.fromId);
   element.innerHTML = this.message;
 
   element.style.background = 'green';
@@ -158,5 +176,11 @@ onLogout()
 {
   this.authService.logout();
 }
+
+inititatecontract()
+{
+  this.router.navigate(['/smartcontract'])
+}
+
 
 }

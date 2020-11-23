@@ -55,7 +55,12 @@ export class SinglePostComponent
 
     //this.post = this.postsService.getsinglepost();
     console.log()
+
+
   }
 
-
+  onLogout()
+  {
+    this.authService.logout();
+  }
 }

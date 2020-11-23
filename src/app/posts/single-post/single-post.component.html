@@ -1,27 +1,368 @@
-
-<mat-card >
-  <mat-card-header >
-    <h1>Car amke - Car Brand - Car Model</h1>
-  </mat-card-header>
-  <mat-card-subtitle>
-    <h3>Car Price - City - Registered City
-    </h3>
-    </mat-card-subtitle>
-    <mat-card-content>
-      <p> Images</p>
-      <h4>Car Mileage - Car Color - Car Price </h4>
-      <p>Car - Description</p>
-      <p>Assembly - Transmission - Engine Type - Engine Capacity</p>
-      <p>features</p>
-      <p>mobile Number</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" >Chat</button>
-      <button mat-raised-button color="accent">Book</button>
-    </mat-card-actions>
-</mat-card>
+<mat-spinner *ngIf="isloading"></mat-spinner>
 
 
-<h2>working</h2>
+<a id="close_mobile_menu" href="javascript:;"></a>
+
+  <div class="mobile_menu_wrapper">
+      <a id="mobile_menu_close" href="javascript:;" class="button"><span class="ti-close"></span></a>
+
+      <div class="mobile_menu_content">
+
+          <div class="menu-main-menu-container">
+              <ul id="mobile_main_menu" class="mobile_main_nav">
+                  <li class="menu-item current-menu-item menu-item-has-children"><a routerLink="/">Home</a>
+                  </li>
+                  <li class="menu-item menu-item-has-children"><a routerLink="/posts">Cars</a>
+                  </li>
+                  <li class="menu-item menu-item-has-children"><a href="about-us.html">About Us</a></li>
+                  <li class="menu-item menu-item-has-children"><a href="contact-us.html">Contact Us</a></li>
+                  <li class="menu-item menu-item-has-children"><a href="faqs.html">FAQs</a></li>
+                  <li class="menu-item menu-item-has-children"><a href="blog-left-sidebar.html">Blog</a>
+                  </li>
+              </ul>
+          </div>
+
+          <!-- Begin side menu sidebar -->
+          <div class="page_content_wrapper">
+              <div class="sidebar_wrapper">
+                  <div class="sidebar">
+
+                      <div class="content">
+
+                          <ul class="sidebar_widget">
+                              <li id="text-8" class="widget widget_text">
+                                  <h2 class="widgettitle">For More Informations</h2>
+                                  <div class="textwidget"><span class="ti-mobile" style="margin-right:10px;"></span>1-567-124-44227
+                                      <br/>
+                                      <span class="ti-alarm-clock" style="margin-right:10px;"></span>Mon - Sat 8.00 - 18.00 </div>
+                              </li>
+                          </ul>
+
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+          <!-- End side menu sidebar -->
+
+          <div class="social_wrapper">
+              <ul><!--social links-->
+                  <li class="facebook"><a target="_blank" href="#"><i class="fa fa-facebook-official"></i></a></li>
+                  <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li class="youtube"><a target="_blank" title="Youtube" href="#"><i class="fa fa-youtube"></i></a></li>
+                  <li class="pinterest"><a target="_blank" title="Pinterest" href="#"><i class="fa fa-pinterest"></i></a></li>
+                  <li class="instagram"><a target="_blank" title="Instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+              </ul>
+          </div>
+      </div>
+  </div>
 
 
+
+
+
+
+
+
+<div class="header_style_wrapper">
+
+  <!-- Begin top bar -->
+  <div class="above_top_bar">
+      <div class="page_content_wrapper">
+
+          <div class="social_wrapper">
+              <ul><!--social links-->
+                  <li class="facebook" *ngIf="userIsAuthenticated">
+                    <a  routerLink="/userprofile" routerLinkActive="mat-accent">
+                      Profile
+                    </a>
+                  </li>
+                  <li class="facebook" *ngIf="!userIsAuthenticated">
+                    <a  routerLink="/auth/login" routerLinkActive="mat-accent">
+                      Login
+                    </a>
+                  </li>
+                  <li class="facebook" *ngIf="!userIsAuthenticated">
+                    <a >
+                      |
+                    </a>
+                  </li>
+                  <li class="facebook" *ngIf="!userIsAuthenticated">
+                    <a  routerLink="/auth/signup" routerLinkActive="mat-accent">
+                      Sign Up
+                    </a>
+                  </li>
+
+                  <li class="facebook" *ngIf="userIsAuthenticated">
+                    <a  routerLink="" (click)="onLogout()" >
+                      Logout
+                    </a>
+                  </li>
+              </ul>
+          </div>
+          <div class="top_contact_info">
+              <div class="company_address">
+                  <div id="top_contact_address"><span class="ti-location-pin"></span>2 Floor Pak Plaza Double Road PWD</div>
+              </div>
+              <div>
+                  <div id="top_contact_number"><a href="tel:+92-335-5423119"><span class="ti-mobile"></span>+92-335-5423119</a></div>
+              </div>
+              <div>
+                  <div id="top_contact_hours"><span class="ti-alarm-clock"></span>Mon-Fri 09.00 - 17.00 </div>
+              </div>
+          </div>
+          <br class="clear" />
+      </div>
+  </div>
+  <!-- End top bar -->
+
+<!--Responsive nav bar start-->
+
+<div class="nav">
+  <input type="checkbox" id="nav-check">
+  <div class="nav-header">
+    <div class="nav-title">
+      V.E.M.B
+    </div>
+  </div>
+  <div class="nav-btn">
+    <label for="nav-check">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+
+  <div class="nav-links" style="float: right;margin-left: 50%;">
+    <a routerLink="/" style="margin-left:10px;" >Home</a>
+    <a routerLink="/posts" >Cars</a>
+    <a routerLink="/about">About Us</a>
+    <a routerLink="/contactus">Contact Us</a>
+    <a routerLink="/faq">F.A.Q</a>
+    <a routerLink="/inbox">Inbox</a>
+    <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff;  height:34px; border-radius: 50px 50px 50px 50px; width:140px;padding-top: 5px;padding-bottom:5px;">Sell Your Car</button>
+  </div>
+</div>
+
+<!--Responsive nav bar end-->
+</div>
+<!-- -------------------------------------- Header Ends -------------------------------------- -->
+
+<!-- -------------------------------------- Main Content Starts -------------------------------------- -->
+
+    <!-- main Image and View Photos -->
+          <div id="page_caption" class="hasbg  withtopbar " style="background-image:url(upload/Audi-A4-Avant-1.jpg); width: 125.6%;margin-left: -10rem;" >
+
+            <div class="single_car_header_button">
+                <div class="standard_wrapper">
+                    <a href="upload/nw6xremkxkg-nicolai-berntsen.jpg" id="single_car_gallery_open" class="button fancy-gallery"><span class="ti-camera"></span>View Photos</a>
+                    <div style="display:none;">
+                        <a id="single_car_gallery_image1" href="upload/traffic-car-vehicle-black.jpg" title="" class="fancy-gallery"></a>
+                        <a id="single_car_gallery_image2" href="upload/evening.jpg" title="" class="fancy-gallery"></a>
+                        <a id="single_car_gallery_image3" href="upload/IMG_3496bfree.jpg" title="The road to success and the road to failure are almost exactly the same" class="fancy-gallery"></a>
+                        <a id="single_car_gallery_image4" href="upload/road-people-street-smartphone.jpg" title="" class="fancy-gallery"></a>
+                    </div>
+
+                    <a href="#video_review112" id="single_car_video_review_open" class="button" data-type="inline"><span class="ti-control-play"></span>Video Review</a>
+
+                    <div id="video_review112" class="car_video_review_wrapper" style="display:none;">
+                        <iframe width="1280" height="720" src="https://www.youtube.com/embed/rV7FQaAf4nc" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="single_car_header_content" style="width: 125.62%;margin-left: -10rem;">
+                <div class="standard_wrapper">
+                    <div class="single_car_header_price">
+                        <span id="single_car_price"><span class="single_car_currency">$</span><span class="single_car_price">84</span></span>
+                        <span id="single_car_price_per_unit_change" class="single_car_price_per_unit">
+                    <span id="single_car_unit">Per Day</span>
+                        <span class="ti-angle-down"></span>
+
+                        <ul id="price_per_unit_select">
+                            <li class="icon arrow"></li>
+                            <li class="active">
+                                <a class="active" href="javascript:;" data-filter="car_price_day" data-price="&lt;span class=&quot;single_car_currency&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;single_car_price&quot;&gt;84&lt;/span&gt;">Per Day</a>
+                            </li>
+                            <li>
+                                <a class="active" href="javascript:;" data-filter="car_price_hour" data-price="&lt;span class=&quot;single_car_currency&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;single_car_price&quot;&gt;10&lt;/span&gt;">Per Hour</a>
+                            </li>
+                            <li>
+                                <a class="active" href="javascript:;" data-filter="car_price_airport" data-price="&lt;span class=&quot;single_car_currency&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;single_car_price&quot;&gt;99&lt;/span&gt;">Airport Transfer</a>
+                            </li>
+                        </ul>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Image and content Ends-->
+
+
+        <div id="page_content_wrapper" class="hasbg withtopbar " style="width: 125.62%;margin-left: -10rem;">
+          <div class="inner">
+
+              <!-- Begin main content -->
+              <div class="inner_wrapper">
+
+                  <div class="sidebar_content">
+
+                      <h1>Audi A4</h1>
+                      <div class="car_attribute_wrapper">
+                          <div class="car_attribute_rating">
+                              <div class="br-theme-fontawesome-stars-o">
+                                  <div class="br-widget">
+                                      <a href="javascript:;" class="br-selected"></a>
+                                      <a href="javascript:;" class="br-selected"></a>
+                                      <a href="javascript:;" class="br-selected"></a>
+                                      <a href="javascript:;"></a>
+                                      <a href="javascript:;"></a>
+                                  </div>
+                              </div>
+                              <div class="car_attribute_rating_count">
+                                  4&nbsp; reviews </div>
+                          </div>
+                      </div>
+                      <div class="single_car_attribute_wrapper themeborder">
+                          <div class="one_fourth">
+                              <div class="car_attribute_icon ti-user"></div>
+                              <div class="car_attribute_content">
+                                  5&nbsp;Passengers </div>
+                          </div>
+
+                          <div class="one_fourth">
+                              <div class="car_attribute_icon ti-briefcase"></div>
+                              <div class="car_attribute_content">
+                                  2&nbsp;Luggages </div>
+                          </div>
+
+                          <div class="one_fourth">
+                              <div class="car_attribute_icon ti-panel"></div>
+                              <div class="car_attribute_content">
+                                  Auto </div>
+                          </div>
+
+                          <div class="one_fourth last">
+                              <div class="car_attribute_icon ti-car"></div>
+                              <div class="car_attribute_content">
+                                  4&nbsp; Doors </div>
+                          </div>
+                      </div>
+                      <br class="clear" />
+                      <div class="single_car_content">
+                          <h4 class="p1">Refueling</h4>
+                          <p class="p2">Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache fanny pack nostrud. Photo booth anim 8-bit hella, PBR 3 wolf moon beard Helvetica. Salvia esse nihil, flexitarian Truffaut synth art party deep v chillwave. Seitan High Life reprehenderit consectetur cupidatat kogi. Et leggings fanny pack, elit bespoke vinyl art party Pitchfork selfies master cleanse.</p>
+                          <h4 class="p1">Car Wash</h4>
+                          <p class="p2">Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. Selfies iPhone Kickstarter, drinking vinegar jean vinegar stumptown yr pop-up artisan sunt. Craft beer elit seitan exercitation, photo booth</p>
+                          <h4 class="p1">No Smoking</h4>
+                          <p class="p2">See-through delicate embroidered organza blue lining luxury acetate-mix stretch pleat detailing. Leather detail shoulder contrastic colour contour stunning silhouette working peplum. Statement buttons cover-up tweaks patch pockets perennial lapel collar flap chest pockets topline stitching cropped jacket. Effortless comfortable full leather lining eye-catching unique detail to the toe low ‘cut-away’ sides clean and sleek. Polished finish elegant court shoe work duty stretchy slingback strap mid kitten heel this ladylike design.</p>
+                      </div>
+
+                      <ul class="single_car_departure_wrapper themeborder">
+                          <li>
+                              <div class="single_car_departure_title">Included</div>
+                              <div class="single_car_departure_content">
+                                  <div class="one_half ">
+                                      <span class="ti-check"></span>Audio input </div>
+                                  <div class="one_half last">
+                                      <span class="ti-check"></span>All Wheel drive </div>
+                                  <div class="one_half ">
+                                      <span class="ti-check"></span>Bluetooth </div>
+                                  <div class="one_half last">
+                                      <span class="ti-check"></span>USB input </div>
+                                  <div class="one_half ">
+                                      <span class="ti-check"></span>Heated seats </div>
+                                  <div class="one_half last">
+                                      <span class="ti-check"></span>FM Radio </div>
+                              </div>
+                          </li>
+
+                          <li>
+                              <div class="single_car_departure_title">Not Included</div>
+                              <div class="single_car_departure_content">
+                                  <div class="one_half ">
+                                      <span class="ti-close"></span>GPS Navigation </div>
+                                  <div class="one_half last">
+                                      <span class="ti-close"></span>Sunroof </div>
+                              </div>
+                          </li>
+                      </ul>
+
+
+
+
+          <!-- End of thread -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- -------------------------------------- Main Content Ends -------------------------------------- -->
+
+<!-- -------------------------------------- Footter -------------------------------------- -->
+
+<div id="footer" class=" ppb_wrapper" style="position: relative; width: 125.6%; margin-left:-10rem;">
+  <ul class="sidebar_widget three">
+      <li id="text-2" class="widget widget_text">
+          <h2 class="widgettitle">About Us</h2>
+          <div class="textwidget">
+              <p>Getting dressed up and traveling with good friends makes for a shared, unforgettable experience. </p>
+              <!--put logo-->
+              <!--<p><img src="../../assets/images/logo@2x_white.png" alt="" width="175" height="24"></p>-->
+          </div>
+      </li>
+      <li id="text-3" class="widget widget_text">
+          <h2 class="widgettitle">Contact Info</h2>
+          <div class="textwidget">
+              <p><span class="ti-mobile" style="margin-right:10px;"></span>+92-335-5423119</p>
+              <p><span class="ti-location-pin" style="margin-right:10px;"></span>2 Floor Pak Plaza Main Pwd Double </p>
+              <p><span class="ti-alarm-clock" style="margin-right:10px;"></span>Mon - Sat 8.00 - 18.00 Sunday CLOSED</p>
+              <div style="margin-top:20px;">
+                  <div class="social_wrapper shortcode dark ">
+                      <ul><!--Social Links-->
+                          <li class="facebook"><a target="_blank" title="Facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                          <li class="twitter"><a target="_blank" title="Twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                          <li class="youtube"><a target="_blank" title="Youtube" href="#"><i class="fa fa-youtube"></i></a></li>
+                          <li class="pinterest"><a target="_blank" title="Pinterest" href="#"><i class="fa fa-pinterest"></i></a></li>
+                          <li class="instagram"><a target="_blank" title="Instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </li>
+      <li id="mc4wp_form_widget-5" class="widget widget_mc4wp_form_widget">
+          <h2 class="widgettitle">Newsletter</h2>
+
+          <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-27" method="post" data-id="27" data-name="Newsletter">
+              <div class="mc4wp-form-fields">Don't miss a thing! Sign up to receive daily deals
+
+                  <input type="email" name="EMAIL" placeholder="Your Email Address" required />
+                  <br/>
+                  <input type="submit" value="Subscribe" />
+              </div>
+              <label style="display: none !important;">Leave this field empty if you're human:
+                  <input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" />
+              </label>
+
+              <div class="mc4wp-response"></div>
+          </form>
+      </li>
+  </ul>
+</div>
+<div class="footer_bar  ppb_wrapper " style="position: relative; width: 125.6%; margin-left:-10rem;">
+
+<div class="footer_bar_wrapper ">
+    <div class="menu-footer-menu-container">
+      <ul id="footer_menu" class="footer_nav">
+        <li class="menu-item"><a routerLink="/about">About Us</a></li>
+        <li class="menu-item"><a routerLink="/posts">Cars</a></li>
+        <li class="menu-item"><a routerLink="/faq">FAQs</a></li>
+        <li class="menu-item"><a routerLink="/contactus">Contact Us</a></li>
+    </ul>
+    </div>
+    <div id="copyright">© Copyright V.E.M.B</div>
+    <br class="clear" />
+</div>
+</div>

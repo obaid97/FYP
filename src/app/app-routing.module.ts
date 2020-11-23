@@ -40,7 +40,7 @@ const routes: Routes=[
   { path:'forgotpassword',component:ForgotPasswordComponent},
   { path:'DNP',component: DisplayNewPasswordComponent},
   { path:'search', component: SearchComponent },
-  { path:'chat', component:ChatInboxComponent, canActivate: [AuthGuard]},
+  { path:'chat/:id', component:ChatInboxComponent, canActivate: [AuthGuard]},
   //this wont work in the newer version
   //another way to load children is
   { path:"auth",loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)}

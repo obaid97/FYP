@@ -105,7 +105,8 @@
         <h2>V.E.M.B Inbox</h2>
       </mat-card-header>
       <mat-card-content>
-        <mat-card style="margin-top:5px;" *ngFor="let user of users">
+
+        <mat-card (click)="onchat(user._id)" style="margin-top:5px;" *ngFor="let user of users">
           <mat-card-content>
             <h2>{{user.fullName}}</h2>
           </mat-card-content>

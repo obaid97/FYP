@@ -526,10 +526,7 @@ resetpassword(cnicNumber: number, password: string)
     //console.log(currentuserId);
     const data = {currentuserid:currentuserId, chatuserid:chatuserid};
     //console.log(data);
-    this.http.post(BACKEND_URL+"inboxmessage/",data).subscribe(response =>
-      {
-        console.log(response);
-      })
+   return  this.http.post(BACKEND_URL+"inboxmessage/",data);
   }
 }
 //

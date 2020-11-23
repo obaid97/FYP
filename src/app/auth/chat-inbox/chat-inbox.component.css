@@ -23,9 +23,28 @@
 }
 .chat-messages-create-button {
    height: 50px;
-   margin: auto 40px;
+   margin: auto 10px;
    width: 100px;
+   border-radius: 50px 50px 50px 50px;
+   font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+   font-size: medium;
+   font-weight: 500;
+   word-spacing: 1.5px;
 }
+.buy_button
+{
+  height:50px;
+  width:100px;
+  margin: auto 10px;
+  border-radius: 50px 50px 50px 50px;
+  background-color:#27B803;
+  color:#ffffff;
+  font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+  font-size: medium;
+  font-weight: 500;
+  word-spacing: 1.5px;
+}
+
 * {
   box-sizing: border-box;
 }

@@ -82,42 +82,49 @@
 </div>
 
 <!--Responsive nav bar end-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div>
-<div class="chat-messages" style="margin-top:0rem;">
-  <div class="chat-messages-show-container">
-    <ul class="chat-messages-show-list" id="message-list">
-
-    </ul>
-  </div>
-  <div class="chat-messages-create-container">
-    <input class="chat-messages-create-input" type="text" [(ngModel)]="message">
-    <button  class="chat-messages-create-button" (click)="SendMessage()">
-      Send
-    </button>
-  </div>
-</div>
 </div>
 
 
 
+
+
+
+
+
+
+        <div style="margin-top:6rem; width:125.62%; margin-left:-10rem;">
+          <div class="chat-messages"  >
+            <div class="chat-messages-show-container">
+              <ul class="chat-messages-show-list"   *ngFor="let message of messageList">
+
+                <li *ngIf="message.from != chatUserId"
+
+                style="background-color:green; color:white; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
+                  text-align: right;"
+
+                > {{message.message}}</li>
+
+                <li *ngIf="message.from == chatUserId"
+
+                style="background-color:white; color:black; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
+                  text-align: left;"
+
+                > {{message.message}}</li>
+
+              </ul>
+              <ul class="chat-messages-show-list"  id="message-list">
+
+              </ul>
+            </div>
+            <div class="chat-messages-create-container">
+              <input class="chat-messages-create-input" type="text" [(ngModel)]="message">
+              <button  class="chat-messages-create-button" (click)="SendMessage()">
+                Send
+              </button>
+              <button class="buy_button" (click)="inititatecontract()">Want to Buy!</button>
+            </div>
+          </div>
+        </div>
 
 
 
@@ -189,4 +196,4 @@
         <div id="copyright">© Copyright V.E.M.B</div>
         <br class="clear" />
     </div>
-</div>
+  </div>
