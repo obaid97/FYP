@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { DataService } from '../data.service';
+import { PostsService } from '../posts/posts.service';
 import { SearchService } from './search.service';
 
 @Component({
@@ -14,25 +16,40 @@ export class SearchComponent implements OnInit {
   myForm = new FormGroup({
     searchText: new FormControl('', [Validators.required]),
   });
+  sharedDataincoming: any[];
   sharedData: any[];
   price : any;
+  userId: string;
+  isloading = false;
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
   accountStatus :any;
   userandadminstatus:boolean;
   status :string;
+   totalPosts = 0;
+  postsPerPage = 2;
+  currentPage = 1;
   authorizedStatus:boolean;
-  constructor(public searchService: SearchService, private dataService: DataService, private authService: AuthService) { }
+  storedPosts:any;
+  constructor(public searchService: SearchService, private dataService: DataService, private authService: AuthService,private router: Router,public postsService: PostsService)
+   {
+    this.isloading = true;
+    this.userId = this.authService.getUserId();
+    this.authorizedStatus = this.authService.getcurrentuserauthorizestatus();
+
+    }
 
   ngOnInit(): void {
     this.sharedData = this.dataService.getData();
-    console.log("this.sharedData");
-   
+    //console.log("this.sharedData");
+    this.storedPosts = JSON.parse(localStorage.getItem("postsearched"));
+    console.log( "stored Names: ",this.storedPosts);
    this.price= 2450;
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
     this.userIsAuthenticated = isAuthenticated;
     this.accountStatus = this.authService.getcurrentuserstatus();
+
 
     //this.authorizedStatus =
      //console.log(this.authService.getcurrentuserauthorizestatus()+ " - header");
@@ -58,9 +75,36 @@ export class SearchComponent implements OnInit {
   }
 
 
+  onDelete(postId: string) {
+    this.isloading = true;
+    this.postsService.deletepost(postId).subscribe(() => {
+      this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    }, () => {
+      this.isloading = false;
+
+    });
+  }
+
+  singlepost(postid:string)
+  {
+    this.router.navigate(["/post", postid]);
+  }
+
   onLogout()
   {
     this.authService.logout();
   }
+
+
+
+  onchat(creatorid: any)
+  {
+   //this.authService.createport(creatorid);
+
+   this.postsService.setCreatorId(creatorid);
+   this.router.navigate(["/chat",creatorid]);
+   //this.authService.startchat(creatorid);
+  }
+
 
 }

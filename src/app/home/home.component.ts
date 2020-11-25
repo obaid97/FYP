@@ -77,9 +77,20 @@ export class HomeComponent {
       //console.log("pai g khali jae sb khuda da wasta ae select krlo kuch");
       return;
     } else {
-      console.log('data', data);
+      //console.log('data', data);
       this.searchService.search(data).subscribe(postData => {
-        console.log("postreturndata", postData);
+       // console.log("postreturndata", postData.posts);
+
+
+            //var names = [];
+            //names[0] = prompt("New member name?");
+            //localStorage.setItem("names", JSON.stringify(names));
+
+            //...
+            //var storedNames = JSON.parse(localStorage.getItem("postsearched"));
+
+        localStorage.removeItem('postsearched');
+        localStorage.setItem('postsearched',JSON.stringify(postData.posts));
         this.dataService.setData(postData);
         this.router.navigate(["/search"]);
       });

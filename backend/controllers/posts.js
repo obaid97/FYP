@@ -128,18 +128,22 @@ exports.updatePost = (req, res, next) => {
 }
 
 //fetch single post
-exports.getPost = (req, res, next) => {
-  Post.findById(req.params.id).then(post => {
+exports.getPost = (req, res, next) =>
+{
+  Post.findById(req.params.id).then(post =>
+    {
     //console.log(post);
-    if (post) {
+    if (post)
+    {
       res.status(200).json(post);
-        }
-    else {
+    }
+    else
+    {
       res.status(404).json({ message: 'Post not Found!' });
     }
-  }).catch(error => {
-    res.status(500).json({
-      message: "Fetching Post Failed!"
+    }).catch(error => {
+        res.status(500).json({
+         message: "Fetching Post Failed!"
     });
   });
 }

@@ -106,9 +106,9 @@ tiles: Tile[] = [
     });
   }
 
-  singlepostview(postid:string)
+  singlepost(postid:string)
   {
-    this.postsService.getsinglepost(postid);
+    this.router.navigate(["/post", postid]);
   }
 
   onLogout()

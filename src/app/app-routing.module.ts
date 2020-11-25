@@ -24,7 +24,7 @@ import { InboxComponent } from './auth/inbox/inbox.component';
 const routes: Routes=[
   { path:'', component: HomeComponent },
   { path:'posts',component:PostListComponent },
-  { path:'post/:postId',component:SinglePostComponent },
+  { path:'post/:id',component:SinglePostComponent },
   { path:'create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path:'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },

@@ -223,17 +223,17 @@
 
                   <div id="portfolio_filter_wrapper" class="gallery classic two_cols portfolio-content section content clearfix" data-columns="3">
 
-                    <div *ngFor = "let post of sharedData">
-                    <div class="car_list_wrapper floatleft noborder">
+                    <div *ngFor = "let post of storedPosts">
+                    <div class="car_list_wrapper floatleft noborder" (click)="singlepost(post.id)">
                       <div class="one">
-                          <a class="car_image" href="#">
+                          <a class="car_image" (click)="singlepost(post.id)">
                               <img src={{post.imagePath}} alt="BMW 3 Series" />
                           </a>
                       </div>
 
                       <div class="one">
                           <div class="car_attribute_wrapper car_list">
-                              <a class="car_link" href="#"><h3>{{post.make + " " + post.model}}</h3></a>
+                              <a class="car_link" (click)="singlepost(post.id)"><h3>{{post.make + " " + post.model}}</h3></a>
                               <div class="car_attribute_rating">
                                   <div class="br-theme-fontawesome-stars-o">
                                       <div class="br-widget">
@@ -284,8 +284,11 @@
                                                   <span class="ti-check"></span>Heated seats </div>
                                               <div class="one_half last">
                                                   <span class="ti-check"></span>FM Radio </div>
+
                                           </div>
                                       </li>
+
+
                                   </ul>
                               </div>
 
@@ -294,6 +297,14 @@
                               <div class="car_attribute_price_day four_cols">
                                   <span class="single_car_currency">Rs.</span><span class="single_car_price">{{post.price}}</span>
                               </div>
+                          </div>
+
+                          <div class="row action_content">
+                            <a style="margin-right: 15px;" *ngIf="userIsAuthenticated && userId === post.creator " mat-flat-button color="primary" class="action-buttons" [routerLink]="['/edit',post.id]" > EDIT</a>
+                            <button style="margin: 15px;" *ngIf="userIsAuthenticated && userId === post.creator" mat-flat-button color="warn" class="action-buttons" (click)="onDelete(post.id)" > DELETE</button>
+                            <button style="margin: 5px;" *ngIf="userIsAuthenticated && userId != post.creator " (click)="onchat(post.creator)" mat-flat-button color="accent" class="action-buttons">Chat</button>
+                            <a style="margin: 5px;" mat-flat-button color="primary" class="action-buttons" (click)="singlepost(post.id)"  >View</a>
+
                           </div>
                       </div>
                   </div>

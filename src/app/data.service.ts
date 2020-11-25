@@ -12,7 +12,9 @@ export class DataService {
   }
 
   getData() {
+
     return this.sharedData ;
+    //return localStorage.getItem('postsearched');
   }
   constructor() { }
 }

@@ -151,7 +151,7 @@
 <!-- -------------------------------------- Main Content Starts -------------------------------------- -->
 
     <!-- main Image and View Photos -->
-          <div id="page_caption" class="hasbg  withtopbar " style="background-image:url(upload/Audi-A4-Avant-1.jpg); width: 125.6%;margin-left: -10rem;" >
+          <div id="page_caption" class="hasbg  withtopbar " style="background-image:url({{postList.imagePath}}); width: 125.6%;margin-left: -10rem;" >
 
             <div class="single_car_header_button">
                 <div class="standard_wrapper">
@@ -174,23 +174,10 @@
             <div class="single_car_header_content" style="width: 125.62%;margin-left: -10rem;">
                 <div class="standard_wrapper">
                     <div class="single_car_header_price">
-                        <span id="single_car_price"><span class="single_car_currency">$</span><span class="single_car_price">84</span></span>
+                        <span id="single_car_price"><span class="single_car_currency">Rs</span><span class="single_car_price">{{postList.price}}</span></span>
                         <span id="single_car_price_per_unit_change" class="single_car_price_per_unit">
-                    <span id="single_car_unit">Per Day</span>
-                        <span class="ti-angle-down"></span>
+                    <span id="single_car_unit"></span>
 
-                        <ul id="price_per_unit_select">
-                            <li class="icon arrow"></li>
-                            <li class="active">
-                                <a class="active" href="javascript:;" data-filter="car_price_day" data-price="&lt;span class=&quot;single_car_currency&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;single_car_price&quot;&gt;84&lt;/span&gt;">Per Day</a>
-                            </li>
-                            <li>
-                                <a class="active" href="javascript:;" data-filter="car_price_hour" data-price="&lt;span class=&quot;single_car_currency&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;single_car_price&quot;&gt;10&lt;/span&gt;">Per Hour</a>
-                            </li>
-                            <li>
-                                <a class="active" href="javascript:;" data-filter="car_price_airport" data-price="&lt;span class=&quot;single_car_currency&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;single_car_price&quot;&gt;99&lt;/span&gt;">Airport Transfer</a>
-                            </li>
-                        </ul>
                         </span>
                     </div>
                 </div>
@@ -207,7 +194,7 @@
 
                   <div class="sidebar_content">
 
-                      <h1>Audi A4</h1>
+                      <h1>{{postList.make}} {{postList.model}} {{ postList.exteriorcolor}}</h1>
                       <div class="car_attribute_wrapper">
                           <div class="car_attribute_rating">
                               <div class="br-theme-fontawesome-stars-o">
@@ -227,65 +214,56 @@
                           <div class="one_fourth">
                               <div class="car_attribute_icon ti-user"></div>
                               <div class="car_attribute_content">
-                                  5&nbsp;Passengers </div>
+                                  5&nbsp;{{postList.registrationcity}} </div>
                           </div>
 
                           <div class="one_fourth">
                               <div class="car_attribute_icon ti-briefcase"></div>
                               <div class="car_attribute_content">
-                                  2&nbsp;Luggages </div>
+                                  2&nbsp;{{postList.mileage}} </div>
                           </div>
 
                           <div class="one_fourth">
                               <div class="car_attribute_icon ti-panel"></div>
                               <div class="car_attribute_content">
-                                  Auto </div>
+                                  {{postList.transmission}} </div>
                           </div>
 
                           <div class="one_fourth last">
                               <div class="car_attribute_icon ti-car"></div>
                               <div class="car_attribute_content">
-                                  4&nbsp; Doors </div>
+                                  4&nbsp;{{postList.registrationcity}} </div>
                           </div>
                       </div>
                       <br class="clear" />
                       <div class="single_car_content">
-                          <h4 class="p1">Refueling</h4>
-                          <p class="p2">Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache fanny pack nostrud. Photo booth anim 8-bit hella, PBR 3 wolf moon beard Helvetica. Salvia esse nihil, flexitarian Truffaut synth art party deep v chillwave. Seitan High Life reprehenderit consectetur cupidatat kogi. Et leggings fanny pack, elit bespoke vinyl art party Pitchfork selfies master cleanse.</p>
-                          <h4 class="p1">Car Wash</h4>
-                          <p class="p2">Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. Selfies iPhone Kickstarter, drinking vinegar jean vinegar stumptown yr pop-up artisan sunt. Craft beer elit seitan exercitation, photo booth</p>
-                          <h4 class="p1">No Smoking</h4>
-                          <p class="p2">See-through delicate embroidered organza blue lining luxury acetate-mix stretch pleat detailing. Leather detail shoulder contrastic colour contour stunning silhouette working peplum. Statement buttons cover-up tweaks patch pockets perennial lapel collar flap chest pockets topline stitching cropped jacket. Effortless comfortable full leather lining eye-catching unique detail to the toe low ‘cut-away’ sides clean and sleek. Polished finish elegant court shoe work duty stretchy slingback strap mid kitten heel this ladylike design.</p>
+                          <h4 class="p1">Description:</h4>
+                          <p class="p2">{{postList.description}}</p>
                       </div>
 
                       <ul class="single_car_departure_wrapper themeborder">
-                          <li>
-                              <div class="single_car_departure_title">Included</div>
-                              <div class="single_car_departure_content">
-                                  <div class="one_half ">
-                                      <span class="ti-check"></span>Audio input </div>
-                                  <div class="one_half last">
-                                      <span class="ti-check"></span>All Wheel drive </div>
-                                  <div class="one_half ">
-                                      <span class="ti-check"></span>Bluetooth </div>
-                                  <div class="one_half last">
-                                      <span class="ti-check"></span>USB input </div>
-                                  <div class="one_half ">
-                                      <span class="ti-check"></span>Heated seats </div>
-                                  <div class="one_half last">
-                                      <span class="ti-check"></span>FM Radio </div>
+                        <li>
+                          <div class="single_car_departure_title">All Details:</div>
+                            <div class="single_car_departure_content">
+                              <div class="one_half " >
+                               <h4>Current City: </h4>  {{postList.city}}
                               </div>
-                          </li>
+                              <div class="one_half " >
+                               <h4>Engine Type: </h4> {{postList.enginetype}}
+                              </div>
 
-                          <li>
-                              <div class="single_car_departure_title">Not Included</div>
-                              <div class="single_car_departure_content">
-                                  <div class="one_half ">
-                                      <span class="ti-close"></span>GPS Navigation </div>
-                                  <div class="one_half last">
-                                      <span class="ti-close"></span>Sunroof </div>
-                              </div>
-                          </li>
+                              <div class="one_half " >
+                                <h4>Assembly: </h4> {{postList.assembly}}
+                               </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="single_car_departure_title">Features Included</div>
+                            <div class="single_car_departure_content" *ngFor="let feature of features">
+                              <div class="one_half " >
+                                  <span class="ti-check"></span>{{feature}} </div>
+                          </div>
+                        </li>
                       </ul>
 
 

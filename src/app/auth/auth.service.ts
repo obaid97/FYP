@@ -186,6 +186,7 @@ login(cnicNumber: number, password: string)
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
+    localStorage.removeItem('postsearched');
   }
 
   private getAuthData()
