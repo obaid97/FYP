@@ -6,7 +6,7 @@ const UserController = require("../controllers/user");
 const app = express();
 const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
-
+const smartContractController = require("../controllers/smartcontract");
 //const { error } = require("console");
 //const user = require("../models/user");
 
@@ -38,6 +38,11 @@ router.put("/forgotpassword",UserController.forgotpassword);
 router.post("/reset",UserController.resetpassword);
 router.post("/mail",UserController.sendemail);
 
+//contract
+
+router.post("/createcontract",smartContractController.inititatecontract);
+
+//chat app
 router.get("/getChatBox/:_id",UserController.getChatBox);
 router.post("/inboxmessage",UserController.inboxmessage);
 module.exports = router;

@@ -92,21 +92,43 @@
 
 
 
-        <div style="margin-top:6rem; width:125.62%; margin-left:-10rem;">
+  <div class="container" style=" margin-left:-10rem;margin-top: 6rem; background-color:#fff;">
+    <div class="row" style="width:138.5%;">
+      <div class="col col-lg-2 col-md-2 col-sm-2 col-xs-12" style="background-color:#fff;" >
+        <h2 style="color:#000000; margin-left:5rem; margin-top:1rem">User Ads</h2>
+        <mat-card style="margin-top: 5px; margin-left:0.5rem;background-color:rgb(29, 27, 27);color:#ffffff;"  *ngFor="let post of allposts">
+          <mat-card-header>
+              {{post.make}} - {{post.model}}
+          </mat-card-header>
+          <mat-card-content style="margin-top:3px;">
+            <img [src]="post.imagePath" width="170px" height="60px">
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button style="background-color:#00C0F7;color:white;">View</button>
+            <button mat-raised-button style="background-color:#B310FF;color:white;">Buy</button>
+          </mat-card-actions>
+        </mat-card>
+
+
+      </div>
+      <div class="col col-lg-10 col-md-10 col-sm-3 col-xs-12">
+
+
+
           <div class="chat-messages"  >
             <div class="chat-messages-show-container">
               <ul class="chat-messages-show-list"   *ngFor="let message of messageList">
 
                 <li *ngIf="message.from != chatUserId"
 
-                style="background-color:green; color:white; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
+                style="background-color:#0074F7; color:white; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
                   text-align: right;"
 
                 > {{message.message}}</li>
 
                 <li *ngIf="message.from == chatUserId"
 
-                style="background-color:white; color:black; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
+                style="background-color:#00C0F7; color:white; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
                   text-align: left;"
 
                 > {{message.message}}</li>
@@ -124,10 +146,13 @@
               <button class="buy_button" (click)="inititatecontract()">Want to Buy!</button>
             </div>
           </div>
-        </div>
 
 
 
+
+      </div>
+    </div>
+  </div>
 
 
 

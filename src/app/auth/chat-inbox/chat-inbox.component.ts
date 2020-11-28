@@ -29,6 +29,8 @@ export class ChatInboxComponent implements OnInit {
   chat;
   chatUserId:string
   messageList:any=[];
+  userads=[];
+  allposts:any=[];
   constructor(public authService: AuthService, public postService:PostsService, private route:ActivatedRoute, private router: Router) {
     this.usertoken =this.authService.getToken();
 
@@ -43,6 +45,17 @@ export class ChatInboxComponent implements OnInit {
     },err=>{
 
     });
+
+    //this.chatUserId
+
+    this.postService.getuserposts(this.chatUserId).subscribe(data =>
+      {
+        let alluserposts = data;
+        this.allposts = alluserposts;
+        console.log(this.allposts);
+      });
+    //console.log(this.userdetails);
+
 
   }
 
@@ -101,57 +114,37 @@ export class ChatInboxComponent implements OnInit {
 
    const element = document.createElement('li');
    element.innerHTML = data.message;
-   element.style.background = 'white';
-   element.style.padding =  '15px 30px';
-   element.style.margin = '10px';
+
+   element.style.background = '#B310FF';
+
+  element.style.color="white"
+
+  element.style.fontSize="14px"
+
+  element.style.padding =  '15px 30px';
+
+  element.style.margin = '10px';
+
+  element.style.borderRadius = "20px 20px 20px 20px";
+
+  element.style.textAlign = 'left';
    document.getElementById('message-list').appendChild(element);
    }
  });
 
 
 }
-/*
- SendMessage()
- {
-  this.socket.emit('message', this.message);
-  this.message = '';
- }*/
-
-
-//  SendMessage() {
-
-//   this.socket.emit('message', this.message);
-
-//   var element = document.createElement("LI");
-
-//   element.innerHTML = this.message;
-
-//   element.style.background = 'white';
-
-//   element.style.padding =  '15px 30px';
-
-//   element.style.margin = '10px';
-
-//   element.style.textAlign = 'right';
-
-//   document.getElementById('message-list').appendChild(element);
-
-//   this.message = '';
-
-// }
 
 
 SendMessage() {
-  //this.chatUserId
-  //this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.fromId});
-  this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.chatUserId});
+   this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.chatUserId});
 
   //console.log(this.postService.getCreatorId());
   var element = document.createElement("LI");
   console.log("form id "+this.fromId);
   element.innerHTML = this.message;
 
-  element.style.background = 'green';
+  element.style.background = '#00C0F7';
 
   element.style.color="white"
 
@@ -181,6 +174,9 @@ inititatecontract()
 {
   this.router.navigate(['/smartcontract'])
 }
+
+//this.chatUserId
+
 
 
 }

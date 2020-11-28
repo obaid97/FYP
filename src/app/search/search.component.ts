@@ -93,6 +93,7 @@ export class SearchComponent implements OnInit {
   onLogout()
   {
     this.authService.logout();
+
   }
 
 

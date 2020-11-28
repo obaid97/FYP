@@ -529,5 +529,50 @@ resetpassword(cnicNumber: number, password: string)
     //console.log(data);
    return  this.http.post(BACKEND_URL+"inboxmessage/",data);
   }
+
+
+
+createContract(BuyerName : string ,BuyerCNIC : string ,  BuyerPK : string  ,  SellerName : string  ,  SellerCNIC : string  ,  SellerPK : string  ,
+  make : string  ,  model : string  , registrationnumber : string ,  registrationcity : string  ,  price : string  ,  enginetype : string  ,
+  enginecapacity : string  , transmission : string  ,  assembly : string  ,  features : string  ,  exteriorcolor : string  ,  image:File)
+  {
+    console.log("in auth service method start")
+    const contractData = new FormData();
+      contractData.append(" BuyerName ",BuyerName);
+      contractData.append(" BuyerCNIC ",BuyerCNIC);
+      contractData.append(" BuyerPK ",BuyerPK);
+      contractData.append(" SellerName ",SellerName);
+      contractData.append(" SellerCNIC ",SellerCNIC);
+      contractData.append(" SellerPK ",SellerPK);
+      contractData.append(" make ",make);
+      contractData.append(" model ",model);
+      contractData.append(" registrationnumber ",registrationnumber);
+      contractData.append(" registrationcity ",registrationcity);
+      contractData.append(" price ",price);
+      contractData.append(" enginetype ",enginetype);
+      contractData.append(" enginecapacity ",enginecapacity);
+      contractData.append(" transmission ",transmission);
+      contractData.append(" assembly ",assembly);
+      contractData.append(" features ",features);
+      contractData.append(" exteriorcolor ",exteriorcolor);
+      contractData.append(" image ",image);
+
+    console.log("contract data" + contractData);
+
+    this.http.post(BACKEND_URL+"createcontract",contractData)
+      .subscribe((responseData)=>{
+
+          this.router.navigate(["/inbox"]);
+      },error => {
+        this.authStatusListener.next(false);
+      }
+      );
+
+  }
+
+
+
+
 }
 //
+
