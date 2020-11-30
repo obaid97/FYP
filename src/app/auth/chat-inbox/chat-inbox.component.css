@@ -1,5 +1,5 @@
 .chat-messages-show-container{
-   background: #fff;
+   background: rgb(235, 233, 233);
    height: 400px;
    display: flex;
    flex-direction: column;

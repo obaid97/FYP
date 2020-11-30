@@ -30,6 +30,7 @@ router.get("/getcnicnum",UserController.getcnicNumber);
 router.post("/approve",UserController.approveuser);
 router.post("/disable",UserController.disableuser);
 router.get("/userdetails",checkAuth,UserController.userdetails);
+router.get("/accountdetails/:id",UserController.accountdetails);
 router.post("/deleteuser",UserController.deleteUser);
 //router.delete("/delete/:cnicNumber",UserController.deleteUser);
 router.post("/chat",UserController.startchat);

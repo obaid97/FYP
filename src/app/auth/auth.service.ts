@@ -450,7 +450,14 @@ getcurrentuserdetails()
       return this.http.get(BACKEND_URL+"getChatBox/"+userId);
     }
 
-
+    getchats(chatuserid:string)
+    {
+      const currentuserId = localStorage.getItem('userId');
+      //console.log(currentuserId);
+      const data = {currentuserid:currentuserId, chatuserid:chatuserid};
+      //console.log(data);
+     return  this.http.post(BACKEND_URL+"inboxmessage/",data);
+    }
 
 
   //not yet fixed /completed
@@ -521,14 +528,7 @@ resetpassword(cnicNumber: number, password: string)
 
 
 
-  getchats(chatuserid:string)
-  {
-    const currentuserId = localStorage.getItem('userId');
-    //console.log(currentuserId);
-    const data = {currentuserid:currentuserId, chatuserid:chatuserid};
-    //console.log(data);
-   return  this.http.post(BACKEND_URL+"inboxmessage/",data);
-  }
+
 
 
 
@@ -570,6 +570,21 @@ createContract(BuyerName : string ,BuyerCNIC : string ,  BuyerPK : string  ,  Se
 
   }
 
+
+  useraccountdetails(id:string)
+  {
+    //return this.http.get(BACKEND_URL+"getChatBox/"+userId);
+    return this.http.get(BACKEND_URL+"accountdetails/"+id);/*.subscribe(res => {
+      let a = res;
+
+      var resultArray = Object.keys(res).map(function(personNamedIndex){
+        let person = res[personNamedIndex];
+        // do something with person
+        return person;
+      });
+      console.log("res"+resultArray);
+    });*/
+  }
 
 
 

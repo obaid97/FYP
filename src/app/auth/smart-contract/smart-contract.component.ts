@@ -19,11 +19,56 @@ export class SmartContractComponent
   private authStatusSub: Subscription;
   contractform : FormGroup;
   imagePreview : string;
-
-
-
+  sellerid:string;
+  buyerid:string;
+  postid:string;
+  buyerdetails: any;
+  post:any;
+  sellerdetails: any;
   constructor(public authService: AuthService,public route: ActivatedRoute, private _formBuilder: FormBuilder)
   {
+    this.sellerid = localStorage.getItem('sellerid');
+    this.buyerid =  localStorage.getItem('userId');
+    this.postid = localStorage.getItem('sellerpostid');
+    //console.log("seller id"+this.sellerid);
+    //console.log("Buyer Id"+this.buyerid);
+    //console.log("Post Id "+this.postid);
+    localStorage.removeItem('sellerid');
+    localStorage.removeItem('sellerpostid');
+
+
+    this.authService.useraccountdetails(this.buyerid).subscribe(data =>{
+      let dataincome= data;
+      var resultArray = Object.keys(data).map(function(personNamedIndex){
+        let person = data[personNamedIndex];
+        // do something with person
+        return person;
+       });
+      this.buyerdetails = resultArray;
+
+      },err=>{
+        console.log(err);
+
+      });
+      console.log("buyer: "+this.buyerdetails)
+      this.authService.useraccountdetails(this.sellerid).subscribe(data =>{
+        //let dataincome= data;
+
+        var resultArray = Object.keys(data).map(function(personNamedIndex){
+          let person = data[personNamedIndex];
+          // do something with person
+          return person;
+         });
+       // console.log("seller data: "+resultArray);
+        this.sellerdetails = resultArray;
+         console.log(resultArray);
+        },err=>{
+          console.log(err);
+
+        });
+
+        console.log("seller: "+this.sellerdetails)
+
 
   }
 

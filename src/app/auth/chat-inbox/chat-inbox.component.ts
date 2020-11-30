@@ -52,7 +52,7 @@ export class ChatInboxComponent implements OnInit {
       {
         let alluserposts = data;
         this.allposts = alluserposts;
-        console.log(this.allposts);
+       // console.log(this.allposts);
       });
     //console.log(this.userdetails);
 
@@ -108,7 +108,7 @@ export class ChatInboxComponent implements OnInit {
   if (data) {
 
     this.fromId = data.from_id;
-    console.log("formid on socket on : ",this.fromId );
+   // console.log("formid on socket on : ",this.fromId );
 
 
 
@@ -141,7 +141,7 @@ SendMessage() {
 
   //console.log(this.postService.getCreatorId());
   var element = document.createElement("LI");
-  console.log("form id "+this.fromId);
+  //console.log("form id "+this.fromId);
   element.innerHTML = this.message;
 
   element.style.background = '#00C0F7';
@@ -170,13 +170,20 @@ onLogout()
   this.authService.logout();
 }
 
-inititatecontract()
+inititatecontract(postid:string)
 {
-  this.router.navigate(['/smartcontract'])
+  localStorage.setItem('sellerid',this.chatUserId);
+  //localStorage.getItem('userId');
+  localStorage.setItem('sellerpostid',postid);
+  this.router.navigate(['/smartcontract']);
 }
 
 //this.chatUserId
-
+singlepost(postid:string)
+{
+  //console.log(postid);
+  this.router.navigate(["/post",postid ]);
+}
 
 
 }
