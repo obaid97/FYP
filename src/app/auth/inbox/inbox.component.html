@@ -100,21 +100,32 @@
 
 <!--Main content starts-->
   <div style="margin-top:7rem;width: 123%;margin-left:-9rem;">
-    <mat-card>
-      <mat-card-header>
-        <h2>V.E.M.B Inbox</h2>
-      </mat-card-header>
+    <mat-card >
+      <mat-card-title>
+        <h2>Messenger</h2>
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="users">
+       Total Chats {{users.length}}
+      </mat-card-subtitle>
       <mat-card-content>
 
-        <mat-card (click)="onchat(user._id)" style="margin-top:5px;" *ngFor="let user of users">
-          <mat-card-content>
-            <h2>{{user.fullName}}</h2>
-          </mat-card-content>
-          <mat-card-actions>
-            <a mat-button (click)="onchat(user._id)">Chat</a>
-          </mat-card-actions>
+        <mat-card class="chat_card" (click)="onchat(user._id)" *ngFor="let user of users" >
 
+          <mat-card-content>
+            <table class="chat_table">
+              <tr>
+                <td style="float:left;border:none;">
+                  <h2 >{{user.fullName}}</h2>
+                </td>
+                <td style="float:right;border:none;">
+                  <a class="chat_button" mat-button (click)="onchat(user._id)">Chat</a>
+                  <a class="chat_button_delete" mat-button (click)="ondelete(user._id)">Delete</a>
+                </td>
+              </tr>
+            </table>
+          </mat-card-content>
         </mat-card>
+
       </mat-card-content>
     </mat-card>
   </div>
@@ -124,7 +135,7 @@
 <!--footer starts-->
 
 
-<div id="footer" class=" ppb_wrapper" style="position: relative; width: 125.6%; margin-left:-10rem;">
+<div id="footer" class=" ppb_wrapper" style="position: relative; width: 125.6%; margin-left:-10rem; margin-top:5px;">
   <ul class="sidebar_widget three">
       <li id="text-2" class="widget widget_text">
           <h2 class="widgettitle">About Us</h2>

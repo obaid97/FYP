@@ -8,6 +8,7 @@ import { AuthSignupData } from '../auth-signup-data.model';
 import { PageEvent } from '@angular/material/paginator';
 import { PostsService } from 'src/app/posts/posts.service';
 import { Post } from 'src/app/posts/post.model';
+//import { runInThisContext } from 'vm';
 
 export interface userData
 {
@@ -46,7 +47,7 @@ export class UserProfileComponent implements OnInit
   fullName:string;
   fullAddress: string;
   email: string;
-  cnicNumber: number;
+  cnicNumber: string;
   dob:Date;
   phoneNumber:string;
   genderStatus:string;
@@ -61,28 +62,46 @@ export class UserProfileComponent implements OnInit
   currentPage = 1;
   pageSizeOptions = [1,2,5,10];
   verified:boolean ;
-
+  sellercontract:any=[];
+  buyercontract:any=[];
   constructor(public authService: AuthService, public postsService: PostsService,public router: Router)
 {
 
-  this.authService.getuserDeatils().subscribe(data =>{
-    let dataincome= data;
-    this.userdetails = dataincome.user;
-    this.userId = dataincome.user._id;
-    //console.log(this.userId)
-    this.postsService.getuserposts(this.userId).subscribe(data =>
-      {
-        let alluserposts = data;
-        this.allposts = alluserposts;
-        console.log(this.allposts);
+        this.authService.getuserDeatils().subscribe(data =>{
+          let dataincome= data;
+          this.userdetails = dataincome.user;
+          this.userId = dataincome.user._id;
+          //console.log(this.userId)
+          this.postsService.getuserposts(this.userId).subscribe(data =>
+            {
+              let alluserposts = data;
+              this.allposts = alluserposts;
+             // console.log(this.allposts);
+            });
+          //console.log(this.userdetails);
+      },err=>{
+        console.log(err);
+
       });
-    //console.log(this.userdetails);
-},err=>{
-  console.log(err);
 
-});
-
-
+   this.cnicNumber = localStorage.getItem("loggedinusercnic");
+      //console.log("localstorage"+ this.cnicNumber);
+      //console.log("details"+this.userdetails.cnicNumber);
+      this.authService.getallbuyercontracts(this.cnicNumber ).subscribe(result =>
+        {
+          this.buyercontract=result;
+          let q= Object.entries(result);
+//          console.log("Seller contract: "+p);
+          console.log("Buyer contract: "+q);
+        });
+      this.authService.getallsellercontracts(this.cnicNumber).subscribe(result =>
+        {
+          this.sellercontract=result;
+          let p= Object.entries(result);
+          console.log("Seller contract: "+p);
+        });
+        //console.log("Buyer contract: "+this.buyercontract);
+        //console.log("Seller contract: "+this.sellercontract);
 
 }
 
@@ -152,5 +171,14 @@ onpostDelete(postId: string) {
   });
 }
 
+onaccept(contractid:string)
+{
+  this.router.navigate(["/sellcontract",contractid]);
+}
+
+onreject(contractid:string)
+{
+  //delete contract here
+}
 
 }

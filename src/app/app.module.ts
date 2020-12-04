@@ -34,6 +34,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { SingleBlogComponent } from './blog/single-blog/single-blog.component';
 import { EditUserProfileComponent } from './auth/user-profile/edit-details/edit-details.component';
 import { InboxComponent } from './auth/inbox/inbox.component';
+import { SellerContractComponent } from './auth/seller-contract/seller-contract.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { InboxComponent } from './auth/inbox/inbox.component';
     SideBarComponent,
     UserProfileComponent,
     SmartContractComponent,
+    SellerContractComponent,
     HomeComponent,
     SearchComponent,
     SinglePostComponent,

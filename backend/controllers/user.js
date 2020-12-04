@@ -58,7 +58,7 @@ exports.createAdmin =  (req,res,next)=>{
   //const privatek = crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex');
   //console.log(privatek);
   const tempuserstatus = "admin";
-  //const url = req.protocol + '://' + req.get("host");
+  const url = req.protocol + '://' + req.get("host");
   bcrypt.hash(req.body.password, 10)
     .then(hash =>
       {
@@ -816,8 +816,8 @@ userChatModel.findOne({ 'users.user_id': { $all: [ req.body.currentuserid, req.b
 
 exports.accountdetails = (req,res,next) =>
 {
-console.log("body"+req.body.id);
-console.log("params"+req.params.id);
+//c////onsole.log("body"+req.body.id);
+//console.log("params"+req.params.id);
 User.findById(req.params.id).then(result =>{
 
   if(result)
@@ -830,4 +830,21 @@ User.findById(req.params.id).then(result =>{
   }
 
 }).catch(error =>console.log(error))
+}
+
+
+exports.checkkey =(req,res) =>
+{
+  User.findOne({privateKey:req.params.key}).then(result =>
+    {
+      if(result)
+      {
+        res.status(200).send(true);
+      }
+      else
+      {
+        res.status(404).send(false);
+      }
+    }).catch(error => res.status(500).send(error));
+
 }

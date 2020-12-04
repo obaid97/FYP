@@ -19,7 +19,7 @@ import { AboutUsComponent } from './About-us/About-us.component';
 import { SingleBlogComponent } from './blog/single-blog/single-blog.component';
 import { EditUserProfileComponent } from './auth/user-profile/edit-details/edit-details.component';
 import { InboxComponent } from './auth/inbox/inbox.component';
-
+import { SellerContractComponent } from './auth/seller-contract/seller-contract.component';
 
 const routes: Routes=[
   { path:'', component: HomeComponent },
@@ -40,6 +40,7 @@ const routes: Routes=[
   { path:'forgotpassword',component:ForgotPasswordComponent},
   { path:'DNP',component: DisplayNewPasswordComponent},
   { path:'search', component: SearchComponent },
+  { path:'sellcontract/:id', component:SellerContractComponent, canActivate: [AuthGuard]},
   { path:'chat/:id', component:ChatInboxComponent, canActivate: [AuthGuard]},
   //this wont work in the newer version
   //another way to load children is

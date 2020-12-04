@@ -94,6 +94,7 @@ login(cnicNumber: number, password: string)
     this.http.post<{token: string, expiresIn:number ,userId:string, accountStatus:string, authorizedStatus:Boolean}>(BACKEND_URL+"login",authData)
       .subscribe(response =>
         {
+          localStorage.setItem("loggedinusercnic",cnicNumber.toString());
           const token = response.token;
           this.token =token;
           if(token)
@@ -123,6 +124,7 @@ login(cnicNumber: number, password: string)
               this.authStatusListener.next(false);
         });
         this.currentUser = cnicNumber;
+
         this.getcurrentuserstatus();
         //this.forgotpassword(3710558105933,"0ce8d34a082854ea18b83eafac46cc38b532d59aed0d18c85d50ec4e8d517273");
         //this.currentUserauthorizeStatus =
@@ -254,7 +256,6 @@ login(cnicNumber: number, password: string)
         {
           this.verifiedUsers[i] = response.users[i];
         }
-
       })
 
       return this.verifiedUsers;
@@ -459,6 +460,78 @@ getcurrentuserdetails()
      return  this.http.post(BACKEND_URL+"inboxmessage/",data);
     }
 
+    createContract(BuyerName : string ,BuyerCNIC : string ,  BuyerPK : string  ,  SellerName : string  ,  SellerCNIC : string  ,
+      make : string  ,  model : string  , registrationnumber : string ,  registrationcity : string  ,  price : string  ,  enginetype : string  ,
+      enginecapacity : string  , transmission : string  ,  assembly : string  ,   exteriorcolor : string  ,  image:File)
+      {
+        console.log("in auth service method start")
+        const contractData = new FormData();
+          contractData.append("BuyerName",BuyerName);
+          contractData.append("BuyerCNIC",BuyerCNIC);
+          contractData.append("BuyerPK",BuyerPK);
+          contractData.append("SellerName",SellerName);
+          contractData.append("SellerCNIC",SellerCNIC);
+
+          contractData.append("make",make);
+          contractData.append("model",model);
+          contractData.append("registrationnumber",registrationnumber);
+          contractData.append("registrationcity",registrationcity);
+          contractData.append("price",price);
+          contractData.append("enginetype",enginetype);
+          contractData.append("enginecapacity",enginecapacity);
+          contractData.append("transmission",transmission);
+          contractData.append("assembly",assembly);
+
+          contractData.append("exteriorcolor",exteriorcolor);
+          contractData.append("image",image);
+
+          let q= Object.entries(contractData);
+           console.log("contract data" + q);
+
+        this.http.post(BACKEND_URL+"createcontract",contractData)
+          .subscribe((responseData)=>{
+
+              this.router.navigate(["/inbox"]);
+          },error => {
+            let p= Object.entries(error);
+            console.log("error"+p);
+            this.authStatusListener.next(false);
+          }
+          );
+
+      }
+
+      resetpassword(cnicNumber: number, password: string)
+      {
+        const authData = {cnicNumber, password};
+        this.http.put(BACKEND_URL +"reset",authData)
+          .subscribe(response =>
+            {
+              console.log(response);
+            })
+      }
+
+
+      useraccountdetails(id:string)
+      {
+        //return this.http.get(BACKEND_URL+"getChatBox/"+userId);
+        return this.http.get(BACKEND_URL+"accountdetails/"+id);
+      }
+
+      checkKey(key:string)
+      {
+        return this.http.get(BACKEND_URL+"key/"+key);
+      }
+
+      getallbuyercontracts(cnicNumber:string)
+      {
+        return this.http.get(BACKEND_URL+"buyercontract/"+cnicNumber);
+      }
+
+      getallsellercontracts(cnicNumber:string)
+      {
+        return this.http.get(BACKEND_URL+"sellercontract/"+cnicNumber);
+      }
 
   //not yet fixed /completed
   /*
@@ -485,15 +558,6 @@ getcurrentuserdetails()
 
      //resetpassword(cnicNumber:string,privatekey:string)
 
-resetpassword(cnicNumber: number, password: string)
-{
-  const authData = {cnicNumber, password};
-  this.http.put(BACKEND_URL +"reset",authData)
-    .subscribe(response =>
-      {
-        console.log(response);
-      })
-}
 
 
 
@@ -527,64 +591,15 @@ resetpassword(cnicNumber: number, password: string)
   }
 
 
-
-
-
-
-
-createContract(BuyerName : string ,BuyerCNIC : string ,  BuyerPK : string  ,  SellerName : string  ,  SellerCNIC : string  ,  SellerPK : string  ,
-  make : string  ,  model : string  , registrationnumber : string ,  registrationcity : string  ,  price : string  ,  enginetype : string  ,
-  enginecapacity : string  , transmission : string  ,  assembly : string  ,  features : string  ,  exteriorcolor : string  ,  image:File)
+  getcontractdetails(contractid:string)
   {
-    console.log("in auth service method start")
-    const contractData = new FormData();
-      contractData.append(" BuyerName ",BuyerName);
-      contractData.append(" BuyerCNIC ",BuyerCNIC);
-      contractData.append(" BuyerPK ",BuyerPK);
-      contractData.append(" SellerName ",SellerName);
-      contractData.append(" SellerCNIC ",SellerCNIC);
-      contractData.append(" SellerPK ",SellerPK);
-      contractData.append(" make ",make);
-      contractData.append(" model ",model);
-      contractData.append(" registrationnumber ",registrationnumber);
-      contractData.append(" registrationcity ",registrationcity);
-      contractData.append(" price ",price);
-      contractData.append(" enginetype ",enginetype);
-      contractData.append(" enginecapacity ",enginecapacity);
-      contractData.append(" transmission ",transmission);
-      contractData.append(" assembly ",assembly);
-      contractData.append(" features ",features);
-      contractData.append(" exteriorcolor ",exteriorcolor);
-      contractData.append(" image ",image);
-
-    console.log("contract data" + contractData);
-
-    this.http.post(BACKEND_URL+"createcontract",contractData)
-      .subscribe((responseData)=>{
-
-          this.router.navigate(["/inbox"]);
-      },error => {
-        this.authStatusListener.next(false);
-      }
-      );
-
+    return this.http.get(BACKEND_URL+"contractdetails/"+contractid);
   }
 
 
-  useraccountdetails(id:string)
-  {
-    //return this.http.get(BACKEND_URL+"getChatBox/"+userId);
-    return this.http.get(BACKEND_URL+"accountdetails/"+id);/*.subscribe(res => {
-      let a = res;
 
-      var resultArray = Object.keys(res).map(function(personNamedIndex){
-        let person = res[personNamedIndex];
-        // do something with person
-        return person;
-      });
-      console.log("res"+resultArray);
-    });*/
-  }
+
+
 
 
 

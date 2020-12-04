@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 //import { SSL_OP_NO_TLSv1_1 } from 'constants';
 import { Subscription } from 'rxjs';
 import { mimeType } from 'src/app/posts/post-create/mime-type.validator';
+import { Post } from 'src/app/posts/post.model';
+import { PostsService } from 'src/app/posts/posts.service';
 import { AuthService } from '../auth.service';
 
 
@@ -22,10 +24,29 @@ export class SmartContractComponent
   sellerid:string;
   buyerid:string;
   postid:string;
+  buyerName:string;
+  sellerName:string;
+  buyerCNIC:string;
+  sellerCNIC:string;
+  userdetails: any;
   buyerdetails: any;
-  post:any;
+  post:Post;
+  postList:any=[];
+  features=[];
   sellerdetails: any;
-  constructor(public authService: AuthService,public route: ActivatedRoute, private _formBuilder: FormBuilder)
+
+  //car data
+  make:string;
+  model:string;
+  registrationcity:string;
+  enginetype:string;
+  enginecapacity:string;
+  transmission:string;
+  assembly:string;
+  feature:string;
+  color:string;
+
+  constructor(public authService: AuthService,public route: ActivatedRoute, private _formBuilder: FormBuilder,public postsService: PostsService,)
   {
     this.sellerid = localStorage.getItem('sellerid');
     this.buyerid =  localStorage.getItem('userId');
@@ -33,43 +54,72 @@ export class SmartContractComponent
     //console.log("seller id"+this.sellerid);
     //console.log("Buyer Id"+this.buyerid);
     //console.log("Post Id "+this.postid);
-    localStorage.removeItem('sellerid');
-    localStorage.removeItem('sellerpostid');
+    //localStorage.removeItem('sellerid');
+    //localStorage.removeItem('sellerpostid');
 
-
-    this.authService.useraccountdetails(this.buyerid).subscribe(data =>{
+    //Buyer Details
+    this.authService.getuserDeatils().subscribe(data =>{
       let dataincome= data;
-      var resultArray = Object.keys(data).map(function(personNamedIndex){
-        let person = data[personNamedIndex];
-        // do something with person
-        return person;
-       });
-      this.buyerdetails = resultArray;
+      this.buyerdetails = dataincome.user;
+      this.buyerName= this.buyerdetails.fullName;
+      this.buyerCNIC = this.buyerdetails.cnicNumber;
+      this.buyerid = dataincome.user._id;
 
-      },err=>{
-        console.log(err);
-
-      });
-      console.log("buyer: "+this.buyerdetails)
-      this.authService.useraccountdetails(this.sellerid).subscribe(data =>{
-        //let dataincome= data;
-
-        var resultArray = Object.keys(data).map(function(personNamedIndex){
-          let person = data[personNamedIndex];
-          // do something with person
-          return person;
-         });
-       // console.log("seller data: "+resultArray);
-        this.sellerdetails = resultArray;
-         console.log(resultArray);
         },err=>{
           console.log(err);
 
         });
 
-        console.log("seller: "+this.sellerdetails)
+
+      //Seller Details
+      this.authService.useraccountdetails(this.sellerid).subscribe(data =>{
+
+        let a = Object.entries(data);
+        let sellern = a[1];
+        let sellerc = a[6];
+        this.sellerName = sellern[1];
+        this.sellerCNIC = sellerc[1];
+        var resultArray = Object.keys(data).map(function(personNamedIndex){
+          let person = data[personNamedIndex];
+          return person;
+         })
+        this.sellerdetails = resultArray;
+        },err=>{
+          console.log(err);
+        });
+
+       //post Details
+
+       this.postsService.getsinglepost(this.postid).subscribe(data=>{
+        this.postList = data;
+
+       let p= Object.entries(data);
+       //console.log("data: "+p);
+       this.make=p[2][1];
+       this.model=p[3][1];
+       this.registrationcity=p[4][1];
+       this.color=p[6][1];
+       this.enginetype=p[10][1];
+       this.enginecapacity=p[11][1];
+       this.transmission=p[12][1];
+       this.assembly=p[13][1];
+       this.feature=p[14][1];
+
+       //console.log("Make"+this.make);
+
+        var str = this.postList.features;
+        var seprate = str.split(',');
+        for(let i=0; i<seprate.length; i++)
+        {
+          this.features[i] = seprate[i];
+        }
 
 
+      },err=>{
+        console.log(err);
+      });
+     // console.log("post: "+this.postList);
+      //.log("features: "+this.features);
   }
 
   ngOnInit()
@@ -82,23 +132,23 @@ export class SmartContractComponent
   });
   this.contractform = new FormGroup(
     {
-      BuyerName: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
-      SellerName: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
-      BuyerCNIC: new FormControl(null, {validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13)]}),
-      SellerCNIC: new FormControl(null, {validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13)]}),
+      //BuyerName: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
+      //SellerName: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
+     // BuyerCNIC: new FormControl(null, {validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13)]}),
+     // SellerCNIC: new FormControl(null, {validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13)]}),
       BuyerPK : new FormControl(null, {validators:[Validators.required]}),
-      SellerPK : new FormControl(null),
-      carmake: new FormControl(null, {validators:[Validators.required]}),
-      carmodel : new FormControl(null,{validators:[ Validators.required]}),
+     // SellerPK : new FormControl(null),
+     // carmake: new FormControl(null, {validators:[Validators.required]}),
+     // carmodel : new FormControl(null,{validators:[ Validators.required]}),
       registrationnumber : new FormControl(null,{validators:[ Validators.required ]}),
-      registrationcity : new FormControl(null,{validators:[ Validators.required ]}),
+      //registrationcity : new FormControl(null,{validators:[ Validators.required ]}),
       price : new FormControl(null,{validators:[ Validators.required ]}),
-      enginetype : new FormControl(null,{validators:[ Validators.required ]}),
-      enginecapacity : new FormControl(null,{validators:[ Validators.required ]}),
-      transmission : new FormControl(null,{validators:[ Validators.required ]}),
-      assembly : new FormControl(null,{validators:[ Validators.required ]}),
-      features : new FormControl(null,{validators:[ Validators.required ]}),
-      exteriorcolor : new FormControl(null,{validators:[ Validators.required ]}),
+     // enginetype : new FormControl(null,{validators:[ Validators.required ]}),
+     // enginecapacity : new FormControl(null,{validators:[ Validators.required ]}),
+     // transmission : new FormControl(null,{validators:[ Validators.required ]}),
+      //assembly : new FormControl(null,{validators:[ Validators.required ]}),
+      //features : new FormControl(null,{validators:[ Validators.required ]}),
+     // exteriorcolor : new FormControl(null,{validators:[ Validators.required ]}),
       image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
     });
 
@@ -111,38 +161,56 @@ export class SmartContractComponent
     console.log("smart contract ts file create function");
     if(this.contractform.invalid)
     {
-      //console.log("onsignup invalid failed");
+      console.log("creation contract failed");
       return;
     }
     else
     {
-      this.isloading = true;
+      //check if the key is authentic
+      this.authService.checkKey(this.contractform.value.BuyerPK).subscribe(result =>
+        {
+
+          if(result == true)
+          {
+            console.log("inside "+result);
+            this.isloading = true;
+            this.authService.createContract
+            (
+              this.buyerName,
+              this.buyerCNIC ,
+              this.contractform.value.BuyerPK ,
+              this.sellerName ,
+              this.sellerCNIC ,
+              //this.contractform.value.SellerPK ,
+              this.make,
+              this.model ,
+              this.contractform.value.registrationnumber ,
+              this.registrationcity ,
+              this.contractform.value.price ,
+              this.enginetype ,
+              this.enginecapacity ,
+              this.transmission ,
+              this.assembly ,
+              //this.features ,
+              this.color ,
+              this.contractform.value.image
+              );
+          }
+          else
+          {
+            console.log("inside: "+result);
+          }
+          this.isloading =false;
+          this.contractform.reset();
+          localStorage.removeItem('sellerid');
+          localStorage.removeItem('sellerpostid');
+        });
 
     //this.authService.createUser(form.value.fullName, form.value.email, form.value.password, form.value.phoneNumber, form.value.fullAddress, form.value.cnicNumber );
-    this.authService.createContract
-    (
-      this.contractform.value.BuyerName,
-      this.contractform.value.BuyerCNIC ,
-      this.contractform.value.BuyerPK ,
-      this.contractform.value.SellerName ,
-      this.contractform.value.SellerCNIC ,
-      this.contractform.value.SellerPK ,
-      this.contractform.value.carmake ,
-      this.contractform.value.carmodel ,
-      this.contractform.value.registrationnumber ,
-      this.contractform.value.registrationcity ,
-      this.contractform.value.price ,
-      this.contractform.value.enginetype ,
-      this.contractform.value.enginecapacity ,
-      this.contractform.value.transmission ,
-      this.contractform.value.assembly ,
-      this.contractform.value.features ,
-      this.contractform.value.exteriorcolor ,
-      this.contractform.value.image
-      );
-      this.isloading =false;
+
+
     }
-    this.contractform.reset();
+
   }
 
   //on image picked

@@ -263,3 +263,55 @@ color: #878787;
 @media (max-width:600px)
 {
 }
+.chat_card
+{
+  border-radius: 20px 20px 20px 20px;
+  background-color:#ececec;
+
+  height:6rem;
+}
+.chat_card:hover
+{
+
+  cursor: pointer;
+}
+.chat_table
+{
+  text-decoration:none;
+  border: none;
+  width: 100%;
+  border-collapse: separate;
+}
+.chat_button
+{
+  border-radius: 15px;
+  background-color: #27b803;
+  color:white;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing:1px;
+}
+.chat_button:hover
+{
+  border-radius: 15px;
+  background-color: rgb(243, 243, 243);
+  color:#27b803;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing:1px;
+}
+.chat_button_delete
+{
+  margin-left: 2px;
+  background-color: #e70909;
+  color: white;
+  border-radius: 15px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing:1px;
+}
+.chat_button_delete:hover
+{
+  color:#e70909;
+  background-color:rgb(241, 239, 239);
+}

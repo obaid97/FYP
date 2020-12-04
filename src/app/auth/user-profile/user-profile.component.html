@@ -171,6 +171,86 @@
         <button mat-raised-button color="warn" class="delete-btn" (click)="onuserDelete()">Delete Account</button>
     </mat-card-actions>
 </mat-card>
+
+
+<mat-card style="margin-top:2rem;">
+  <mat-card-title>
+    On Going Contracts
+  </mat-card-title>
+  <mat-card-content>
+
+    <mat-card style="margin-top:3px;">
+      <mat-card-title>
+        As a Seller
+      </mat-card-title>
+      <mat-card-content>
+        <mat-card *ngFor="let seller of sellercontract">
+            <mat-card-title>
+              <h4>
+                Contract Between "{{seller.SellerName}}" & "{{seller.BuyerName}}"
+              </h4>
+            </mat-card-title>
+            <table style="width: 100%;">
+              <tr>
+                <td colspan="3">
+                  <ul>
+                    <li>Buyer CNIC : {{seller.BuyerCNIC}}</li>
+                    <li>Seller CNIC: {{seller.SellerCNIC}}</li>
+                    <li *ngIf="seller.BuyerPK != '' " style="background-color:rgb(3, 196, 3); border-radius:20px; ">Buyer Key Status: Valid</li>
+                    <li *ngIf="seller.BuyerPK == '' " style="background-color:rgb(196, 9, 3)">InValid</li>
+                  </ul>
+                </td>
+                <td colspan="3">
+                  <ul>
+                    <li>Car: {{seller.make}} - {{seller.model}}</li>
+                    <li>Registration #: {{seller.registrationnumber}}</li>
+                    <li>Price: Rs-{{seller.price}}</li>
+                  </ul>
+                </td>
+                <td colspan="3">
+                  <ul>
+                    <li>Engine Type: {{seller.enginetype}}</li>
+                    <li>Engine Capacity: {{seller.enginecapacity}}cc</li>
+                    <li>Color: {{seller.exteriorcolor}}</li>
+                    {{seller._id}}
+                  </ul>
+                </td>
+                <td colspan="3">
+                  <ul style="list-style-type: none;">
+                    <li>
+                      <a mat-button style="background-color:#e60000; color:#fff;border-radius: 15px; width: 7rem; height:2.5rem;margin-bottom: 2px;" (click)="onaccept(seller._id)">
+                         Accept
+                      </a>
+                    </li>
+                    <li>
+                      <a mat-button style="background-color:#27b803; color:#fff;border-radius: 15px;width: 7rem; height:2.5rem;margin-top:2px; " (click)="onreject(seller._id)">
+                        Delete
+                      </a>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card style="margin-top:3px;">
+      <mat-card-title>
+        As a Buyer
+      </mat-card-title>
+      <mat-card-content>
+        <mat-card *ngFor="let seller of buyercontract">
+            {{seller.BuyerCNIC}}
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+
+  </mat-card-content>
+</mat-card>
+
+
 <mat-card class="report-card">
   <mat-card-content>
     <button mat-raised-button class="bar-chart-btn" style="background-color:#03cffc; color: #fff;">View Bar chart Report</button>

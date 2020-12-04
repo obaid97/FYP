@@ -15,6 +15,11 @@ const smartContractController = require("../controllers/smartcontract");
 router.post("/signup",extractFile,UserController.createUser);
 router.post("/createadmin",extractFile,UserController.createAdmin);
 
+//contract
+router.post("/createcontract",extractFile,smartContractController.inititatecontract);
+router.get("/sellercontract/:cnicNumber",smartContractController.getallsellercontracts);
+router.get("/buyercontract/:cnicNumber",smartContractController.getallbuyercontracts);
+router.get("/contractdetails/:contractid",smartContractController.getcontractdetails);
 //login post router
 router.post("/login",UserController.userLogin);
 
@@ -38,10 +43,10 @@ router.post("/updateuserdetails",UserController.updateuserdetails);
 router.put("/forgotpassword",UserController.forgotpassword);
 router.post("/reset",UserController.resetpassword);
 router.post("/mail",UserController.sendemail);
+router.get("/key/:key",UserController.checkkey);
 
-//contract
 
-router.post("/createcontract",smartContractController.inititatecontract);
+
 
 //chat app
 router.get("/getChatBox/:_id",UserController.getChatBox);

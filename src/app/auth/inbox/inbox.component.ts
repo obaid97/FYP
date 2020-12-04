@@ -22,17 +22,16 @@ export class InboxComponent
   userandadminstatus: boolean;
   status: string;
   authorizedStatus: boolean;
-  users=[];
+  //users=[];
+  users:any;
   constructor(private authService: AuthService, private router:Router)
   {
     this.authService.getuserchats().subscribe(userchat =>
       {
         let temp =userchat;
-        //console.log();
-        for(let i = 0; i<2;i++)
-        {
-          this.users[i] = temp[i];
-        }
+        this.users = temp;
+
+        //console.log("users"+this.users);
       });
   }
 
@@ -63,6 +62,12 @@ export class InboxComponent
     this.router.navigate(["/chat", userid]);
 
   }
+
+  ondelete(userid:string)
+  {
+
+  }
+
 
   onLogout() {
     this.authService.logout();
