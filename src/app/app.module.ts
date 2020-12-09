@@ -31,6 +31,7 @@ import { BlogComponent } from './blog/blog.component.ts';
 import { AboutUsComponent } from './About-us/About-us.component';
 import { FAQComponent } from './FAQ/FAQ.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     AngularMaterialModule,
     HttpClientModule,
     PostModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
 
   ],
   providers: [

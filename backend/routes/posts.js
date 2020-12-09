@@ -26,10 +26,11 @@ router.get('/:id',PostController.getPost);
 
 router.post('/search', SearchController.searchPosts);
 
+router.get('/searchAll', PostController.searchAllPosts);
+
 router.post('/searchPost', SearchController.searchSinglePost);
 
 
 router.get('/userposts/:userid',PostController.getuserposts);
 
-console.log("router", router.stack);
 module.exports = router;

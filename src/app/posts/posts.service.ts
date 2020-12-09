@@ -168,10 +168,10 @@ getsinglepost(id:string)
     creator: string
   }
 >(BACKEND_URL + id));*/
- this.http.post(BACKEND_URL,id).subscribe(postres =>
-  {
-    console.log(postres);
-  })
+ return this.http.post(BACKEND_URL,id) //.subscribe(postres =>
+  // {
+  //   console.log(postres);
+  // })
 //this.creatorid = this.check.creatorid;
 }
 

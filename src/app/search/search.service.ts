@@ -16,6 +16,11 @@ export class SearchService {
     return this.http.post<any>(BACKEND_URL, searchData);
   }
 
+  searchAll() {
+    console.log("Search Text in service:");
+    return this.http.get<any>(BACKEND_URL + 'All');
+  }
+
   singleSearch(searchId: any) {
     console.log("Search Id in service:", searchId);
     console.log("url",BACKEND_URL + 'Post');

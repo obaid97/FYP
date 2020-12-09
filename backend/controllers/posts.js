@@ -28,6 +28,7 @@ exports.deletePost = (req, res, next) => {
 //createpost
 exports.createPost = (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
+  console.log("userId", req.userData.userId.valueOf());
   const post = new Post({
     //basic car info
     city: req.body.city,
@@ -43,7 +44,7 @@ exports.createPost = (req, res, next) => {
 
     //images
     imagePath: url + "/images/" + req.file.filename,
-
+    month: new Date().getMonth(),
     //addition information
     enginetype: req.body.enginetype,
     enginecapacity: req.body.enginecapacity,
@@ -175,6 +176,35 @@ exports.getPosts = (req, res, next) =>
   });
 }
 
+exports.getPosts = (req, res, next) =>
+ {
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const postQuery = Post.find();
+  let fetchedPosts;
+  if (pageSize && currentPage) {
+    postQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+  Post.find()
+  postQuery.then(documents => {
+    fetchedPosts = documents
+    return Post.count();
+
+  }).then(count => {
+    res.status(200).json(
+      {
+        messgae: "Posts Fetched Successfully",
+        posts: fetchedPosts,
+        maxPosts: count
+      });
+  }).catch(error => {
+    res.status(500).json({
+      message: "Fetching Post Failed!"
+    })
+  });
+}
 exports.searchPosts = (req, res, next) => {
   console.log("received", req.body);
   let count = 0;
@@ -236,6 +266,28 @@ exports.searchPosts = (req, res, next) => {
   }).catch(error => {
     //console.log(error);
     res.status(500).json({
+      message: "Fetching Post Failed!"
+    })
+  });
+}
+
+exports.searchAllPosts = (req, res, next) => {
+  console.log("insideapi", req);
+ // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
+  Post.find().then(documents => {
+    console.log("results", documents);
+    fetchedPosts = documents
+    return Post.count();
+  }).then(count => {
+    res.status(200).json(
+      {
+        messgae: "Posts Fetched Successfully",
+        posts: fetchedPosts,
+        maxPosts: count
+      });
+  }).catch(error => {
+    console.log("errttt", error);
+    res.status(400).json({
       message: "Fetching Post Failed!"
     })
   });

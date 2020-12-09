@@ -267,6 +267,14 @@ getuserDeatils()
   return  this.http.get<{ user:any }>(BACKEND_URL+"userdetails")
 }
 
+getuserStats()
+{
+
+//console.log(BACKEND_URL+"userdetails");
+
+  return  this.http.get<any>(BACKEND_URL+"userstats")
+}
+
 getcurrentuserdetails()
 {
   return this.curretnuserdetails;
@@ -449,7 +457,14 @@ getcurrentuserdetails()
       return this.http.get(BACKEND_URL+"getChatBox/"+userId);
     }
 
-
+    getchats(chatuserid:string)
+    {
+      const currentuserId = localStorage.getItem('userId');
+      //console.log(currentuserId);
+      const data = {currentuserid:currentuserId, chatuserid:chatuserid};
+      //console.log(data);
+     return  this.http.post(BACKEND_URL+"inboxmessage/",data);
+    }
 
 
   //not yet fixed /completed
@@ -520,16 +535,66 @@ resetpassword(cnicNumber: number, password: string)
 
 
 
-  getchats(chatuserid:string)
+
+
+
+
+createContract(BuyerName : string ,BuyerCNIC : string ,  BuyerPK : string  ,  SellerName : string  ,  SellerCNIC : string  ,  SellerPK : string  ,
+  make : string  ,  model : string  , registrationnumber : string ,  registrationcity : string  ,  price : string  ,  enginetype : string  ,
+  enginecapacity : string  , transmission : string  ,  assembly : string  ,  features : string  ,  exteriorcolor : string  ,  image:File)
   {
-    const currentuserId = localStorage.getItem('userId');
-    //console.log(currentuserId);
-    const data = {currentuserid:currentuserId, chatuserid:chatuserid};
-    //console.log(data);
-    this.http.post(BACKEND_URL+"inboxmessage/",data).subscribe(response =>
-      {
-        console.log(response);
-      })
+    console.log("in auth service method start")
+    const contractData = new FormData();
+      contractData.append(" BuyerName ",BuyerName);
+      contractData.append(" BuyerCNIC ",BuyerCNIC);
+      contractData.append(" BuyerPK ",BuyerPK);
+      contractData.append(" SellerName ",SellerName);
+      contractData.append(" SellerCNIC ",SellerCNIC);
+      contractData.append(" SellerPK ",SellerPK);
+      contractData.append(" make ",make);
+      contractData.append(" model ",model);
+      contractData.append(" registrationnumber ",registrationnumber);
+      contractData.append(" registrationcity ",registrationcity);
+      contractData.append(" price ",price);
+      contractData.append(" enginetype ",enginetype);
+      contractData.append(" enginecapacity ",enginecapacity);
+      contractData.append(" transmission ",transmission);
+      contractData.append(" assembly ",assembly);
+      contractData.append(" features ",features);
+      contractData.append(" exteriorcolor ",exteriorcolor);
+      contractData.append(" image ",image);
+
+    console.log("contract data" + contractData);
+
+    this.http.post(BACKEND_URL+"createcontract",contractData)
+      .subscribe((responseData)=>{
+
+          this.router.navigate(["/inbox"]);
+      },error => {
+        this.authStatusListener.next(false);
+      }
+      );
+
   }
+
+
+  useraccountdetails(id:string)
+  {
+    //return this.http.get(BACKEND_URL+"getChatBox/"+userId);
+    return this.http.get(BACKEND_URL+"accountdetails/"+id);/*.subscribe(res => {
+      let a = res;
+
+      var resultArray = Object.keys(res).map(function(personNamedIndex){
+        let person = res[personNamedIndex];
+        // do something with person
+        return person;
+      });
+      console.log("res"+resultArray);
+    });*/
+  }
+
+
+
 }
 //
+

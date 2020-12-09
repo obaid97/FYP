@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { findOne } = require("../models/user");
+const Post = require('../models/post');
+
 const crypto =require("crypto");
 
 const express = require('express');
@@ -164,6 +166,62 @@ User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
       message:"Fetched sucesfully",
       user:result,
       });
+  }
+  else
+  {
+    res.status(404).json({message:"error finding user"})
+  }
+
+}).catch(error =>console.log(error))
+}
+
+exports.userstats = (req,res,next) =>
+{
+
+User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
+
+  if(result)
+  {   console.log("resultinto",result._id);
+      let condition = {"creator": result._id}
+      console.log("con", condition);
+
+    Post.find(condition).count().then(count => {
+    console.log("results", count);
+    return count;
+  }).then(count => {
+    console.log("count", count)
+    Post.aggregate([
+      { $match: { 'creator' : result._id } },
+      { $group: {
+        _id: "$month",
+        count: { $sum: 1 }
+      }
+}]).then(result => {
+      console.log("results", result);
+      return result;
+    }).then(result => {
+      console.log("resulttzzz", result)
+      res.status(200).json(
+        {
+          userPosts: count,
+          barData: result
+        });
+    }).catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "Fetching Post Failed!"
+      })
+    });
+    // res.status(200).json(
+    //   {
+    //     userPosts: count
+    //   });
+  }).catch(error => {
+    console.log(error);
+    res.status(500).json({
+      message: "Fetching Post Failed!"
+    })
+  });
   }
   else
   {
@@ -814,3 +872,20 @@ userChatModel.findOne({ 'users.user_id': { $all: [ req.body.currentuserid, req.b
 
 }
 
+exports.accountdetails = (req,res,next) =>
+{
+console.log("body"+req.body.id);
+console.log("params"+req.params.id);
+User.findById(req.params.id).then(result =>{
+
+  if(result)
+  {
+    res.status(200).send(result);
+  }
+  else
+  {
+    res.status(404).json({message:"error finding user"})
+  }
+
+}).catch(error =>console.log(error))
+}

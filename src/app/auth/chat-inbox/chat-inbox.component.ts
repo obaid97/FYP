@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import * as io from 'socket.io-client';
 import { PostsService } from 'src/app/posts/posts.service';
@@ -26,8 +27,35 @@ export class ChatInboxComponent implements OnInit {
   userandadminstatus:boolean;
  fromId: string
   chat;
-  constructor(public authService: AuthService, public postService:PostsService) {
+  chatUserId:string
+  messageList:any=[];
+  userads=[];
+  allposts:any=[];
+  constructor(public authService: AuthService, public postService:PostsService, private route:ActivatedRoute, private router: Router) {
     this.usertoken =this.authService.getToken();
+
+    this.chatUserId =  this.route.snapshot.paramMap.get('id');
+    //console.log("CHAT ID: ", this.chatUserId);
+    this.authService.getchats(this.chatUserId).subscribe(data=>{
+
+      this.messageList = data
+
+     // console.log("chhhaat data: ", this.messageList)
+
+    },err=>{
+
+    });
+
+    //this.chatUserId
+
+    this.postService.getuserposts(this.chatUserId).subscribe(data =>
+      {
+        let alluserposts = data;
+        this.allposts = alluserposts;
+       // console.log(this.allposts);
+      });
+    //console.log(this.userdetails);
+
 
   }
 
@@ -79,61 +107,44 @@ export class ChatInboxComponent implements OnInit {
   if (data) {
 
     this.fromId = data.from_id;
-    console.log("DATA: ",data);
+   // console.log("formid on socket on : ",this.fromId );
 
 
 
    const element = document.createElement('li');
    element.innerHTML = data.message;
-   element.style.background = 'white';
-   element.style.padding =  '15px 30px';
-   element.style.margin = '10px';
+
+   element.style.background = '#B310FF';
+
+  element.style.color="white"
+
+  element.style.fontSize="14px"
+
+  element.style.padding =  '15px 30px';
+
+  element.style.margin = '10px';
+
+  element.style.borderRadius = "20px 20px 20px 20px";
+
+  element.style.textAlign = 'left';
    document.getElementById('message-list').appendChild(element);
    }
  });
 
 
 }
-/*
- SendMessage()
- {
-  this.socket.emit('message', this.message);
-  this.message = '';
- }*/
-
-
-//  SendMessage() {
-
-//   this.socket.emit('message', this.message);
-
-//   var element = document.createElement("LI");
-
-//   element.innerHTML = this.message;
-
-//   element.style.background = 'white';
-
-//   element.style.padding =  '15px 30px';
-
-//   element.style.margin = '10px';
-
-//   element.style.textAlign = 'right';
-
-//   document.getElementById('message-list').appendChild(element);
-
-//   this.message = '';
-
-// }
 
 
 SendMessage() {
+   this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.chatUserId});
 
   this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.fromId});
   //console.log(this.postService.getCreatorId());
   var element = document.createElement("LI");
-
+  //console.log("form id "+this.fromId);
   element.innerHTML = this.message;
 
-  element.style.background = 'green';
+  element.style.background = '#00C0F7';
 
   element.style.color="white"
 
@@ -158,5 +169,21 @@ onLogout()
 {
   this.authService.logout();
 }
+
+inititatecontract(postid:string)
+{
+  localStorage.setItem('sellerid',this.chatUserId);
+  //localStorage.getItem('userId');
+  localStorage.setItem('sellerpostid',postid);
+  this.router.navigate(['/smartcontract']);
+}
+
+//this.chatUserId
+singlepost(postid:string)
+{
+  //console.log(postid);
+  this.router.navigate(["/post",postid ]);
+}
+
 
 }

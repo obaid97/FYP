@@ -91,36 +91,83 @@
 
 
 
+  <div class="container" style=" margin-left:-10rem;margin-top: 6rem; background-color: rgb(235, 233, 233);">
+    <div class="row" style="width:138.5%; ">
+      <div class="col col-lg-2 col-md-2 col-sm-2 col-xs-12" style="background-color:#fff; border-right: 5px solid rgb(133, 133, 133);" >
+        <h2 style="color:#000000; margin-left:5rem; margin-top:1rem">User Ads</h2>
+
+        <mat-card style="margin-top: 5px; margin-left:0.5rem;background-color:rgb(192, 192, 192);color:#ffffff; " *ngFor="let post of allposts" >
+          <mat-card-header>
+              {{post.make}} - {{post.model}}
+          </mat-card-header>
+          <mat-card-content style="margin-top:3px; border:0;">
+            <!--<img [src]="post.imagePath" width="170px" height="60px">-->
+            <table style="width: 100%; border: 0">
+              <tr>
+                <td>
+                  <ul >
+                    <li>{{post.mileage}} km</li>
+                    <li>{{post.price}}</li>
+                    <li>{{post.registrationcity}}</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul >
+                    <li>{{post.assembly}}</li>
+                    <li>{{post.transmission}}</li>
+                    <li>{{post.exteriorcolor}}</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button style="background-color:#00C0F7;color:white;" (click)="singlepost(post._id)">View</button>
+            <button mat-raised-button style="background-color:#B310FF;color:white;" (click)="inititatecontract(post._id)">Buy</button>
+          </mat-card-actions>
+        </mat-card>
+        <p stye="border-bottom: 5px solid rgb(133, 133, 133);">
+
+        </p>
+
+
+      </div>
+      <div class="col col-lg-10 col-md-10 col-sm-3 col-xs-12">
+
+
+
+          <div class="chat-messages"  >
+            <div class="chat-messages-show-container">
+              <ul class="chat-messages-show-list"   *ngFor="let message of messageList">
+
+
+                style="background-color:#0074F7; color:white; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
+                  text-align: right;"
+
+
+
+                style="background-color:#00C0F7; color:white; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
+                  text-align: left;"
+
+
+
+              </ul>
+            </div>
+            <div class="chat-messages-create-container">
+              <input class="chat-messages-create-input" type="text" [(ngModel)]="message">
+              <button  class="chat-messages-create-button" (click)="SendMessage()">
+                Send
+              </button>
+            </div>
+          </div>
 
 
 
 
-
-
-
-
-
-<div>
-<div class="chat-messages" style="margin-top:0rem;">
-  <div class="chat-messages-show-container">
-    <ul class="chat-messages-show-list" id="message-list">
-
-    </ul>
+      </div>
+    </div>
   </div>
-  <div class="chat-messages-create-container">
-    <input class="chat-messages-create-input" type="text" [(ngModel)]="message">
-    <button  class="chat-messages-create-button" (click)="SendMessage()">
-      Send
-    </button>
-  </div>
-</div>
-</div>
-
-
-
-
-
-
 
 
 

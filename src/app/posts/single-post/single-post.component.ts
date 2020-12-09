@@ -4,9 +4,7 @@ import { PostsService } from '../posts.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
-import { DataService } from 'src/app/data.service';
-import { SearchService } from 'src/app/search/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 export interface Tile {
@@ -26,60 +24,67 @@ export interface Tile {
 
 export class SinglePostComponent
 {
-  post: Post;
+  post: Post[];
   isloading = false;
   userId: string;
   private postsSub: Subscription;
   private authServiceSub: Subscription;
   userIsAuthenticated = false;
-  carmake:string;
-  City:string;
-  regcity:string;
-  images:string;
-  carmileage:String;
-  carcolor:String;
-  enginetype:string;
-  enginecapacity:string;
-  features:string;
-  mobilenumber:number;
-  singleDataId : any ;
-  data: any;
-
-
+  carmake: string;
+  City: string;
+  regcity: string;
+  images: string;
+  carmileage: String;
+  carcolor: String;
+  enginetype: string;
+  enginecapacity: string;
+  mobilenumber: number;
+  postId: string
+  postList: any=[];
+  features= [];
   tiles: Tile[] = [
     {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
     {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
     {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
   ];
-postid:string;
-  constructor(public postsService: PostsService, private authService: AuthService, private dataService: DataService, private searchService: SearchService, private activatedRoute: ActivatedRoute) 
-  {
-    this.postid =  this.activatedRoute.snapshot.paramMap.get('id');
-    console.log(this.activatedRoute.snapshot.paramMap.get('id'))
-   }
 
-  ngOnInit(): void {
-    console.log("in this sngle");
-    
-      
-     console.log(this.postid); 
-      //isko kl live dekhun ga 
-    
-    
-    
-    
-    
-      this.singleDataId = this.dataService.getSingleData();
-    console.log("singleId", this.singleDataId);
-    if (this.singleDataId) {
-      this.searchService.singleSearch(this.singleDataId).subscribe(postData => {
-        console.log("searchsinge", postData);
-        this.data = postData;
-        // this.router.navigate(["/search"]);
-      });
-    }
+  constructor(public postsService: PostsService, private authService: AuthService, private route: ActivatedRoute)
+  {
+    this.postId =  this.route.snapshot.paramMap.get('id');
   }
 
+  ngOnInit()
+  {
 
+    this.postsService.getsinglepost(this.postId).subscribe(data=>{
+
+      this.postList = data;
+      /*
+      var fruits = 'apple,orange,pear,banana,raspberry,peach';
+      var ar = fruits.split(','); // split string on comma space
+      console.log( ar );
+      */
+
+      var str = this.postList.features;
+      //var count = str.length(str.split(',') );
+      //console.log("count: ",count);
+      var seprate = str.split(',');
+      for(let i=0; i<seprate.length; i++)
+      {
+        this.features[i] = seprate[i];
+      }
+     // console.log("post data: ", this.features);
+
+    },err=>{
+
+    });
+
+
+}
+
+  onLogout()
+  {
+    this.authService.logout();
+  }
 }

@@ -246,16 +246,24 @@
         <button mat-raised-button color="warn" class="delete-btn" (click)="onuserDelete()">Delete Account</button>
     </mat-card-actions>
 </mat-card>
-<mat-card class="report-card">
+<!-- <mat-card class="report-card">
   <mat-card-content>
     <button mat-raised-button class="bar-chart-btn" style="background-color:#03cffc; color: #fff;">View Bar chart Report</button>
     <button mat-raised-button class="pie-chart-btn" style="background-color:#f403fc; color:#fff;">View Pie Chart Report</button>
   </mat-card-content>
-</mat-card>
+</mat-card> -->
+<div style="display: block">
+  <canvas *ngIf="chartReady" baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [chartType]="barChartType">
+  </canvas>
+</div>
 </div>
 <div>
   <mat-card *ngIf="allposts">
-    <h2>Total Ads : "{{allposts.length}}"</h2>
+    <h2>Total Ads : "{{userPosts}}"</h2>
     <mat-card *ngFor="let post of allposts" style="margin-bottom:10px;">
       <div class="row">
         <div class="col col-xs-3 col-md-3 col-sm-3 col-lg-3 col-xl-3" >

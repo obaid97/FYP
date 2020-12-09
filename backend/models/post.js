@@ -13,7 +13,7 @@ const postSchema = mongoose.Schema({
   description: { type:String, required:true },
 
   //car price
-  price: { type:String, required:true },
+  price: { type:Number, required:true },
 
   //images
   imagePath : { type:String, required:true },
@@ -22,6 +22,7 @@ const postSchema = mongoose.Schema({
   enginetype: { type:String, required:true},
   enginecapacity: { type:String, required:true},
   transmission: { type:String, required:true},
+  month:{type: Number, required:true},
   assembly: { type:String, required:true},
   features: { type:String, required:true},
 

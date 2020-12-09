@@ -59,10 +59,18 @@ export class SearchComponent implements OnInit {
     this.myForm.reset();
   }
 
+  searchAll() {
+    console.log("herinall");
+    this.searchService.searchAll().subscribe(postData => {
+      this.sharedData = postData;
+    });
+  }
+
 
   onLogout()
   {
     this.authService.logout();
+
   }
 
   roting(post) {
