@@ -1,8 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const { findOne } = require("../models/user");
+//const { findOne } = require("../models/user");
 const crypto =require("crypto");
+const Review = require("../models/review");
 
 const express = require('express');
 const app = express();
@@ -949,4 +950,58 @@ exports.accountstatus = (req,res) =>
 
     }
   ).catch(err => res.status(500).json({message:"Server Error"}));
+}
+
+
+
+exports.createreview = (req,res) =>
+{
+  let q= Object.entries(req.body);
+  /*console.log("inside review.js"+q);
+  console.log("Subject : "+req.params.subject);
+  console.log("Rating : "+req.params.rating);
+  console.log("Review : "+req.params.review);
+  console.log("Reviewed : "+req.params.reviewed);
+  console.log("Reviewer : "+req.params.reviewer);*/
+  const newreview = new Review(
+    {
+      subject:req.params.subject,
+      rating:req.params.rating,
+      review: req.params.review,
+      reviewed: req.params.reviewed,
+      reviewer: req.params.reviewer
+    });
+
+    newreview.save().then(result =>
+      {
+        res.status(200).json({
+          message: "review created sucesfully",
+          result: result
+        });
+      })
+        .catch(error => {
+          res.status(500).json({
+              message: "Invalid Authentication Credentials!",
+              result: error
+          });
+        })
+}
+
+exports.getreviews = (req,res) =>
+{
+  Review.find({reviewed:req.params.id}).then((result) =>
+  {
+    if(result)
+    {
+      console.log(result);
+      res.status(201).send(result);
+    }
+    else
+    {
+      res.status(404).jason({message:"No reviews Found"});
+    }
+    }).catch(err =>
+      {
+        res.status(500).jason({message:"Server Error"});
+      });
 }

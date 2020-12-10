@@ -36,6 +36,11 @@ import { EditUserProfileComponent } from './auth/user-profile/edit-details/edit-
 import { InboxComponent } from './auth/inbox/inbox.component';
 import { SellerContractComponent } from './auth/seller-contract/seller-contract.component';
 import { UserProfilePicComponent } from './auth/user-profile/edit-profilepic.component/edit-profilepic.component';
+import { ReviewComponent } from './auth/review/review.component';
+import { OtherUserProfileComponent } from './auth/Other-UserProfile/Other-UserProfile.component';
+//import { RatingModule } from 'ng-starrating';
+
+
 
 @NgModule({
   declarations: [
@@ -60,7 +65,9 @@ import { UserProfilePicComponent } from './auth/user-profile/edit-profilepic.com
     SingleBlogComponent,
     EditUserProfileComponent,
     InboxComponent,
-    UserProfilePicComponent
+    UserProfilePicComponent,
+    ReviewComponent,
+    OtherUserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +77,7 @@ import { UserProfilePicComponent } from './auth/user-profile/edit-profilepic.com
     AngularMaterialModule,
     HttpClientModule,
     PostModule,
+    //RatingModule,
     FormsModule
 
   ],

@@ -7,9 +7,7 @@ const app = express();
 const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
 const smartContractController = require("../controllers/smartcontract");
-//const { error } = require("console");
-//const user = require("../models/user");
-
+//const ReviewController = require("../controllers/review");
 
 //sign up post router
 router.post("/signup",extractFile,UserController.createUser);
@@ -24,6 +22,10 @@ router.post("/deletecontract/:contractid",smartContractController.deleteContract
 //login post router
 router.post("/login",UserController.userLogin);
 router.post("/updateprofileimage",extractFile,UserController.updateprofileimage);
+
+//reviews
+router.post("/createreview/:subject/:rating/:review/:reviewed/:reviewer",UserController.createreview);
+router.get("/getreviews/:id",UserController.getreviews);
 //unverified users
 router.get("/unverifiedusers",UserController.findUnverifiedUsers);
 router.get("/verifiedusers",UserController.findVerifiedUsers);

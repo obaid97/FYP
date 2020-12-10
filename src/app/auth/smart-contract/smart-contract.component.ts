@@ -132,23 +132,13 @@ export class SmartContractComponent
   });
   this.contractform = new FormGroup(
     {
-      //BuyerName: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
-      //SellerName: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
-     // BuyerCNIC: new FormControl(null, {validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13)]}),
-     // SellerCNIC: new FormControl(null, {validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13)]}),
+
       BuyerPK : new FormControl(null, {validators:[Validators.required]}),
-     // SellerPK : new FormControl(null),
-     // carmake: new FormControl(null, {validators:[Validators.required]}),
-     // carmodel : new FormControl(null,{validators:[ Validators.required]}),
+
       registrationnumber : new FormControl(null,{validators:[ Validators.required ]}),
       //registrationcity : new FormControl(null,{validators:[ Validators.required ]}),
       price : new FormControl(null,{validators:[ Validators.required ]}),
-     // enginetype : new FormControl(null,{validators:[ Validators.required ]}),
-     // enginecapacity : new FormControl(null,{validators:[ Validators.required ]}),
-     // transmission : new FormControl(null,{validators:[ Validators.required ]}),
-      //assembly : new FormControl(null,{validators:[ Validators.required ]}),
-      //features : new FormControl(null,{validators:[ Validators.required ]}),
-     // exteriorcolor : new FormControl(null,{validators:[ Validators.required ]}),
+
       image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
     });
 

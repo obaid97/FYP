@@ -122,7 +122,7 @@
                   <h2 >{{user.fullName}}</h2>
                 </td>
                 <td style="float:right;border:none;">
-
+                  <a class="chat_button" mat-button (click)="onview(user._id)">Profile</a>
                   <a class="chat_button" mat-button (click)="onchat(user._id)">Chat</a>
                   <a class="chat_button_delete" mat-button (click)="ondelete(user._id)">Delete</a>
                 </td>

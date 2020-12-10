@@ -103,4 +103,10 @@ export class InboxComponent
   onLogout() {
     this.authService.logout();
   }
+
+  onview(otherUSerId:string)
+  {
+    this.router.navigate(["/user",otherUSerId]);
+  }
+
 }

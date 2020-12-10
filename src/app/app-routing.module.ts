@@ -21,6 +21,9 @@ import { EditUserProfileComponent } from './auth/user-profile/edit-details/edit-
 import { InboxComponent } from './auth/inbox/inbox.component';
 import { SellerContractComponent } from './auth/seller-contract/seller-contract.component';
 import { UserProfilePicComponent } from './auth/user-profile/edit-profilepic.component/edit-profilepic.component';
+import { ReviewComponent } from './auth/review/review.component';
+import { OtherUserProfileComponent } from './auth/Other-UserProfile/Other-UserProfile.component';
+
 const routes: Routes=[
   { path:'', component: HomeComponent },
   { path:'posts',component:PostListComponent },
@@ -43,6 +46,8 @@ const routes: Routes=[
   { path:'search', component: SearchComponent },
   { path:'sellcontract/:id', component:SellerContractComponent, canActivate: [AuthGuard]},
   { path:'chat/:id', component:ChatInboxComponent, canActivate: [AuthGuard]},
+  {path:'review/:reviewuserid', component:ReviewComponent, canActivate: [AuthGuard]},
+  {path:'user/:otheruserid', component:OtherUserProfileComponent, canActivate: [AuthGuard]},
   //this wont work in the newer version
   //another way to load children is
   { path:"auth",loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)}

@@ -71,66 +71,39 @@ export class UserProfileComponent implements OnInit
   loggedinuserId:string;
   currentuser:string;
   constructor(public authService: AuthService, public postsService: PostsService,public router: Router,public dialog: MatDialog,private _snackBar: MatSnackBar)
-{
-        const luserId = localStorage.getItem('userId');
-        const cretorId = localStorage.getItem('postcreator');
-        if(luserId == cretorId)
-        {
-          this.authService.getuserDeatils().subscribe(data =>{
-            let dataincome= data;
-            this.userdetails = dataincome.user;
-            this.userId = dataincome.user._id;
-            //console.log(this.userId)
-            if(this.userdetails.profileimage == "dummy")
+  {
+        this.authService.getuserDeatils().subscribe(data =>{
+          let dataincome= data;
+          this.userdetails = dataincome.user;
+          this.userId = dataincome.user._id;
+          //console.log(this.userId)
+          if(this.userdetails.profileimage == "dummy")
+          {
+            this.userdetails.profileimage = "../../../assets/images/avatar.svg";
+          }
+          this.postsService.getuserposts(this.userId).subscribe(data =>
             {
-              this.userdetails.profileimage = "../../../assets/images/avatar.svg";
-            }
-            this.postsService.getuserposts(this.userId).subscribe(data =>
-              {
-                let alluserposts = data;
-                this.allposts = alluserposts;
-               // console.log(this.allposts);
-              });
-            //console.log(this.userdetails);
-        },err=>{
-          console.log(err);
-
-        });
-        }
-        else
-        {
-          this.authService.useraccountdetails(cretorId).subscribe(data =>
-            {
-
-              let dataincome= data;
-            this.userdetails = data;
-            //this.userId = dataincome.user._id;
-            //console.log(this.userId)
-            if(this.userdetails.profileimage == "dummy")
-            {
-              this.userdetails.profileimage = "../../../assets/images/avatar.svg";
-            }
-              //this.userdetails= dataincome;
-              let p= Object.entries(data);
-
+              let alluserposts = data;
+              this.allposts = alluserposts;
+              // console.log(this.allposts);
             });
-            this.postsService.getuserposts(cretorId).subscribe(data =>
-              {
-                let alluserposts = data;
-                this.allposts = alluserposts;
-               // console.log(this.allposts);
-              });
-        }
+          //console.log(this.userdetails);
+      },err=>{
+        console.log(err);
+
+      });
 
 
-   this.cnicNumber = localStorage.getItem("loggedinusercnic");
-      //console.log("localstorage"+ this.cnicNumber);
+
+
+      this.cnicNumber = localStorage.getItem("loggedinusercnic");
+        //console.log("localstorage"+ this.cnicNumber);
       //console.log("details"+this.userdetails.cnicNumber);
-      this.authService.getallbuyercontracts(this.cnicNumber ).subscribe(result =>
+        this.authService.getallbuyercontracts(this.cnicNumber ).subscribe(result =>
         {
           this.buyercontract=result;
           let q= Object.entries(result);
-//          console.log("Seller contract: "+p);
+        //          console.log("Seller contract: "+p);
           console.log("Buyer contract: "+q);
         });
       this.authService.getallsellercontracts(this.cnicNumber).subscribe(result =>
@@ -142,7 +115,7 @@ export class UserProfileComponent implements OnInit
         //console.log("Buyer contract: "+this.buyercontract);
         //console.log("Seller contract: "+this.sellercontract);
 
-}
+  }
 
 
   ngOnInit()

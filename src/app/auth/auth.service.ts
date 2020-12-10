@@ -613,6 +613,39 @@ getcurrentuserdetails()
           }
           );
   }
+
+  createReview(subject:string, rating:string, review:string, reviewed:string)
+  {
+    const reviewer = localStorage.getItem('userId');
+    console.log("inside auth service");
+    console.log("Subject : "+subject);
+    console.log("Rating : "+rating);
+    console.log("Review : "+review);
+    console.log("Reviewed : "+reviewed);
+    console.log("Reviewer : "+reviewer);
+
+    const reviewData = new FormData();
+    reviewData.append("subject",subject);
+    reviewData.append("review",review);
+    reviewData.append("rating",rating);
+    reviewData.append("reviewed",reviewed);
+    reviewData.append("reviewer ",reviewer);
+    let q= Object.entries(reviewData);
+    console.log("final data" + q);
+
+    this.http.post(BACKEND_URL+"createreview/"+subject+"/"+rating+"/"+review+"/"+reviewed+"/"+reviewer,reviewData)
+          .subscribe((responseData)=>{
+
+              this.router.navigate(["/"]);
+          },error => {
+            //let p= Object.entries(error);
+            //console.log("error"+p);
+            this.authStatusListener.next(false);
+          }
+          );
+  }
+
+
       //not yet fixed /completed
   /*
   -
@@ -698,6 +731,14 @@ getcurrentuserdetails()
 
 
   }
+
+
+  getReviews(userid:string)
+  {
+    return this.http.get(BACKEND_URL+"getreviews/"+userid);
+  }
+
+
 
 }
 //

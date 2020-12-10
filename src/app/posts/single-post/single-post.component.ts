@@ -107,10 +107,10 @@ export class SinglePostComponent
   }
 
 
-  userprofile()
+  userprofile(otherUserId:string)
   {
     localStorage.setItem('postcreator',this.creatorId);
-    this.router.navigate(['/userprofile']);
+    this.router.navigate(['/user',otherUserId]);
   }
 
 
