@@ -28,6 +28,7 @@ exports.deletePost = (req, res, next) => {
 //createpost
 exports.createPost = (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
+  console.log("userId", req.userData.userId.valueOf());
   const post = new Post({
     //basic car info
     city: req.body.city,
@@ -43,7 +44,7 @@ exports.createPost = (req, res, next) => {
 
     //images
     imagePath: url + "/images/" + req.file.filename,
-
+    month: new Date().getMonth(),
     //addition information
     enginetype: req.body.enginetype,
     enginecapacity: req.body.enginecapacity,
@@ -128,22 +129,18 @@ exports.updatePost = (req, res, next) => {
 }
 
 //fetch single post
-exports.getPost = (req, res, next) =>
-{
-  Post.findById(req.params.id).then(post =>
-    {
+exports.getPost = (req, res, next) => {
+  Post.findById(req.params.id).then(post => {
     //console.log(post);
-    if (post)
-    {
+    if (post) {
       res.status(200).json(post);
-    }
-    else
-    {
+        }
+    else {
       res.status(404).json({ message: 'Post not Found!' });
     }
-    }).catch(error => {
-        res.status(500).json({
-         message: "Fetching Post Failed!"
+  }).catch(error => {
+    res.status(500).json({
+      message: "Fetching Post Failed!"
     });
   });
 }
@@ -179,6 +176,35 @@ exports.getPosts = (req, res, next) =>
   });
 }
 
+exports.getPosts = (req, res, next) =>
+ {
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const postQuery = Post.find();
+  let fetchedPosts;
+  if (pageSize && currentPage) {
+    postQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+  Post.find()
+  postQuery.then(documents => {
+    fetchedPosts = documents
+    return Post.count();
+
+  }).then(count => {
+    res.status(200).json(
+      {
+        messgae: "Posts Fetched Successfully",
+        posts: fetchedPosts,
+        maxPosts: count
+      });
+  }).catch(error => {
+    res.status(500).json({
+      message: "Fetching Post Failed!"
+    })
+  });
+}
 exports.searchPosts = (req, res, next) => {
   console.log("received", req.body);
   let count = 0;
@@ -245,6 +271,74 @@ exports.searchPosts = (req, res, next) => {
   });
 }
 
+exports.searchAllPosts = (req, res, next) => {
+  console.log("insideapi", req);
+ // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
+  Post.find().then(documents => {
+    console.log("results", documents);
+    fetchedPosts = documents
+    return Post.count();
+  }).then(count => {
+    res.status(200).json(
+      {
+        messgae: "Posts Fetched Successfully",
+        posts: fetchedPosts,
+        maxPosts: count
+      });
+  }).catch(error => {
+    console.log("errttt", error);
+    res.status(400).json({
+      message: "Fetching Post Failed!"
+    })
+  });
+}
+
+exports.searchPostsByCond = (req, res, next) => {
+  let condition;
+  let conditionMapping = ['model', 'make', 'city', 'exteriorcolor'];
+  // let conditionMapping = {
+  //   model: { model: new RegExp(req.body.model) },
+  //   make: { make: new RegExp(req.body.make) },
+  //   city: { city: new RegExp(req.body.city) },
+  //   exteriorcolor: { exteriorcolor: new RegExp(req.body.exteriorcolor) },
+  // }
+  console.log("insideapi", req);
+  const keys = Object.keys(req.body);
+  console.log("keys", keys);
+  conditionMapping.forEach((element) => {
+  console.log("elem", element);
+    if(keys.includes(element)){
+  console.log("value", req.body[element]);
+      condition = { [element] : new RegExp(req.body[element])  }
+    }
+  });
+
+  if(!condition) {
+    res.status(400).json({
+      message: "Bad Request Condition not found!"
+    })
+  }
+  console.log("condition", condition);
+ // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
+  Post.find(condition).then(documents => {
+    console.log("results", documents);
+    fetchedPosts = documents
+    return Post.count();
+  }).then(count => {
+    res.status(200).json(
+      {
+        messgae: "Posts Fetched Successfully",
+        posts: fetchedPosts,
+        maxPosts: count
+      });
+  }).catch(error => {
+    console.log("errttt", error);
+    res.status(400).json({
+      message: "Fetching Post Failed!"
+    })
+  });
+}
+
     //fetch all posts
 exports.getcnicNumber = (req,res) =>
 {
@@ -265,38 +359,33 @@ exports.getcnicNumber = (req,res) =>
           }
         })
         }
-    else {
-      res.status(404).json({ message: '404 not Found!' });
-    }
-  }).catch(error => {
-    res.status(500).json({
-      message: "Fetching Failed!"
-    });
-  });
-
-
-
-}
-
-
-exports.getuserposts = (req, res, next) =>
-{
-  Post.find( {creator:req.params.userid})
-  .then(resultdata =>
-    {
-      if(resultdata)
-      {
-        //res.status(200).json({message:"fetched",posts:resultdata});
-          res.status(200).send(resultdata);
-      }
-      else
-      {
-        res.status(404).send("Not Found");
-      }
-
-    }).catch(error => {
-      res.status(500).json({
-        message: "Fetching Failed!"
+      }).catch(error => {
+        res.status(500).json({
+          message: "Fetching Failed!"
+        });
       });
-    });
-}
+    }
+
+    exports.searchSinglePost = (req, res, next) => {
+      Post.findById(req.body.searchId).then(post => {
+        //console.log(post);
+        if (post) {
+          res.status(200).json(post);
+            }
+        else {
+          res.status(404).json({ message: 'Post not Found!' });
+        }
+      }).catch(error => {
+        res.status(500).json({
+          message: "Fetching Post Failed!"
+        });
+      });
+    }
+
+    //this method was not pulled completely in the pull request thats why it was giving error next pull main complete pull ho jayega ye 
+    //ni to code dy dun ga main ye connect ho gia hai and post single dekh rha hun thek hai yahan sy single fetch kr k ly gia agy kdr masla
+    
+    exports.getuserposts = (req,res) => 
+    {
+      console.log("i work");
+    }

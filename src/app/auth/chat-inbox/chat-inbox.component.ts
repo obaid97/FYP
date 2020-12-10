@@ -70,6 +70,7 @@ export class ChatInboxComponent implements OnInit {
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
     this.userIsAuthenticated = isAuthenticated;
+    this.accountStatus = this.authService.getcurrentuserstatus();
 
     //this.authorizedStatus =
      //console.log(this.authService.getcurrentuserauthorizestatus()+ " - header");
@@ -153,6 +154,7 @@ export class ChatInboxComponent implements OnInit {
 SendMessage() {
    this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.chatUserId});
 
+  this.socket.emit('sendMessage', {message: this.message, to_id:this.postService.getCreatorId()? this.postService.getCreatorId() : this.fromId});
   //console.log(this.postService.getCreatorId());
   var element = document.createElement("LI");
   //console.log("form id "+this.fromId);

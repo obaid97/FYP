@@ -86,7 +86,6 @@
 </div>
 
 <!--Responsive nav bar end-->
-</div>
 
 
 
@@ -146,22 +145,16 @@
             <div class="chat-messages-show-container">
               <ul class="chat-messages-show-list"   *ngFor="let message of messageList">
 
-                <li *ngIf="message.from != chatUserId"
 
                 style="background-color:#0074F7; color:white; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
                   text-align: right;"
 
-                > {{message.message}}</li>
 
-                <li *ngIf="message.from == chatUserId"
 
                 style="background-color:#00C0F7; color:white; font-size:14px; padding:15px 30px; margin:10px; border-radius:20px 20px 20px 20px;
                   text-align: left;"
 
-                > {{message.message}}</li>
 
-              </ul>
-              <ul class="chat-messages-show-list"  id="message-list">
 
               </ul>
             </div>
@@ -247,4 +240,4 @@
         <div id="copyright">© Copyright V.E.M.B</div>
         <br class="clear" />
     </div>
-  </div>
+</div>

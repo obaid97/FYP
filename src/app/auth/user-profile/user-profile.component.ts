@@ -63,6 +63,30 @@ export class UserProfileComponent implements OnInit
   allposts:any=[];
   currentPage = 1;
   pageSizeOptions = [1,2,5,10];
+  barChartData: any;
+  barChartLabels: any;
+  barChartType = 'bar';
+  chartReady = false;
+  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  userPosts: any;
+  barChartOptions = {
+    scaleShowVerticalLines: false,
+    responsive: true,
+    scales: {
+      yAxes: [{
+          ticks: {
+              beginAtZero: true,
+              userCallback: function(label, index, labels) {
+                  // when the floored value is the same as the value we have a whole number
+                  if (Math.floor(label) === label) {
+                      return label;
+                  }
+
+              },
+          }
+      }],
+  },
+  };
   verified:boolean ;
   sellercontract:any=[];
   buyercontract:any=[];
@@ -94,6 +118,27 @@ export class UserProfileComponent implements OnInit
       });
 
 
+  this.authService.getuserStats().subscribe(data =>{
+ console.log("issssdata", data);
+ this.userPosts = data.userPosts;
+ let values = []; 
+ let labels = [];
+ data.barData.forEach((elem) => {
+   if(elem._id !== null) {
+    values.push(elem.count);
+    labels.push(this.months[elem._id]);
+   }  
+ });
+ values.push(0);
+ console.log("values", values);
+ console.log("values", labels);
+ this.barChartData = [{data: values, label: 'No.of Posts'}];
+ this.barChartLabels = labels;
+ this.chartReady = this.userPosts > 0 ?  true :  false;
+},err=>{
+console.log(err);
+
+});
 
 
       this.cnicNumber = localStorage.getItem("loggedinusercnic");

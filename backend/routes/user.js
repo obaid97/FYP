@@ -41,6 +41,7 @@ router.get("/getcnicnum",UserController.getcnicNumber);
 router.post("/approve",UserController.approveuser);
 router.post("/disable",UserController.disableuser);
 router.get("/userdetails",checkAuth,UserController.userdetails);
+router.get("/userstats",checkAuth,UserController.userstats);
 router.get("/accountdetails/:id",UserController.accountdetails);
 router.post("/deleteuser",UserController.deleteUser);
 router.post("/deleteaccount/:id",UserController.deleteAccount);

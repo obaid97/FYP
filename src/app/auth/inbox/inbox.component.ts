@@ -72,8 +72,8 @@ export class InboxComponent
 
   onchat(userid:string)
   {
-    // this.authService.getchats(userid);
-    this.router.navigate(["/chat", userid]);
+    this.authService.getchats(userid);
+    this.router.navigate(["/chat"]);
 
   }
 

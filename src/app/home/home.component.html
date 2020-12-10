@@ -86,36 +86,36 @@ style="width: 126.5%; margin-left: -10.5rem;">
   <!-- End top bar -->
 
 
+  <!--Responsive nav bar start-->
 
-<!--Responsive nav bar start-->
+  <div class="nav">
+    <input type="checkbox" id="nav-check">
+    <div class="nav-header">
+      <div class="nav-title">
+        V.E.M.B
+      </div>
+    </div>
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
 
-<div class="nav">
-  <input type="checkbox" id="nav-check">
-  <div class="nav-header">
-    <div class="nav-title">
-      V.E.M.B
+    <div class="nav-links" style="float: right;margin-left: 50%;">
+      <a routerLink="/" style="margin-left:10px;" >Home</a>
+      <a routerLink="/posts" >Cars</a>
+      <a routerLink="/about">About Us</a>
+      <a routerLink="/contactus">Contact Us</a>
+      <a routerLink="/faq">F.A.Q</a>
+      <a routerLink="/blog">Blog</a>
+      <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff;  height:34px; border-radius: 50px 50px 50px 50px; width:140px;padding-top: 5px;padding-bottom:5px;">Sell Your Car</button>
     </div>
   </div>
-  <div class="nav-btn">
-    <label for="nav-check">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
-  </div>
 
-  <div class="nav-links" style="float: right;margin-left: 50%;">
-    <a routerLink="/" style="margin-left:10px;" >Home</a>
-    <a routerLink="/posts" >Cars</a>
-    <a routerLink="/about">About Us</a>
-    <a routerLink="/contactus">Contact Us</a>
-    <a routerLink="/faq">F.A.Q</a>
-    <a routerLink="/inbox">Inbox</a>
-    <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff;  height:34px; border-radius: 50px 50px 50px 50px; width:140px;padding-top: 5px;padding-bottom:5px;">Sell Your Car</button>
-  </div>
-</div>
+  <!--Responsive nav bar end-->
 
-<!--Responsive nav bar end-->
 
 
 
@@ -139,7 +139,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
               <div class="overlay_background" style="background:#000000;background:rgb(0,0,0,0.2);background:rgba(36, 18, 18, 0.2);"></div>
               <div class="center_wrapper">
                   <div class="inner_content">
-                      <div class="standard_wrapper">
+                      <div class="standard_wrapper" (click)="searchByCond('make', 'Suzuki')">
                           <h2 class="ppb_title "  style="color:#ffffff;"><!--glow-->
                             Find Your Dream Car
                           </h2>
@@ -148,7 +148,8 @@ style="width: 126.5%; margin-left: -10.5rem;">
                               <div class="car_search_wrapper" style="margin-left: 15rem;">
                                   <div class="one_fourth themeborder">
                                       <select id="brand" name="brand" [(ngModel)]="selectedBrand">
-                                          <option [selected] = "b.value === ''" *ngFor = "let b of brands">
+                                        <option value =""  selected> Any Brand </option>
+                                          <option *ngFor = "let b of brands">
                                               {{b.name}}
                                         </option>
                                       </select>
@@ -156,10 +157,11 @@ style="width: 126.5%; margin-left: -10.5rem;">
                                   </div>
                                   <div class="one_fourth themeborder">
                                     <input type= "text" (keyup)="onKey($event)">
-                                    <span class="ti-angle-down"></span>
+                                    <!-- <span class="ti-angle-down"></span> -->
                                 </div>
                                   <div class="one_fourth themeborder">
                                       <select id="type" name="type" [(ngModel)]="selectedColour">
+                                        <option value =""  selected> Any Colour </option>
                                         <option *ngFor = "let c of colours">
                                             {{c.name}}
                                       </option>
@@ -168,6 +170,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
                                   </div>
                                 <div class="one_fourth themeborder">
                                   <select id="type" name="type" [(ngModel)]="selectedCity">
+                                    <option value =""  selected> City </option>
                                     <option *ngFor = "let c of cities">
                                         {{c.name}}
                                   </option>
@@ -177,6 +180,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
                                   <div class="one_fourth themeborder">
                                     <span style="margin-bottom: 2px;">RS</span>
                                     <select id="sort_by" name="sort_by" [(ngModel)]="selectedPrice">
+                                        <option value =""  selected> Price </option>
                                         <option *ngFor = "let p of prices">
                                             {{p.name}}
                                       </option>
@@ -184,7 +188,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
                                       <span class="ti-angle-down"></span>
                                   </div>
                                   <div class="one_fourth themeborder">
-                                      <button id="car_search_btn" type="submit" class="button" value="Searcheee">Search</button>
+                                      <button id="car_search_btn" type="submit" class="button" value="Search"></button>
                                   </div>
                               </div>
                           </form>
@@ -197,7 +201,7 @@ style="width: 126.5%; margin-left: -10.5rem;">
                   <div class="page_content_wrapper">
                       <div class="inner">
                           <div style="margin:auto; width:100%">
-                              <h2 class="ppb_title" style="font-size:36px; font-weight:bold; " >Check Your Favourite Cars By Brands</h2>
+                              <h2 class="ppb_title" (click)="clickcheck()" style="font-size:36px; font-weight:bold; " >Check Your Favourite Cars By Brands</h2>
                               <div class="page_tagline" style="font-size:25px; font-weight:lighter;"  >A platform to Buy &amp; Sell Any Car In Pakistan </div>
                           </div>
                       </div>
@@ -206,48 +210,48 @@ style="width: 126.5%; margin-left: -10.5rem;">
           </div>
           <div class="ppb_car_brand_grid one nopadding ">
               <div class="page_content_wrapper page_main_content sidebar_content full_width fixed_column">
-                  <div class="standard_wrapper">
+                  <div class="standard_wrapper" (click)="clickcheck()">
                       <div id="15722572661666401717" class="portfolio_filter_wrapper gallery grid portrait three_cols" data-columns="3">
-                          <div class="element grid classic3_cols animated1">
+                          <div class="element grid classic3_cols animated1"  >
                               <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(../../assets/web-image-asset/car-make-logo/audi-s7-black-car-front-view-clouds-wallpaper-preview.jpg)  " >
                                   <a class="car_image" href="#"></a>
                                   <div class="portfolio_info_wrapper">
                                       <h3>Audi</h3></div>
                               </div>
                           </div>
-                          <div class="element grid classic3_cols animated2">
+                          <div class="element grid classic3_cols animated2" (click)="searchByCond('make', 'BMW')">
                               <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(../../assets/web-image-asset/car-make-logo/1125033.jpg);">
                                   <a class="car_image" href="#"></a>
                                   <div class="portfolio_info_wrapper">
                                       <h3>BMW</h3></div>
                               </div>
                           </div>
-                          <div class="element grid classic3_cols animated3">
+                          <div class="element grid classic3_cols animated3" (click)="searchByCond('make', 'Toyota')">
                               <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(../../assets/web-image-asset/car-make-logo/toyota-supra.jpg);">
                                   <a class="car_image" href="#"></a>
                                   <div class="portfolio_info_wrapper">
                                       <h3>Toyota</h3></div>
                               </div>
                           </div>
-                          <div class="element grid classic3_cols animated4">
+                          <div class="element grid classic3_cols animated4" (click)="searchByCond('make', 'Mercedes Benz')">
                               <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(../../assets/web-image-asset/car-make-logo/mercedes-benz-g-wagon.jpg);">
                                   <a class="car_image" href="#"></a>
                                   <div class="portfolio_info_wrapper">
                                       <h3>Mercedes Benz</h3></div>
                               </div>
                           </div>
-                          <div class="element grid classic3_cols animated5">
+                          <div class="element grid classic3_cols animated5" (click)="searchByCond('make', 'Suzuki')">
                               <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(../../assets/web-image-asset/car-make-logo/suzuki-liana.jpg);">
                                   <a class="car_image" href="#"></a>
                                   <div class="portfolio_info_wrapper">
                                       <h3>Suzuki</h3></div>
                               </div>
                           </div>
-                          <div class="element grid classic3_cols animated6">
+                          <div class="element grid classic3_cols animated6" (click)="searchByCond()">
                               <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(../../assets/web-image-asset/car-make-logo/Honda-Civic-2017.jpg);">
                                   <a class="car_image" href="#"></a>
                                   <div class="portfolio_info_wrapper">
-                                      <h3>Honda</h3></div>
+                                      <h3 >Honda</h3></div>
                               </div>
                           </div>
                       </div>

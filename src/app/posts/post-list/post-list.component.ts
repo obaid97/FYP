@@ -37,8 +37,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   authorizedStatus:boolean;
   searchform : FormGroup;
-  adminstatus:string;
-  approve:boolean;
+
 
   constructor(public postsService: PostsService, private authService: AuthService,private router: Router) { }
 
@@ -89,20 +88,6 @@ tiles: Tile[] = [
     this.count = this.posts.length % 3;
     this.curretnusercnicNumber = this.authService.getUsercnic();
     //console.log(this.count);
-
-    this.adminstatus = localStorage.getItem("adminstatus");
-    if(this.adminstatus == 'true')
-    {
-      console.log("set true");
-      this.approve = true;
-    }
-    else
-    {
-      this.approve = false;
-    }
-
-
-
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -121,10 +106,10 @@ tiles: Tile[] = [
     });
   }
 
-  singlepost(postid:string)
+  singlepostview(postid:string)
   {
-    this.router.navigate(["/post", postid]);
-  }
+    this.router.navigate(["/post",postid]);
+      }
 
   onLogout()
   {
@@ -141,7 +126,7 @@ tiles: Tile[] = [
    //this.authService.createport(creatorid);
 
    this.postsService.setCreatorId(creatorid);
-   this.router.navigate(["/chat",creatorid]);
+   this.router.navigate(["/chat"]);
    //this.authService.startchat(creatorid);
   }
 

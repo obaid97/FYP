@@ -16,23 +16,19 @@ export class SearchComponent implements OnInit {
   myForm = new FormGroup({
     searchText: new FormControl('', [Validators.required]),
   });
-  sharedDataincoming: any[];
   sharedData: any[];
   price : any;
-  userId: string;
-  isloading = false;
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
   accountStatus :any;
   userandadminstatus:boolean;
   status :string;
-   totalPosts = 0;
-  postsPerPage = 2;
-  currentPage = 1;
   authorizedStatus:boolean;
   storedPosts:any;
   adminstatus:string;
   approve:boolean;
+  isloading:boolean;
+  userId:string;
   constructor(public searchService: SearchService, private dataService: DataService, private authService: AuthService,private router: Router,public postsService: PostsService)
    {
     this.isloading = true;
@@ -43,15 +39,13 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharedData = this.dataService.getData();
-    //console.log("this.sharedData");
-    this.storedPosts = JSON.parse(localStorage.getItem("postsearched"));
-    console.log( "stored Names: ",this.storedPosts);
-   this.price= 2450;
+    console.log("this.sharedData", this.sharedData);
+
+  //  this.price= 2450;
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
     this.userIsAuthenticated = isAuthenticated;
     this.accountStatus = this.authService.getcurrentuserstatus();
-
 
     //this.authorizedStatus =
      //console.log(this.authService.getcurrentuserauthorizestatus()+ " - header");
@@ -80,6 +74,7 @@ export class SearchComponent implements OnInit {
   search() {
     console.log("here in search");
     // console.log("Search text:", this.myForm.value.searchText);
+    console.log("form value");
     this.searchService.search(this.myForm.value.searchText).subscribe(postData => {
 
     });
@@ -87,21 +82,13 @@ export class SearchComponent implements OnInit {
     this.myForm.reset();
   }
 
-
-  onDelete(postId: string) {
-    this.isloading = true;
-    this.postsService.deletepost(postId).subscribe(() => {
-      this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    }, () => {
-      this.isloading = false;
-
+  searchAll() {
+    console.log("herinall");
+    this.searchService.searchAll().subscribe(postData => {
+      this.sharedData = postData;
     });
   }
 
-  singlepost(postid:string)
-  {
-    this.router.navigate(["/post", postid]);
-  }
 
   onLogout()
   {
@@ -109,16 +96,9 @@ export class SearchComponent implements OnInit {
 
   }
 
+  roting(post) {
+    this.dataService.setSingleData(post._id);
+    this.router.navigate(["/single-post"]);
 
-
-  onchat(creatorid: any)
-  {
-   //this.authService.createport(creatorid);
-
-   this.postsService.setCreatorId(creatorid);
-   this.router.navigate(["/chat",creatorid]);
-   //this.authService.startchat(creatorid);
   }
-
-
 }

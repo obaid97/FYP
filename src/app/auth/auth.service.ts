@@ -270,6 +270,14 @@ getuserDeatils()
   return  this.http.get<{ user:any }>(BACKEND_URL+"userdetails")
 }
 
+getuserStats()
+{
+
+//console.log(BACKEND_URL+"userdetails");
+
+  return  this.http.get<any>(BACKEND_URL+"userstats")
+}
+
 getcurrentuserdetails()
 {
   return this.curretnuserdetails;

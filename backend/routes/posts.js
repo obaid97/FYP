@@ -22,13 +22,16 @@ router.put("/:id",checkAuth,extractFile,PostController.updatePost);
 router.get("/cnic/:id",PostController.getcnicNumber);
 
 router.get('/:id',PostController.getPost);
-
 //router.post('/:id',PostController.getPost);
 
 router.post('/search', SearchController.searchPosts);
 
-router.delete("/:id",checkAuth,PostController.deletePost);
+router.get('/searchAll', PostController.searchAllPosts);
 
-router.get("/userposts/:userid",PostController.getuserposts)
+router.post('/searchPost', SearchController.searchSinglePost);
+
+router.post('/searchPostByCond', SearchController.searchPostsByCond);
+
+router.get('/userposts/:userid',PostController.getuserposts);
 
 module.exports = router;

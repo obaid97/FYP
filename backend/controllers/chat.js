@@ -4,7 +4,7 @@ const userChatModel = require('../models/chat');
 
 module.exports.sendChatMessage = async (data, socket, callback) => {
 
-  //console.log("inside send chat");
+  console.log("inside send chat");
 
  // console.log("CALLBACK ",callback);
 
@@ -17,34 +17,29 @@ module.exports.sendChatMessage = async (data, socket, callback) => {
       userModel.findOne({ _id: socket.userData.userId })
   ]);
 
-//  console.log("data.to_id: ",data.to_id );
- // console.log("socket.userData.userId: ",socket.userData.userId);
+  console.log("data.to_id: ",data.to_id );
+  console.log("socket.userData.userId: ",socket.userData.userId);
 
   var updatedChat = null;
 
- // console.log("toUserData: ",toUserData);
+  console.log("toUserData: ",toUserData);
 
   if (toUserData) {
       console.log("Inside toUserData check");
      let userChatData = await userChatModel.findOne( { 'users.user_id': { $all: [ socket.userData.userId, data.to_id] } });
 
 
-     //console.log("userChatData======: ",userChatData);
+     console.log("userChatData======: ",userChatData);
 
 
      if (userChatData) {
           var created_at = new Date();
           var obj = {
-              from: socket.userData.userId,
-              to: data.to_id,
+              from: data.from,
+              to: data.to,
               message: data.message,
               created_at: created_at
           };
-
-
-         // console.log("Chat obj:  ",obj);
-
-
           data.created_at = created_at;
           updatedChat = await userChatModel.updateOne({ _id: userChatData._id }, {
               $set: {
@@ -83,7 +78,7 @@ module.exports.sendChatMessage = async (data, socket, callback) => {
             data.from_id = socket.userData.userId;
 
              // console.log("SENDING DATA to other user");
-             // console.log("data complete : ",data);
+             // console.log(data);
 
               //console.log("toUserData.socket_id: ",toUserData.socket_id);
 

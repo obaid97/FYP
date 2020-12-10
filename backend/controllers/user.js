@@ -176,6 +176,62 @@ User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
 }).catch(error =>console.log(error))
 }
 
+exports.userstats = (req,res,next) =>
+{
+
+User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
+
+  if(result)
+  {   console.log("resultinto",result._id);
+      let condition = {"creator": result._id}
+      console.log("con", condition);
+
+    Post.find(condition).count().then(count => {
+    console.log("results", count);
+    return count;
+  }).then(count => {
+    console.log("count", count)
+    Post.aggregate([
+      { $match: { 'creator' : result._id } },
+      { $group: {
+        _id: "$month",
+        count: { $sum: 1 }
+      }
+}]).then(result => {
+      console.log("results", result);
+      return result;
+    }).then(result => {
+      console.log("resulttzzz", result)
+      res.status(200).json(
+        {
+          userPosts: count,
+          barData: result
+        });
+    }).catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: "Fetching Post Failed!"
+      })
+    });
+    // res.status(200).json(
+    //   {
+    //     userPosts: count
+    //   });
+  }).catch(error => {
+    console.log(error);
+    res.status(500).json({
+      message: "Fetching Post Failed!"
+    })
+  });
+  }
+  else
+  {
+    res.status(404).json({message:"error finding user"})
+  }
+
+}).catch(error =>console.log(error))
+}
+
 
 
 

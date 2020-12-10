@@ -323,10 +323,14 @@
   </mat-card>
 
   <mat-card class="report-card" >
-    <mat-card-content>
-      <button mat-raised-button class="bar-chart-btn" style="background-color:#03cffc; color: #fff;">View Bar chart Report</button>
-      <button mat-raised-button class="pie-chart-btn" style="background-color:#f403fc; color:#fff;">View Pie Chart Report</button>
-    </mat-card-content>
+    <div style="display: block">
+      <!--<canvas *ngIf="chartReady" baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [chartType]="barChartType">
+      </canvas>-->
+    </div>
   </mat-card>
   </div>
   <div>

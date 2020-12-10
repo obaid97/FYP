@@ -31,7 +31,9 @@ export class HomeComponent {
   selectedPrice: string = '';
   userdetails: any;
   adminstatus:boolean;
-  brands = [{ name: 'Any Brand', value: '' }, { name: 'Audi', value: 'Audi' }, { name: 'BMW', value: 'BMW' }, { name: 'Lexus', value: 'Lexus' }, { name: 'Mercedes', value: 'Mercedes Benz' }, { name: 'Toyota', value: 'Toyota' }, { name: 'Honda', value: 'Honda' }, { name: 'Suzuki', value: 'Suzuki' }, { name: 'Kia', value: 'Kia' }]
+  brands = [{ name: 'Audi', value: 'Audi' }, { name: 'BMW', value: 'BMW' }, { name: 'Lexus', value: 'Lexus' }, { name: 'Mercedes', value: 'Mercedes Benz' }, { name: 'Toyota', value: 'Toyota' }, { name: 'Honda', value: 'Honda' }, { name: 'Suzuki', value: 'Suzuki' }, { name: 'Kia', value: 'Kia' }];
+
+
   colours = [{ name: 'Any Colour', value: '' }, { name: 'White', value: 'white' }, { name: 'Black', value: 'black' }, { name: 'Silver', value: 'silver' }];
   cities = [{ name: 'Any City', value: '' }, { name: 'Karachi', value: 'khi' }, { name: 'Islamabad', value: 'isb' }];
   prices = [{ name: '< 500000', value: '' }, { name: '500000 - 1000000', value: 'khi' }, { name: '1000000 - 1500000', value: 'isb' }, { name: '1500000 - 2000000', value: 'isb' }, { name: '2000000 - 3000000', value: 'isb' }, { name: '3000000 - 4000000', value: 'isb' }, { name: '4000000 - 5000000', value: 'isb' }, { name: '> 5000000', value: 'isb' }];
@@ -93,6 +95,20 @@ export class HomeComponent {
     console.log("admin status"+ this.userandadminstatus);*/
 
   }
+
+  searchByCond(condition='make', value='Honda') {
+    console.log("type", condition);
+    console.log("value", value);
+    this.searchService.searchByCond({[condition]: value}).subscribe(postData => {
+      console.log("postreturndata", postData);
+      this.dataService.setData(postData);
+      this.router.navigate(["/search"]);
+    });
+  }
+
+  clickcheck() {
+    console.log("heereinclick");
+  }
   searching() {
     let price = null;
     if (this.selectedPrice !== '') {
@@ -118,20 +134,9 @@ export class HomeComponent {
       //console.log("pai g khali jae sb khuda da wasta ae select krlo kuch");
       return;
     } else {
-      //console.log('data', data);
+      console.log('data', data);
       this.searchService.search(data).subscribe(postData => {
-       // console.log("postreturndata", postData.posts);
-
-
-            //var names = [];
-            //names[0] = prompt("New member name?");
-            //localStorage.setItem("names", JSON.stringify(names));
-
-            //...
-            //var storedNames = JSON.parse(localStorage.getItem("postsearched"));
-
-        localStorage.removeItem('postsearched');
-        localStorage.setItem('postsearched',JSON.stringify(postData.posts));
+        console.log("postreturndata", postData);
         this.dataService.setData(postData);
         this.router.navigate(["/search"]);
       });
