@@ -30,6 +30,7 @@ router.get('/searchAll', PostController.searchAllPosts);
 
 router.post('/searchPost', SearchController.searchSinglePost);
 
+router.post('/searchPostByCond', SearchController.searchPostsByCond);
 
 router.get('/userposts/:userid',PostController.getuserposts);
 

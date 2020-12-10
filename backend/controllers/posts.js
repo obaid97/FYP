@@ -293,6 +293,52 @@ exports.searchAllPosts = (req, res, next) => {
   });
 }
 
+exports.searchPostsByCond = (req, res, next) => {
+  let condition;
+  let conditionMapping = ['model', 'make', 'city', 'exteriorcolor'];
+  // let conditionMapping = {
+  //   model: { model: new RegExp(req.body.model) },
+  //   make: { make: new RegExp(req.body.make) },
+  //   city: { city: new RegExp(req.body.city) },
+  //   exteriorcolor: { exteriorcolor: new RegExp(req.body.exteriorcolor) },
+  // }
+  console.log("insideapi", req);
+  const keys = Object.keys(req.body);
+  console.log("keys", keys);
+  conditionMapping.forEach((element) => {
+  console.log("elem", element);
+    if(keys.includes(element)){
+  console.log("value", req.body[element]);
+      condition = { [element] : new RegExp(req.body[element])  }
+    }
+  });
+
+  if(!condition) {
+    res.status(400).json({
+      message: "Bad Request Condition not found!"
+    })
+  }
+  console.log("condition", condition);
+ // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
+  Post.find(condition).then(documents => {
+    console.log("results", documents);
+    fetchedPosts = documents
+    return Post.count();
+  }).then(count => {
+    res.status(200).json(
+      {
+        messgae: "Posts Fetched Successfully",
+        posts: fetchedPosts,
+        maxPosts: count
+      });
+  }).catch(error => {
+    console.log("errttt", error);
+    res.status(400).json({
+      message: "Fetching Post Failed!"
+    })
+  });
+}
+
     //fetch all posts
 exports.getcnicNumber = (req,res) =>
 {

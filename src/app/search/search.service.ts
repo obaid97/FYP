@@ -15,6 +15,10 @@ export class SearchService {
     console.log("Search Text in service:", searchData);
     return this.http.post<any>(BACKEND_URL, searchData);
   }
+  searchByCond(searchData: any) {
+    console.log("Search Text in service:", searchData);
+    return this.http.post<any>(BACKEND_URL + 'PostByCond', searchData);
+  }
 
   searchAll() {
     console.log("Search Text in service:");

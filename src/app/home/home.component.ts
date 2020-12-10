@@ -52,6 +52,20 @@ export class HomeComponent {
       }
     });
   }
+
+  searchByCond(condition='make', value='Honda') {
+    console.log("type", condition);
+    console.log("value", value);
+    this.searchService.searchByCond({[condition]: value}).subscribe(postData => {
+      console.log("postreturndata", postData);
+      this.dataService.setData(postData);
+      this.router.navigate(["/search"]);
+    });
+  }
+
+  clickcheck() {
+    console.log("heereinclick");
+  }
   searching() {
     let price = null;
     if (this.selectedPrice !== '') {
