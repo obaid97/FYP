@@ -8,6 +8,8 @@ import { AuthSignupData } from '../auth-signup-data.model';
 import { PageEvent } from '@angular/material/paginator';
 import { PostsService } from 'src/app/posts/posts.service';
 import { Post } from 'src/app/posts/post.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 //import { runInThisContext } from 'vm';
 
 export interface userData
@@ -64,25 +66,62 @@ export class UserProfileComponent implements OnInit
   verified:boolean ;
   sellercontract:any=[];
   buyercontract:any=[];
-  constructor(public authService: AuthService, public postsService: PostsService,public router: Router)
+  adminstatus:string;
+  approve:boolean;
+  loggedinuserId:string;
+  currentuser:string;
+  constructor(public authService: AuthService, public postsService: PostsService,public router: Router,public dialog: MatDialog,private _snackBar: MatSnackBar)
 {
-
-        this.authService.getuserDeatils().subscribe(data =>{
-          let dataincome= data;
-          this.userdetails = dataincome.user;
-          this.userId = dataincome.user._id;
-          //console.log(this.userId)
-          this.postsService.getuserposts(this.userId).subscribe(data =>
+        const luserId = localStorage.getItem('userId');
+        const cretorId = localStorage.getItem('postcreator');
+        if(luserId == cretorId)
+        {
+          this.authService.getuserDeatils().subscribe(data =>{
+            let dataincome= data;
+            this.userdetails = dataincome.user;
+            this.userId = dataincome.user._id;
+            //console.log(this.userId)
+            if(this.userdetails.profileimage == "dummy")
             {
-              let alluserposts = data;
-              this.allposts = alluserposts;
-             // console.log(this.allposts);
-            });
-          //console.log(this.userdetails);
-      },err=>{
-        console.log(err);
+              this.userdetails.profileimage = "../../../assets/images/avatar.svg";
+            }
+            this.postsService.getuserposts(this.userId).subscribe(data =>
+              {
+                let alluserposts = data;
+                this.allposts = alluserposts;
+               // console.log(this.allposts);
+              });
+            //console.log(this.userdetails);
+        },err=>{
+          console.log(err);
 
-      });
+        });
+        }
+        else
+        {
+          this.authService.useraccountdetails(cretorId).subscribe(data =>
+            {
+
+              let dataincome= data;
+            this.userdetails = data;
+            //this.userId = dataincome.user._id;
+            //console.log(this.userId)
+            if(this.userdetails.profileimage == "dummy")
+            {
+              this.userdetails.profileimage = "../../../assets/images/avatar.svg";
+            }
+              //this.userdetails= dataincome;
+              let p= Object.entries(data);
+
+            });
+            this.postsService.getuserposts(cretorId).subscribe(data =>
+              {
+                let alluserposts = data;
+                this.allposts = alluserposts;
+               // console.log(this.allposts);
+              });
+        }
+
 
    this.cnicNumber = localStorage.getItem("loggedinusercnic");
       //console.log("localstorage"+ this.cnicNumber);
@@ -124,7 +163,17 @@ export class UserProfileComponent implements OnInit
    }
   });
 
-
+  this.loggedinuserId = localStorage.getItem('userId');
+  this.adminstatus = localStorage.getItem("adminstatus");
+  if(this.adminstatus == 'true')
+  {
+    console.log("set true");
+    this.approve = true;
+  }
+  else
+  {
+    this.approve = false;
+  }
   //this.authService.getuserDeatils();
   //this.currentusercnic = this.authService.getUsercnic();
   //console.log(this.authService.getuserDeatils());
@@ -140,7 +189,10 @@ export class UserProfileComponent implements OnInit
 
 
 }
-
+singlepost(postid:string)
+{
+  this.router.navigate(["/post", postid]);
+}
 
 ngOnDestroy()
 {}
@@ -154,21 +206,33 @@ onLogout()
 {
   this.authService.logout();
 }
-onuserDelete()
+onuserDelete(id:string)
 {
 
-  this.authService.deleteUser(this.currentusercnic);
-  this.authService.logout();
+  var check = this.getConfirmation();
+  if(check == true)
+  {
+    this.authService.deleteAccount(id);
+    this.authService.logout();
+  }
+
 }
 
 onpostDelete(postId: string) {
-  this.isloading = true;
-  this.postsService.deletepost(postId).subscribe(() => {
-    this.router.navigate(["/userprofile"])
-  }, () => {
-    this.isloading = false;
 
-  });
+  var check = this.getConfirmation();
+  if(check == true)
+  {
+    this.isloading = true;
+    this.postsService.deletepost(postId).subscribe(() => {
+      alert("Item has been Deleted");
+      //this.openSnackBar();
+      this.router.navigate(["/userprofile"]);
+    }, () => {
+      this.isloading = false;
+
+    });
+  }
 }
 
 onaccept(contractid:string)
@@ -178,7 +242,39 @@ onaccept(contractid:string)
 
 onreject(contractid:string)
 {
-  //delete contract here
-}
+  console.log("user-profile line:194: "+contractid);
+  var check = this.getConfirmation();
+  if(check == true)
+  {
+    //alert("check stable");
+    this.authService.deletecontact(contractid);
+ }
+
 
 }
+
+openSnackBar() {
+    this._snackBar.open("Item has Been", "Deleted", {
+      duration: 50,
+    });
+    this.router.navigate(["/userprofile"]);
+  }
+
+getConfirmation() {
+  var retVal = confirm("Do you want to Delete it? ?");
+  if( retVal == true )
+   {
+     //document.write ("User wants to continue!");
+     return true;
+  } else {
+     //document.write ("User does not want to continue!");
+     return false;
+  }
+}
+
+oneditpic()
+{
+  this.router.navigate(["/profilepic"]);
+}
+}
+

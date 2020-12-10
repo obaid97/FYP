@@ -158,10 +158,10 @@ export class SmartContractComponent
 
   oncreatecontract()
   {
-    console.log("smart contract ts file create function");
+    //console.log("smart contract ts file create function");
     if(this.contractform.invalid)
     {
-      console.log("creation contract failed");
+      //console.log("creation contract failed");
       return;
     }
     else
@@ -198,6 +198,7 @@ export class SmartContractComponent
           }
           else
           {
+            alert("Secret Key Error Try Again");
             console.log("inside: "+result);
           }
           this.isloading =false;

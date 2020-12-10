@@ -35,6 +35,7 @@ import { SingleBlogComponent } from './blog/single-blog/single-blog.component';
 import { EditUserProfileComponent } from './auth/user-profile/edit-details/edit-details.component';
 import { InboxComponent } from './auth/inbox/inbox.component';
 import { SellerContractComponent } from './auth/seller-contract/seller-contract.component';
+import { UserProfilePicComponent } from './auth/user-profile/edit-profilepic.component/edit-profilepic.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { SellerContractComponent } from './auth/seller-contract/seller-contract.
     ContactUsComponent,
     SingleBlogComponent,
     EditUserProfileComponent,
-    InboxComponent
+    InboxComponent,
+    UserProfilePicComponent
   ],
   imports: [
     BrowserModule,

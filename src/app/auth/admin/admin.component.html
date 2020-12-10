@@ -2,13 +2,18 @@
 <mat-spinner *ngIf="isloading"></mat-spinner>
 <div class="container" style="width:125.6; margin-left:-10.2rem;">
 <div class="sidebar">
-  <a class="active"  routerLink='/auth/admin'>Home</a>
+  <a routerLink='/auth/admin'>Home</a>
   <a routerLink='/auth/create-admin'>Create Admin</a>
   <a routerLink='/auth/allusers'>All Users</a>
   <a routerLink='/auth/unverified' >Unverified Users</a>
   <a routerLink='/auth/verified'>Verified Users</a>
-  <a routerLink='/auth/createblog' routerLinkActive="mat-accent">Create Blog</a>
+  <a routerLink="/create">Post and Ad</a>
+  <!--<a routerLink='/auth/createblog' routerLinkActive="mat-accent">Create Blog</a>
+    <a routerLink='/auth/allblogs' routerLinkActive="mat-accent">All Blogs</a>
+  -->
+  <a routerLink="/">Main Web</a>
   <a routerLink='/auth/allblogs' routerLinkActive="mat-accent">All Blogs</a>
+
   <a (click)="onLogout()">Logout</a>
 
 </div>

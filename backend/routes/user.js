@@ -20,16 +20,20 @@ router.post("/createcontract",extractFile,smartContractController.inititatecontr
 router.get("/sellercontract/:cnicNumber",smartContractController.getallsellercontracts);
 router.get("/buyercontract/:cnicNumber",smartContractController.getallbuyercontracts);
 router.get("/contractdetails/:contractid",smartContractController.getcontractdetails);
+router.post("/deletecontract/:contractid",smartContractController.deleteContract);
 //login post router
 router.post("/login",UserController.userLogin);
-
+router.post("/updateprofileimage",extractFile,UserController.updateprofileimage);
 //unverified users
 router.get("/unverifiedusers",UserController.findUnverifiedUsers);
 router.get("/verifiedusers",UserController.findVerifiedUsers);
 router.get("/allusers",UserController.findallusers);
-router.post("/accstatus",UserController.accountstatus)
+router.get("/accstatus/:id",UserController.accountstatus)
 router.get("/getcnicnum",UserController.getcnicNumber);
 //router.post("/dummy",UserController.dummy);
+//deletecontract
+
+
 
 //router.put("/approve/:cnicNumber",UserController.approveuser);
 router.post("/approve",UserController.approveuser);
@@ -37,7 +41,11 @@ router.post("/disable",UserController.disableuser);
 router.get("/userdetails",checkAuth,UserController.userdetails);
 router.get("/accountdetails/:id",UserController.accountdetails);
 router.post("/deleteuser",UserController.deleteUser);
+router.post("/deleteaccount/:id",UserController.deleteAccount);
 //router.delete("/delete/:cnicNumber",UserController.deleteUser);
+
+router.post("/deleteChat/:id",UserController.deleteChat);
+
 router.post("/chat",UserController.startchat);
 router.post("/updateuserdetails",UserController.updateuserdetails);
 router.put("/forgotpassword",UserController.forgotpassword);

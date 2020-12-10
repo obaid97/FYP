@@ -4,7 +4,7 @@ import { PostsService } from '../posts.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 export interface Tile {
@@ -38,11 +38,15 @@ export class SinglePostComponent
   carcolor:String;
   enginetype:string;
   enginecapacity:string;
-
+  adminstatus:string;
+  approve:boolean;
   mobilenumber:number;
   postId:string
   postList:any=[];
+  userdetails: any;
   features=[];
+  creatorName:string;
+  creatorId:string;
   tiles: Tile[] = [
     {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
     {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
@@ -50,39 +54,65 @@ export class SinglePostComponent
     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
   ];
 
-  constructor(public postsService: PostsService, private authService: AuthService,private route:ActivatedRoute)
+  constructor(public postsService: PostsService, private authService: AuthService,private route:ActivatedRoute,public router: Router)
   {
     this.postId =  this.route.snapshot.paramMap.get('id');
-  }
-
-  ngOnInit()
-  {
-
     this.postsService.getsinglepost(this.postId).subscribe(data=>{
 
       this.postList = data;
-      /*
-      var fruits = 'apple,orange,pear,banana,raspberry,peach';
-      var ar = fruits.split(','); // split string on comma space
-      console.log( ar );
-      */
 
       var str = this.postList.features;
-      //var count = str.length(str.split(',') );
-      //console.log("count: ",count);
+
       var seprate = str.split(',');
       for(let i=0; i<seprate.length; i++)
       {
         this.features[i] = seprate[i];
       }
-     // console.log("post data: ", this.features);
+
+      console.log("cingle psot creator: "+this.postList.creator );
+      this.authService.useraccountdetails(this.postList.creator).subscribe(data =>
+      {
+
+
+        //this.userdetails= dataincome;
+        let p= Object.entries(data);
+        //console.log("data:" +data );
+        //console.log("data income:" +dataincome );
+        this.creatorId = p[0][1];
+        this.creatorName = p[1][1];
+        //console.log("user details:" + p[1][1]);
+      });
 
     },err=>{
-
+      console.log(err);
     });
+  }
+
+  ngOnInit()
+  {
+
+
+    this.adminstatus = localStorage.getItem("adminstatus");
+    if(this.adminstatus == 'true')
+    {
+      console.log("set true");
+      this.approve = true;
+    }
+    else
+    {
+      this.approve = false;
+    }
 
 
   }
+
+
+  userprofile()
+  {
+    localStorage.setItem('postcreator',this.creatorId);
+    this.router.navigate(['/userprofile']);
+  }
+
 
   onLogout()
   {

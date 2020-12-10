@@ -11,7 +11,8 @@ import { AuthService } from '../auth/auth.service';
 
   export class BlogComponent implements OnInit, OnDestroy
   {
-
+    adminstatus:string;
+    approve:boolean;
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
   constructor(private authService: AuthService){}
@@ -38,6 +39,18 @@ import { AuthService } from '../auth/auth.service';
      this.userandadminstatus = false;
    }
   });
+
+
+  this.adminstatus = localStorage.getItem("adminstatus");
+  if(this.adminstatus == 'true')
+  {
+    console.log("set true");
+    this.approve = true;
+  }
+  else
+  {
+    this.approve = false;
+  }
   }
 
   ngOnDestroy()

@@ -5,7 +5,7 @@ const Post = require('../models/post');
 
 exports.inititatecontract = (req,res) =>
 {
-  console.log('inititatecontract');
+ // console.log('inititatecontract');
   const url = req.protocol + '://' + req.get("host");
    const temp =null;
   const contract = new Contract(
@@ -103,4 +103,26 @@ exports.getcontractdetails =(req,res) =>
         console.log(err);
         res.status(500).send(err.message);
     });
+}
+
+exports.deleteContract =(req,res) =>
+{
+  console.log("delete params cpntract id:"+ req.params.contractid );
+  console.log("delete body cpntract id:"+ req.body.contractid );
+
+  Contract.deleteOne({_id: req.params.contractid}).then(result =>
+    {
+      //console.log(req.params.cnicNumber);
+      if(result.n > 0)
+      {
+        res.status(200).json({message:"Contract deleted successfully"});
+      }
+      else
+      {
+        res.status(401).json({message:"error deleting Contract"});
+      }
+    }).catch(error =>{res.status(500).json({message:"error deleting Contract"});
+  });
+
+
 }

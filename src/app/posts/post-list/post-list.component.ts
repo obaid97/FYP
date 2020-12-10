@@ -37,7 +37,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   authorizedStatus:boolean;
   searchform : FormGroup;
-
+  adminstatus:string;
+  approve:boolean;
 
   constructor(public postsService: PostsService, private authService: AuthService,private router: Router) { }
 
@@ -88,6 +89,20 @@ tiles: Tile[] = [
     this.count = this.posts.length % 3;
     this.curretnusercnicNumber = this.authService.getUsercnic();
     //console.log(this.count);
+
+    this.adminstatus = localStorage.getItem("adminstatus");
+    if(this.adminstatus == 'true')
+    {
+      console.log("set true");
+      this.approve = true;
+    }
+    else
+    {
+      this.approve = false;
+    }
+
+
+
   }
 
   onChangedPage(pageData: PageEvent) {

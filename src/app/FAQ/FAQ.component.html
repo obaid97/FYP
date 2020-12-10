@@ -62,7 +62,11 @@ style="width: 126.5%; margin-left: -10.5rem;">
                         Sign Up
                       </a>
                     </li>
-
+                    <li class="facebook" *ngIf="userIsAuthenticated && approve == true ">
+                      <a  routerLink="/auth/admin" routerLinkActive="mat-accent">
+                        Admin
+                      </a>
+                    </li>
                     <li class="facebook" *ngIf="userIsAuthenticated">
                       <a  routerLink="" (click)="onLogout()" >
                         Logout

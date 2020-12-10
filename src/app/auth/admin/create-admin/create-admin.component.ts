@@ -46,7 +46,7 @@ import { mimeType } from 'src/app/posts/post-create/mime-type.validator';
         dob: new FormControl(null, {validators:[Validators.required]}),
         genderStatus: new FormControl(null, {validators:[Validators.required]}),
         //accountStatus: new FormControl(null,{validators:[Validators.required]}),
-        image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
+        //image : new FormControl(null,{validators: [Validators.required], asyncValidators :[mimeType]})
 
       });
 
@@ -75,7 +75,7 @@ import { mimeType } from 'src/app/posts/post-create/mime-type.validator';
         this.signupform.value.dob,
         this.signupform.value.genderStatus,
         //this.signupform.value.accountStatus,
-        this.signupform.value.image
+        //this.signupform.value.image
         );
         //console.log("onsignup form sucessful");
 

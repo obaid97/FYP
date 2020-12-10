@@ -58,7 +58,7 @@ export class AuthService
 
   createUser(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string ,/*accountStatus:string,*/ image:File)
   {
-
+    const prof='';
     const authData = new FormData();
     authData.append("fullName",fullName);
     authData.append("email",email);
@@ -69,7 +69,7 @@ export class AuthService
     authData.append("dob",dob);
     authData.append("genderStatus",genderStatus);
     authData.append("image",image);
-
+    authData.append("profileimage",prof);
    // const avialblecheck = this.http.get(BACKEND_URL+"userdetails",cnicNumber)
 
     this.http.post<{message :string, user:AuthSignupData }>
@@ -173,7 +173,7 @@ login(cnicNumber: number, password: string)
   {
     this.tokenTimer= setTimeout(() => {
       this.logout();
-    },duration * 1000);
+    },duration * 3000);
   }
 
   private saveAuthData(token:string, expirationDate: Date, userId:string)
@@ -189,6 +189,7 @@ login(cnicNumber: number, password: string)
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
     localStorage.removeItem('postsearched');
+    localStorage.removeItem('adminstatus');
   }
 
   private getAuthData()
@@ -363,10 +364,23 @@ getcurrentuserdetails()
       });
   }
 
+
+  deleteAccount(id:string)
+  {
+   // console.log("auth service reached");
+   const userId = localStorage.getItem('userId');
+    this.http.post(BACKEND_URL +"deleteaccount/"+userId,id).subscribe(res =>
+      {
+        //console.log(res);
+        //this.router.navigate();
+      });
+  }
+
   getcurrentuserstatus()
   {
-    console.log(   this.http.post(BACKEND_URL,"accstatus"+this.currentUser));
-
+    const currentuserId = localStorage.getItem('userId');
+    return this.http.get(BACKEND_URL+"accstatus/"+currentuserId);
+    //return  this.http.get(BACKEND_URL+"accstatus"+currentuserId);
   }
 
   getcurrentuserauthstatus()
@@ -464,7 +478,7 @@ getcurrentuserdetails()
       make : string  ,  model : string  , registrationnumber : string ,  registrationcity : string  ,  price : string  ,  enginetype : string  ,
       enginecapacity : string  , transmission : string  ,  assembly : string  ,   exteriorcolor : string  ,  image:File)
       {
-        console.log("in auth service method start")
+        //console.log("in auth service method start")
         const contractData = new FormData();
           contractData.append("BuyerName",BuyerName);
           contractData.append("BuyerCNIC",BuyerCNIC);
@@ -514,6 +528,7 @@ getcurrentuserdetails()
 
       useraccountdetails(id:string)
       {
+        console.log("auth user accoutn id:"+id);
         //return this.http.get(BACKEND_URL+"getChatBox/"+userId);
         return this.http.get(BACKEND_URL+"accountdetails/"+id);
       }
@@ -533,7 +548,72 @@ getcurrentuserdetails()
         return this.http.get(BACKEND_URL+"sellercontract/"+cnicNumber);
       }
 
-  //not yet fixed /completed
+      getcontractdetails(contractid:string)
+      {
+        return this.http.get(BACKEND_URL+"contractdetails/"+contractid);
+      }
+
+
+      deletecontact(contractid:string)
+      {
+        console.log("auth service: line 544:"+contractid);
+        this.http.post(BACKEND_URL+"deletecontract/"+contractid,contractid).subscribe(() =>
+        {
+          alert("Item has been Deleted");
+          this.router.navigate(["/userprofile"]);
+        });
+      }
+
+
+
+
+
+  createAdmin(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string)
+  {
+
+    const authData = new FormData();
+    authData.append("fullName",fullName);
+    authData.append("email",email);
+    authData.append("password",password);
+    authData.append("phoneNumber",phoneNumber);
+    authData.append("fullAddress",fullAddress);
+    authData.append("cnicNumber",cnicNumber);
+    authData.append("dob",dob);
+    //authData.append("image",image);
+    authData.append("genderStatus",genderStatus);
+   // const avialblecheck = this.http.get(BACKEND_URL+"userdetails",cnicNumber)
+    this.http.post<{message :string, user:AuthSignupData }>
+      (BACKEND_URL+"createadmin",authData)
+      .subscribe((responseData)=>{
+
+       this.router.navigate(["/auth/admin"]);
+  },error => {
+    this.authStatusListener.next(false);
+    alert(error.message);
+  }
+  );
+  this.router.navigate(["/auth/admin"]);
+
+  }
+
+  updateprofilepic(image:File)
+  {
+    const currentuserId = localStorage.getItem('userId');
+    const updateData = new FormData();
+    updateData.append("image",image);
+    console.log("auth servoce file:" + image);
+    updateData.append("id",currentuserId);
+    this.http.post(BACKEND_URL+"updateprofileimage",updateData)
+          .subscribe((responseData)=>{
+              this.router.navigate(["/userprofile"]);
+          },error => {
+            let p= Object.entries(error);
+            console.log("error"+p);
+            this.authStatusListener.next(false);
+          }
+          );
+  }
+      //not yet fixed /completed
   /*
   -
   -
@@ -562,47 +642,64 @@ getcurrentuserdetails()
 
 
 
-  createAdmin(fullName:string, email:string, password:string, phoneNumber:string, fullAddress:string, cnicNumber:string,dob:string,genderStatus:string,image:File)
+
+
+
+
+  deleteChat(chatuserid:string)
+  {
+    const currentuserId = localStorage.getItem('userId');
+      //console.log(currentuserId);
+      const data = {currentuserid:currentuserId, chatuserid:chatuserid};
+    this.http.post(BACKEND_URL+"deletecontract/",data).subscribe(() =>
+        {
+          alert("Item has been Deleted");
+          this.router.navigate(["/inbox"]);
+        });
+  }
+
+  finalizeContract(BuyerName : string ,BuyerCNIC : string ,  BuyerPK : string  ,  SellerName : string  ,  SellerCNIC : string  , SellerPK : string,
+    make : string  ,  model : string  , registrationnumber : string ,  registrationcity : string  ,  price : string  ,  enginetype : string  ,
+    enginecapacity : string  , transmission : string  ,  assembly : string  ,   exteriorcolor : string  ,  image:File)
   {
 
-    const authData = new FormData();
-    authData.append("fullName",fullName);
-    authData.append("email",email);
-    authData.append("password",password);
-    authData.append("phoneNumber",phoneNumber);
-    authData.append("fullAddress",fullAddress);
-    authData.append("cnicNumber",cnicNumber);
-    authData.append("dob",dob);
-    authData.append("image",image);
-    authData.append("genderStatus",genderStatus);
-   // const avialblecheck = this.http.get(BACKEND_URL+"userdetails",cnicNumber)
-    this.http.post<{message :string, user:AuthSignupData }>
-      (BACKEND_URL+"createadmin",authData)
-      .subscribe((responseData)=>{
+    const contractData = new FormData();
+          contractData.append("BuyerName",BuyerName);
+          contractData.append("BuyerCNIC",BuyerCNIC);
+          contractData.append("BuyerPK",BuyerPK);
+          contractData.append("SellerName",SellerName);
+          contractData.append("SellerCNIC",SellerCNIC);
+          contractData.append("SellerPK",SellerPK);
+          contractData.append("make",make);
+          contractData.append("model",model);
+          contractData.append("registrationnumber",registrationnumber);
+          contractData.append("registrationcity",registrationcity);
+          contractData.append("price",price);
+          contractData.append("enginetype",enginetype);
+          contractData.append("enginecapacity",enginecapacity);
+          contractData.append("transmission",transmission);
+          contractData.append("assembly",assembly);
+          contractData.append("exteriorcolor",exteriorcolor);
+          contractData.append("image",image);
 
-       this.router.navigate(["/auth/admin"]);
-  },error => {
-    this.authStatusListener.next(false);
-    alert(error.message);
+          //let q= Object.entries(contractData);
+          // console.log("contract data" + q);
+
+        this.http.post(BACKEND_URL+"finalizecontract",contractData)
+          .subscribe((responseData)=>{
+
+              this.router.navigate(["/inbox"]);
+          },error => {
+            let p= Object.entries(error);
+            //console.log("error"+p);
+            this.authStatusListener.next(false);
+          }
+          );
+
+
   }
-  );
-  this.router.navigate(["/auth/admin"]);
-
-  }
-
-
-  getcontractdetails(contractid:string)
-  {
-    return this.http.get(BACKEND_URL+"contractdetails/"+contractid);
-  }
-
-
-
-
-
-
-
 
 }
 //
+
 

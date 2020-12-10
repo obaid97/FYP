@@ -31,6 +31,8 @@ export class SearchComponent implements OnInit {
   currentPage = 1;
   authorizedStatus:boolean;
   storedPosts:any;
+  adminstatus:string;
+  approve:boolean;
   constructor(public searchService: SearchService, private dataService: DataService, private authService: AuthService,private router: Router,public postsService: PostsService)
    {
     this.isloading = true;
@@ -62,6 +64,17 @@ export class SearchComponent implements OnInit {
      this.userandadminstatus = false;
    }
   });
+  this.adminstatus = localStorage.getItem("adminstatus");
+  if(this.adminstatus == 'true')
+  {
+    console.log("set true");
+    this.approve = true;
+  }
+  else
+  {
+    this.approve = false;
+  }
+
   }
 
   search() {

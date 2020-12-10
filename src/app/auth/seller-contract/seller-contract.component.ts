@@ -17,7 +17,7 @@ export class SellerContractComponent
 {
   isloading =false;
   private authStatusSub: Subscription;
-  contractform : FormGroup;
+  submitform : FormGroup;
   contractId : string;
   contract:any;
   constructor(public authService: AuthService,public route: ActivatedRoute, public postsService: PostsService,)
@@ -40,12 +40,65 @@ export class SellerContractComponent
   subscribe(() => {
     this.isloading = false;
   });
-  this.contractform = new FormGroup({SellerPK : new FormControl(null, {validators:[Validators.required]}),})
+  this.submitform = new FormGroup({SellerPK : new FormControl(null, {validators:[Validators.required]}),})
   }
 
 
+  onfinalizecontract()
+  {
+    if(this.submitform.invalid)
+    {
+      //console.log("creation contract failed");
+      return;
+    }
+    else
+    {
+      //check if the key is authentic
+      this.authService.checkKey(this.submitform.value.SellerPK).subscribe(result =>
+        {
 
+          if(result == true)
+          {
+            console.log("inside "+result);
+            this.isloading = true;
+            this.authService.finalizeContract
+            (
 
+              this.contract.BuyerName,
+              this.contract.BuyerCNIC ,
+              this.contract.BuyerPK ,
+              this.contract.SellerName,
+              this.contract.SellerCNIC ,
+              this.submitform.value.SellerPK ,
+              this.contract.make,
+              this.contract.model,
+              this.contract.registrationnumber,
+              this.contract.registrationcity,
+              this.contract.price,
+              this.contract.enginetype,
+              this.contract.enginecapacity ,
+              this.contract.transmission ,
+              this.contract.assembly,
+              //this.features ,
+              this.contract.exteriorcolor ,
+              this.contract.imagePath
+              );
+          }
+          else
+          {
+            alert("Secret Key Error Try Again");
+            console.log("inside: "+result);
+          }
+          this.isloading =false;
+          this.submitform.reset();
+          //post delete here
+
+          localStorage.removeItem('sellerid');
+          localStorage.removeItem('sellerpostid');
+        });
+
+    }
+  }
   ngOnDestroy()
   {
     this.authStatusSub.unsubscribe();

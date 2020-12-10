@@ -19,6 +19,8 @@ import { AuthService } from '../auth/auth.service';
   userandadminstatus:boolean;
   status :string;
   authorizedStatus:boolean;
+  adminstatus:string;
+  approve:boolean;
   ngOnInit()
   {
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -37,6 +39,20 @@ import { AuthService } from '../auth/auth.service';
      this.userandadminstatus = false;
    }
   });
+
+
+  this.adminstatus = localStorage.getItem("adminstatus");
+  if(this.adminstatus == 'true')
+  {
+    console.log("set true");
+    this.approve = true;
+  }
+  else
+  {
+    this.approve = false;
+  }
+
+
   }
 
   ngOnDestroy()

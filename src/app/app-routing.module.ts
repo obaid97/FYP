@@ -20,7 +20,7 @@ import { SingleBlogComponent } from './blog/single-blog/single-blog.component';
 import { EditUserProfileComponent } from './auth/user-profile/edit-details/edit-details.component';
 import { InboxComponent } from './auth/inbox/inbox.component';
 import { SellerContractComponent } from './auth/seller-contract/seller-contract.component';
-
+import { UserProfilePicComponent } from './auth/user-profile/edit-profilepic.component/edit-profilepic.component';
 const routes: Routes=[
   { path:'', component: HomeComponent },
   { path:'posts',component:PostListComponent },
@@ -37,6 +37,7 @@ const routes: Routes=[
   { path:'inbox', component: InboxComponent, canActivate: [AuthGuard] },
   { path:'userdetail/:userId', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path:'smartcontract', component: SmartContractComponent, canActivate: [AuthGuard] },
+  { path:'profilepic', component:  UserProfilePicComponent, canActivate: [AuthGuard] },
   { path:'forgotpassword',component:ForgotPasswordComponent},
   { path:'DNP',component: DisplayNewPasswordComponent},
   { path:'search', component: SearchComponent },

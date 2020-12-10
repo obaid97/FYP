@@ -93,7 +93,11 @@
                               Sign Up
                             </a>
                           </li>
-
+                          <li class="facebook" *ngIf="userIsAuthenticated && approve == true ">
+                            <a  routerLink="/auth/admin" routerLinkActive="mat-accent">
+                              Admin
+                            </a>
+                          </li>
                           <li class="facebook" *ngIf="userIsAuthenticated">
                             <a  routerLink="" (click)="onLogout()" >
                               Logout

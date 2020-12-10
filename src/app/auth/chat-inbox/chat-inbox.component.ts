@@ -31,6 +31,10 @@ export class ChatInboxComponent implements OnInit {
   messageList:any=[];
   userads=[];
   allposts:any=[];
+  adminstatus:string;
+  approve:boolean;
+
+
   constructor(public authService: AuthService, public postService:PostsService, private route:ActivatedRoute, private router: Router) {
     this.usertoken =this.authService.getToken();
 
@@ -79,6 +83,16 @@ export class ChatInboxComponent implements OnInit {
    }
   });
 
+  this.adminstatus = localStorage.getItem("adminstatus");
+  if(this.adminstatus == 'true')
+  {
+    console.log("set true");
+    this.approve = true;
+  }
+  else
+  {
+    this.approve = false;
+  }
 
   }
 

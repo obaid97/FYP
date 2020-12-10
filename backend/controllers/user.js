@@ -15,6 +15,7 @@ const userChatModel = require('../models/chat');
 
 exports.createUser =  (req,res,next)=>{
   const tempuserstatus = "user";
+  const prof='';
   const url = req.protocol + '://' + req.get("host");
   bcrypt.hash(req.body.password, 10)
     .then(hash =>
@@ -31,8 +32,8 @@ exports.createUser =  (req,res,next)=>{
           accountStatus: tempuserstatus,
           imagePath: url+"/images/" + req.file.filename,
           authorizedStatus: false,
-          privateKey :crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex')
-          //profileimage:null
+          privateKey :crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex'),
+          profileimage:"dummy"
       });
       user.save().then(result =>
         {
@@ -71,11 +72,12 @@ exports.createAdmin =  (req,res,next)=>{
           cnicNumber:req.body.cnicNumber,
           dob: req.body.dob,
           genderStatus:req.body.genderStatus,
-          imagePath: url+"/images/" + req.file.filename,
+          imagePath: "dummy",
           //imagePath: req.body.imagePath,
           accountStatus: tempuserstatus,
           authorizedStatus: true,
-          privateKey :crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex')
+          privateKey :crypto.createHash('sha256').update(req.body.cnicNumber).digest('hex'),
+          profileimage:"dummy"
       });
 
       user.save().then(result =>
@@ -195,6 +197,26 @@ exports.deleteUser = (req,res,next) =>
 
 }
 
+
+
+exports.deleteAccount = (req,res,next) =>
+{
+  //console.log("id: " + req.params.id);
+  User.deleteOne({_id: req.params.id}).then(result =>
+    {
+      //console.log(req.params.cnicNumber);
+      if(result.n > 0)
+      {
+        res.status(200).json({message:"User deleted successfully"});
+      }
+      else
+      {
+        res.status(401).json({message:"error deleting user"});
+      }
+    }).catch(error =>{res.status(500).json({message:"error deleting user"});
+  });
+
+}
 
 
 
@@ -596,23 +618,6 @@ exports.getcnicNumber = (req,res) =>
     .catch(error =>res.status(500).send())
 }
 
-exports.accountstatus = (req,res) =>
-{
-  User.findOne({cnicNumber: req.body.cnicNumber}).then( result =>
-    {
-      if(result)
-      {
-        res.status(200).send(result.accountStatus);
-      }
-      else
-      {
-        res.status(404).json({message:"No User Found"});
-      }
-
-    }
-  ).catch(err => res.status(500).json({message:"Server Error"}));
-}
-
 
 ///////////////
 
@@ -765,6 +770,108 @@ exports.getChatBox = async (req,res,next) =>
 
 }
 
+exports.accountdetails = (req,res,next) =>
+{
+  //console.log("body"+req.body.id);
+  //console.log("params"+req.params.id);
+  User.findById(req.params.id).then(result =>{
+
+    if(result)
+    {
+      res.status(200).send(result);
+    }
+    else
+    {
+      res.status(404).json({message:"error finding user"})
+    }
+
+  }).catch(error =>console.log(error))
+}
+
+
+exports.checkkey =(req,res) =>
+{
+  User.findOne({privateKey:req.params.key}).then(result =>
+    {
+      if(result)
+      {
+        res.status(200).send(true);
+      }
+      else
+      {
+        res.status(404).send(false);
+      }
+    }).catch(error => res.status(500).send(error));
+
+}
+
+exports.inboxmessage = (req,res,next) =>
+{
+
+  console.log("current user id: "+req.body.currentuserid);
+  console.log("chat user id: "+req.body.chatuserid);
+  var userinbox;
+//    {"users.user_id":req.body.currentuserid}
+//$and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ]
+//{ $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] }
+// $or: [ { 'users': { user_id: req.body.currentuser} }, { price: 10 }
+userChatModel.findOne({ 'users.user_id': { $all: [ req.body.currentuserid, req.body.chatuserid] } })
+  .then(result2 =>
+    {
+      userinbox = result2;
+      //console.log( "Curretn usre chats : "+result2);
+
+      res.status(200).send(result2.msg_list);
+
+    });
+
+
+}
+
+
+
+exports.updateprofileimage =(req,res) =>
+{
+  console.log("controller start:"+ req.body.id);
+  const url = req.protocol + '://' + req.get("host");
+  console.log("file path: "+ url+"/images/"+req.file.filename);
+  //User.findById(req.params.id).then(result =>{
+  User.findById(req.body.id).then(result =>
+    {
+      if(result)
+      {
+        console.log("user found");
+
+        console.log("found and editing");
+        result.profileimage = url+"/images/"+req.file.filename;
+
+              //can apply as many fields as we can like above
+      result.save(function(err,updateObject)
+      {
+          console.log("saving object");
+          if(err)
+          {
+            console.log(err);
+            res.status(500).send();
+          }
+          else
+          {
+            res.send(updateObject);
+          }
+        })
+
+
+        //end
+      }
+      else
+      {
+        console.log("user not found");
+      }
+    })
+
+
+
+}
 
 /*-
 -/
@@ -791,60 +898,55 @@ exports.getChatBox = async (req,res,next) =>
 
 //user chat inbox controller
 
-exports.inboxmessage = (req,res,next) =>
-{
 
-  console.log("current user id: "+req.body.currentuserid);
-  console.log("chat user id: "+req.body.chatuserid);
-  var userinbox;
-//    {"users.user_id":req.body.currentuserid}
-//$and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ]
-//{ $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] }
-// $or: [ { 'users': { user_id: req.body.currentuser} }, { price: 10 }
-userChatModel.findOne({ 'users.user_id': { $all: [ req.body.currentuserid, req.body.chatuserid] } })
+
+
+
+
+
+exports.deleteChat = (req,res) =>
+{
+  userChatModel.deleteOne({ 'users.user_id': { $all: [ req.param.currentuserid, req.body.chatuserid] } })
   .then(result2 =>
     {
+      console.log("delete chat in:");
       userinbox = result2;
       //console.log( "Curretn usre chats : "+result2);
-
       res.status(200).send(result2.msg_list);
 
     });
 
-
 }
 
-exports.accountdetails = (req,res,next) =>
-{
-//c////onsole.log("body"+req.body.id);
-//console.log("params"+req.params.id);
-User.findById(req.params.id).then(result =>{
-
-  if(result)
-  {
-    res.status(200).send(result);
-  }
-  else
-  {
-    res.status(404).json({message:"error finding user"})
-  }
-
-}).catch(error =>console.log(error))
-}
-
-
-exports.checkkey =(req,res) =>
-{
-  User.findOne({privateKey:req.params.key}).then(result =>
+exports.accountstatus = (req,res) =>
+{/*console.log("here")
+  console.log("id:"+req.params.id);
+  console.log("body id:"+req.body.id);
+  User.findById(req.params.id).then(result =>
     {
+      console.log("1 one");
       if(result)
       {
-        res.status(200).send(true);
+        console.log("inside if")
       }
       else
       {
-        res.status(404).send(false);
+        console.log("inside else")
       }
-    }).catch(error => res.status(500).send(error));
+    })*/
+  User.findOne({_id: req.params.id}).then( result =>
+    {
+      //console.log(result);
+      if(result)
+      {
+        //console.log(result.accountStatus);
+        res.status(200).send(result.accountStatus);
+      }
+      else
+      {
+        res.status(404).json({message:"No User Found"});
+      }
 
+    }
+  ).catch(err => res.status(500).json({message:"Server Error"}));
 }
