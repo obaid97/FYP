@@ -139,40 +139,8 @@ getpostobser()
 
 getsinglepost(id:string)
 {
-  //this.getpostcreator();
-  /*console.log( this.http.get<
-  {
-    _id: string,
-    city: string,
-    make: string,
-    model: string,
-    registrationcity: string,
-    mileage: string,
-    exteriorcolor: string,
-    description: string,
-
-    //price
-    price: number,
-
-    //images
-    imagePath: string,
-
-    //additional information
-    enginetype: string,
-    enginecapacity: string,
-    transmission: string,
-    assembly: string,
-    features: string,
-    //contact information
-    mobilenumber: number,
-    creator: string
-  }
->(BACKEND_URL + id));*/
- return this.http.post(BACKEND_URL,id) //.subscribe(postres =>
-  // {
-  //   console.log(postres);
-  // })
-//this.creatorid = this.check.creatorid;
+  
+ return this.http.post(BACKEND_URL+"view/"+id,id) ;
 }
 
 getPost(id: string) {
@@ -261,8 +229,8 @@ getPost(id: string) {
 
   getuserposts(userid: string)
   {
-    console.log(userid);
-   return this.http.get<{ posts:any }>(BACKEND_URL+"userposts/"+userid);
+    console.log("get user post post service: "+userid);
+   return this.http.get(BACKEND_URL+"userposts/"+userid);
   }
 
 }

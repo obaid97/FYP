@@ -22,7 +22,7 @@ router.put("/:id",checkAuth,extractFile,PostController.updatePost);
 router.get("/cnic/:id",PostController.getcnicNumber);
 
 router.get('/:id',PostController.getPost);
-//router.post('/:id',PostController.getPost);
+router.post('/view/:id',PostController.getPost);
 
 router.post('/search', SearchController.searchPosts);
 

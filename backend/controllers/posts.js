@@ -28,7 +28,7 @@ exports.deletePost = (req, res, next) => {
 //createpost
 exports.createPost = (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
-  console.log("userId", req.userData.userId.valueOf());
+  //console.log("userId", req.userData.userId.valueOf());
   const post = new Post({
     //basic car info
     city: req.body.city,
@@ -206,7 +206,7 @@ exports.getPosts = (req, res, next) =>
   });
 }
 exports.searchPosts = (req, res, next) => {
-  console.log("received", req.body);
+  //console.log("received", req.body);
   let count = 0;
   let condition;
   let index;
@@ -219,41 +219,41 @@ exports.searchPosts = (req, res, next) => {
   if(req.body.price !== null) {
     conditionMapping = Object.assign({price : { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min  }}}, conditionMapping);
   }
-  console.log("request", conditionMapping);
+  //console.log("request", conditionMapping);
   Object.values(req.body).forEach((element, ind) => {
-    console.log("insidefirstloop", element);
+   // console.log("insidefirstloop", element);
     if(element !== null) {
-      console.log("elem", element);
+     // console.log("elem", element);
       index = ind;
-      console.log("elemind", index);
+     // console.log("elemind", index);
       count++;
     }
   });
 
-  console.log("count", count);
+ // console.log("count", count);
   if(count < 2) {
-    console.log("insidefirstif", Object.keys(req.body)[index]);
-    console.log("insidefirstifcondi", conditionMapping[Object.keys(req.body)[index]]);
+   // console.log("insidefirstif", Object.keys(req.body)[index]);
+   // console.log("insidefirstifcondi", conditionMapping[Object.keys(req.body)[index]]);
       condition = conditionMapping[Object.keys(req.body)[index]];
-      console.log("iii", condition);
+   //   console.log("iii", condition);
   } else if (count >= 2) {
-    console.log("insideelseif",count);
+    //console.log("insideelseif",count);
     let condArray = [];
     Object.values(req.body).forEach((element, ind) => {
       if(element !== null) {
-        console.log("elementeseif", element);
-        console.log("elementeseimapppinf", Object.keys(req.body));
-        console.log("elementeseimapppinf1", Object.keys(req.body)[ind]);
-        console.log("elementeseimapppinf2", conditionMapping[Object.keys(req.body)[ind]]);
+       // console.log("elementeseif", element);
+      //  console.log("elementeseimapppinf", Object.keys(req.body));
+      //  console.log("elementeseimapppinf1", Object.keys(req.body)[ind]);
+      //  console.log("elementeseimapppinf2", conditionMapping[Object.keys(req.body)[ind]]);
         condArray.push(conditionMapping[Object.keys(req.body)[ind]])
       }
-      console.log(condArray);
+    //  console.log(condArray);
     });
     condition = {$and: condArray}
   }
  // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
   Post.find(condition).then(documents => {
-    console.log("results", documents);
+   // console.log("results", documents);
     fetchedPosts = documents
     return Post.count();
   }).then(count => {
@@ -272,10 +272,10 @@ exports.searchPosts = (req, res, next) => {
 }
 
 exports.searchAllPosts = (req, res, next) => {
-  console.log("insideapi", req);
+ // console.log("insideapi", req);
  // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
   Post.find().then(documents => {
-    console.log("results", documents);
+   // console.log("results", documents);
     fetchedPosts = documents
     return Post.count();
   }).then(count => {
@@ -286,7 +286,7 @@ exports.searchAllPosts = (req, res, next) => {
         maxPosts: count
       });
   }).catch(error => {
-    console.log("errttt", error);
+    //console.log("errttt", error);
     res.status(400).json({
       message: "Fetching Post Failed!"
     })
@@ -302,13 +302,13 @@ exports.searchPostsByCond = (req, res, next) => {
   //   city: { city: new RegExp(req.body.city) },
   //   exteriorcolor: { exteriorcolor: new RegExp(req.body.exteriorcolor) },
   // }
-  console.log("insideapi", req);
+ // console.log("insideapi", req);
   const keys = Object.keys(req.body);
-  console.log("keys", keys);
+ // console.log("keys", keys);
   conditionMapping.forEach((element) => {
-  console.log("elem", element);
+ // console.log("elem", element);
     if(keys.includes(element)){
-  console.log("value", req.body[element]);
+ // console.log("value", req.body[element]);
       condition = { [element] : new RegExp(req.body[element])  }
     }
   });
@@ -318,10 +318,10 @@ exports.searchPostsByCond = (req, res, next) => {
       message: "Bad Request Condition not found!"
     })
   }
-  console.log("condition", condition);
+ // console.log("condition", condition);
  // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
   Post.find(condition).then(documents => {
-    console.log("results", documents);
+  //  console.log("results", documents);
     fetchedPosts = documents
     return Post.count();
   }).then(count => {
@@ -332,7 +332,7 @@ exports.searchPostsByCond = (req, res, next) => {
         maxPosts: count
       });
   }).catch(error => {
-    console.log("errttt", error);
+   // console.log("errttt", error);
     res.status(400).json({
       message: "Fetching Post Failed!"
     })
@@ -345,7 +345,7 @@ exports.getcnicNumber = (req,res) =>
   Post.findById(req.params.id).then(post => {
     //console.log(post);
     if (post) {
-      console.log(post);
+     // console.log(post);
       //res.status(200).json(post);
       User.find({_id: post.creator}).then(result =>
         {
@@ -387,5 +387,19 @@ exports.getcnicNumber = (req,res) =>
     
     exports.getuserposts = (req,res) => 
     {
-      console.log("i work");
+      Post.find({creator:req.params.id}).then((result) =>
+  {
+    if(result)
+    {
+      console.log("posts js :"+ result)
+      res.status(200).send(result);
+    }
+    else
+    {
+      res.status(404).jason({message:"No posts found"});
+    }
+  }).catch(err =>
+    {
+      res.status(500).send(err.message);
+    })
     }

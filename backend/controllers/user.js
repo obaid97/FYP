@@ -4,7 +4,7 @@ const User = require("../models/user");
 //const { findOne } = require("../models/user");
 const crypto =require("crypto");
 const Review = require("../models/review");
-
+const Post = require("../models/post");
 const express = require('express');
 const app = express();
 var http = require('http').createServer(app);
@@ -173,7 +173,7 @@ User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
     res.status(404).json({message:"error finding user"})
   }
 
-}).catch(error =>console.log(error))
+}).catch(error =>res.status(500).send(error.message))
 }
 
 exports.userstats = (req,res,next) =>
@@ -182,15 +182,15 @@ exports.userstats = (req,res,next) =>
 User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
 
   if(result)
-  {   console.log("resultinto",result._id);
+  {   //console.log("resultinto",result._id);
       let condition = {"creator": result._id}
-      console.log("con", condition);
+      //console.log("con", condition);
 
     Post.find(condition).count().then(count => {
-    console.log("results", count);
+   // console.log("results", count);
     return count;
   }).then(count => {
-    console.log("count", count)
+   // console.log("count", count)
     Post.aggregate([
       { $match: { 'creator' : result._id } },
       { $group: {
@@ -198,17 +198,17 @@ User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
         count: { $sum: 1 }
       }
 }]).then(result => {
-      console.log("results", result);
+     // console.log("results", result);
       return result;
     }).then(result => {
-      console.log("resulttzzz", result)
+     // console.log("resulttzzz", result)
       res.status(200).json(
         {
           userPosts: count,
           barData: result
         });
     }).catch(error => {
-      console.log(error);
+     // console.log(error);
       res.status(500).json({
         message: "Fetching Post Failed!"
       })
@@ -218,7 +218,7 @@ User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
     //     userPosts: count
     //   });
   }).catch(error => {
-    console.log(error);
+    //console.log(error);
     res.status(500).json({
       message: "Fetching Post Failed!"
     })
@@ -229,7 +229,7 @@ User.findOne({cnicNumber: req.userData.cnicNumber}).then(result =>{
     res.status(404).json({message:"error finding user"})
   }
 
-}).catch(error =>console.log(error))
+}).catch(error =>res.status(500).send(error.message))
 }
 
 
@@ -335,7 +335,7 @@ const a = {"authorizedStatus": true};
     //console.log(req.params.cnicNumber + " found");
     if(err)
     {
-      console.log(err);
+      //console.log(err);
       res.status(500).send(err.message);
     }
     else
@@ -355,7 +355,7 @@ const a = {"authorizedStatus": true};
         {
           if(err)
           {
-            console.log(err);
+           // console.log(err);
             res.status(500).send();
           }
           else
@@ -380,7 +380,7 @@ const a = {"authorizedStatus": true};
     //console.log(req.params.cnicNumber + " found");
     if(err)
     {
-      console.log(err);
+     // console.log(err);
       res.status(500).send(err.message);
     }
     else
@@ -396,7 +396,7 @@ const a = {"authorizedStatus": true};
         {
           if(err)
           {
-            console.log(err);
+           // console.log(err);
             res.status(500).send();
           }
           else
@@ -429,7 +429,7 @@ exports.forgotpassword= (req,res,next) =>
     //console.log(req.params.cnicNumber + " found");
     if(err)
     {
-      console.log(err);
+     // console.log(err);
       res.status(500).send(err.message);
     }
     else
@@ -604,7 +604,7 @@ exports.updateuserdetails =  (req,res,next) =>
     //console.log(req.params.cnicNumber + " found");
     if(err)
     {
-      console.log(err);
+      //(err);
       res.status(500).send(err.message);
     }
     else
@@ -644,7 +644,7 @@ exports.updateuserdetails =  (req,res,next) =>
         {
           if(err)
           {
-            console.log(err);
+            //console.log(err);
             res.status(500).send();
           }
           else
@@ -684,16 +684,7 @@ exports.startchat = (req,res) =>
   test = [];
   var portid1;
   var portid2;
-/*
-  this.test[0] = this.currentUser.toString();
-    console.log(this.test[0]);
-    this.portid1 = Number(this.test[0].slice(11,13));
 
-    console.log(this.portid1);
-    this.port = Number(this.portid1);
-    console.log(this.port);
-    this.portid2 = Number(this.port.toString().concat(this.portid1.toString()));
-    console.log(this.portid2)*/
 
   User.findById(req.body.creatorid).then(user =>
     {
@@ -705,7 +696,7 @@ exports.startchat = (req,res) =>
       var portno1 = temp1.concat(temp2);
       http.listen(portno1, () =>
         {
-       console.log('listening on *'+portno1);
+       //console.log('listening on *'+portno1);
 
         });
       io.on('connection', (socket) => {
@@ -842,7 +833,7 @@ exports.accountdetails = (req,res,next) =>
       res.status(404).json({message:"error finding user"})
     }
 
-  }).catch(error =>console.log(error))
+  }).catch(error =>res.status(500).send(error.message))
 }
 
 
@@ -865,13 +856,10 @@ exports.checkkey =(req,res) =>
 exports.inboxmessage = (req,res,next) =>
 {
 
-  console.log("current user id: "+req.body.currentuserid);
-  console.log("chat user id: "+req.body.chatuserid);
+ // console.log("current user id: "+req.body.currentuserid);
+ // console.log("chat user id: "+req.body.chatuserid);
   var userinbox;
-//    {"users.user_id":req.body.currentuserid}
-//$and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ]
-//{ $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] }
-// $or: [ { 'users': { user_id: req.body.currentuser} }, { price: 10 }
+
 userChatModel.findOne({ 'users.user_id': { $all: [ req.body.currentuserid, req.body.chatuserid] } })
   .then(result2 =>
     {
@@ -889,26 +877,26 @@ userChatModel.findOne({ 'users.user_id': { $all: [ req.body.currentuserid, req.b
 
 exports.updateprofileimage =(req,res) =>
 {
-  console.log("controller start:"+ req.body.id);
+ /// console.log("controller start:"+ req.body.id);
   const url = req.protocol + '://' + req.get("host");
-  console.log("file path: "+ url+"/images/"+req.file.filename);
+  //console.log("file path: "+ url+"/images/"+req.file.filename);
   //User.findById(req.params.id).then(result =>{
   User.findById(req.body.id).then(result =>
     {
       if(result)
       {
-        console.log("user found");
+       // console.log("user found");
 
-        console.log("found and editing");
+      //  console.log("found and editing");
         result.profileimage = url+"/images/"+req.file.filename;
 
               //can apply as many fields as we can like above
       result.save(function(err,updateObject)
       {
-          console.log("saving object");
+          //console.log("saving object");
           if(err)
           {
-            console.log(err);
+           // console.log(err);
             res.status(500).send();
           }
           else
@@ -922,7 +910,7 @@ exports.updateprofileimage =(req,res) =>
       }
       else
       {
-        console.log("user not found");
+        //console.log("user not found");
       }
     })
 
@@ -966,7 +954,7 @@ exports.deleteChat = (req,res) =>
   userChatModel.deleteOne({ 'users.user_id': { $all: [ req.param.currentuserid, req.body.chatuserid] } })
   .then(result2 =>
     {
-      console.log("delete chat in:");
+     // console.log("delete chat in:");
       userinbox = result2;
       //console.log( "Curretn usre chats : "+result2);
       res.status(200).send(result2.msg_list);
@@ -1049,7 +1037,7 @@ exports.getreviews = (req,res) =>
   {
     if(result)
     {
-      console.log(result);
+     // console.log(result);
       res.status(201).send(result);
     }
     else
@@ -1060,4 +1048,22 @@ exports.getreviews = (req,res) =>
       {
         res.status(500).jason({message:"Server Error"});
       });
+}
+
+exports.userposts = (req,res) =>
+{
+  Post.find({creator:req.params.id}).then((result) =>
+  {
+    if(result)
+    {
+      res.status(200).send(result);
+    }
+    else
+    {
+      res.status(404).jason({message:"No posts found"});
+    }
+  }).catch(err =>
+    {
+      res.status(500).send(err.message);
+    })
 }

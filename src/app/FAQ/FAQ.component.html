@@ -4,8 +4,7 @@
 style="width: 126.5%; margin-left: -10.5rem;">
 
 
-
-
+ 
 
   <input type="hidden" id="pp_menu_layout" name="pp_menu_layout" value="leftalign" />
   <input type="hidden" id="pp_enable_right_click" name="pp_enable_right_click" value="0" />
@@ -91,31 +90,32 @@ style="width: 126.5%; margin-left: -10.5rem;">
     <!-- End top bar -->
     <!--Responsive nav bar start-->
 
-  <div class="nav">
-    <input type="checkbox" id="nav-check">
-    <div class="nav-header">
-      <div class="nav-title">
-        V.E.M.B
+    <div class="nav">
+      <input type="checkbox" id="nav-check">
+      <div class="nav-header">
+        <div class="nav-title">
+          V.E.M.B
+        </div>
+      </div>
+      <div class="nav-btn">
+        <label for="nav-check">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
+      
+      <div class="nav-links">
+        <a routerLink="/" style="margin-left:10px;" >Home</a>
+        <a routerLink="/posts" >Cars</a>
+        <a routerLink="/about">About Us</a>
+        <a routerLink="/contactus">Contact Us</a>
+        <a routerLink="/faq">F.A.Q</a>
+        <a routerLink="/inbox">Inbox</a>
+        <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff;  height:34px; border-radius: 50px 50px 50px 50px; width:140px;padding-top: 5px;padding-bottom:5px;">Sell Your Car</button>
+     
       </div>
     </div>
-    <div class="nav-btn">
-      <label for="nav-check">
-        <span></span>
-        <span></span>
-        <span></span>
-      </label>
-    </div>
-
-    <div class="nav-links" style="float: right;margin-left: 50%;">
-      <a routerLink="/" style="margin-left:10px;" >Home</a>
-      <a routerLink="/posts" >Cars</a>
-      <a routerLink="/about">About Us</a>
-      <a routerLink="/contactus">Contact Us</a>
-      <a routerLink="/faq">F.A.Q</a>
-      <a routerLink="/blog">Blog</a>
-      <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff;  height:34px; border-radius: 50px 50px 50px 50px; width:140px;padding-top: 5px;padding-bottom:5px;">Sell Your Car</button>
-    </div>
-  </div>
 
   <!--Responsive nav bar end-->
   </div>

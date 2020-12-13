@@ -746,7 +746,11 @@ getcurrentuserdetails()
     return this.http.get(BACKEND_URL+"getreviews/"+userid);
   }
 
-
+  getuserposts(userId:string)
+  {
+    console.log("auth"+ userId);
+return this.http.get(BACKEND_URL+"userposts/"+userId);
+  }
 
 }
 //

@@ -120,112 +120,31 @@
     </div>
 </div>
 <!-- End top bar -->
-<div class="top_bar scroll"  >
-    <div class="standard_wrapper" >
-        <!-- Begin logo -->
-        <div id="logo_wrapper">
-
-            <div id="logo_normal" class="logo_container">
-                <div class="logo_align">
-                    <a id="custom_logo" class="logo_wrapper hidden" routerLink="/">
-                        <!--<img src="../../assets/images/vemb logo new.png" alt="" width="175" height="24" />-->
-                        <h2 style="color:#ffffff; width:100%">V.E.M.B</h2>
-                    </a><!--../../assets/images/logo@2x_white.png-->
-                </div>
-            </div>
-
-            <div id="logo_transparent" class="logo_container">
-                <div class="logo_align">
-                    <a id="custom_logo_transparent" class="logo_wrapper default" routerLink="/">
-                      <h2 style="color:#ffffff; width:100%">V.E.M.B</h2>
-                      <!--<img src="../../assets/images/vemb logo new.png" alt="" width="165" height="24" />-->
-                    </a>
-                </div>
-
-            <!-- End logo -->
-
-            <div id="menu_wrapper" style="float: right; margin-left: 75rem; ">
-                <div id="nav_wrapper">
-                    <div class="nav_wrapper_inner">
-                        <div id="menu_border_wrapper">
-                            <div class="menu-main-menu-container">
-                                <ul id="main_menu" class="nav">
-                                    <li class="menu-item  menu-item-has-children ">
-                                      <a routerLink="/" style="font-size:15px;">
-                                        Home
-                                      </a>
-                                    </li>
-                                    <li class="menu-item  menu-item-has-children ">
-                                      <a style="font-size:16px;">
-                                        |
-                                      </a>
-                                    </li>
-                                    <li class="menu-item menu-item-has-children ">
-                                      <a routerLink="/posts" style="font-size:15px;">
-                                        Cars
-                                      </a>
-                                    </li>
-                                    <li class="menu-item  menu-item-has-children ">
-                                      <a style="font-size:16px;">
-                                        |
-                                      </a>
-                                    </li>
-                                    <li class="menu-item menu-item-has-children">
-                                      <a routerLink="/about" style="font-size:15px;">
-                                        About Us
-                                      </a>
-                                    </li>
-                                    <li class="menu-item  menu-item-has-children ">
-                                      <a style="font-size:16px;">
-                                        |
-                                      </a>
-                                    </li>
-                                    <li class="menu-item menu-item-has-children">
-                                      <a routerLink="/contactus" style="font-size:15px;">
-                                        Contact Us
-                                      </a>
-                                    </li>
-                                    <li class="menu-item  menu-item-has-children ">
-                                      <a style="font-size:16px;">
-                                        |
-                                      </a>
-                                    </li>
-                                    <li class="menu-item menu-item-has-children">
-                                      <a routerLink="/faq" style="font-size:15px;">
-                                        FAQs
-                                      </a>
-                                    </li>
-                                    <li class="menu-item  menu-item-has-children ">
-                                      <a style="font-size:16px;">
-                                        |
-                                      </a>
-                                    </li>
-                                    <li class="menu-item menu-item-has-children ">
-                                      <a routerLink="/blog" style="font-size:15px;">
-                                        Blog
-                                      </a>
-                                    </li>
-                                    <li class="menu-item  menu-item-has-children ">
-                                      <a style="font-size:16px;">
-                                        |
-                                      </a>
-                                    </li>
-                                    <li class="menu-item  menu-item-has-children ">
-                                      <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff; font-size:18px; height:34px; border-radius: 50px 50px 50px 50px; width:140px;">
-                                        Sell Your Car
-                                      </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End right corner buttons -->
-                </div>
-                <!-- End main nav -->
-            </div>
-          </div>
-        </div>
+<div class="nav">
+  <input type="checkbox" id="nav-check">
+  <div class="nav-header">
+    <div class="nav-title">
+      V.E.M.B
     </div>
+  </div>
+  <div class="nav-btn">
+    <label for="nav-check">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+  
+  <div class="nav-links">
+    <a routerLink="/" style="margin-left:10px;" >Home</a>
+    <a routerLink="/posts" >Cars</a>
+    <a routerLink="/about">About Us</a>
+    <a routerLink="/contactus">Contact Us</a>
+    <a routerLink="/faq">F.A.Q</a>
+    <a routerLink="/inbox">Inbox</a>
+    <button routerLink="/create" routerLinkActive="mat-accent" style="background-color: #27b803; border:0; color: #ffffff;  height:34px; border-radius: 50px 50px 50px 50px; width:140px;padding-top: 5px;padding-bottom:5px;">Sell Your Car</button>
+ 
+  </div>
 </div>
 </div>
 
@@ -252,44 +171,54 @@
 
 <!-- Begin content -->
 <div id="page_content_wrapper" class="hasbg withtopbar " style="width: 125.6% ;margin-left:-10rem;">
-  <form id="car_search_form" (submit)="searchAll()" name="car_search_form" method="get" action="#">
-      <div class="car_search_wrapper">
+    <form class="car_search_form" (submit)="searching()"  method="get" action="#">
+        <div class="car_search_wrapper" style="margin-left: 15rem;">
+            <div class="one_fourth themeborder">
+                <select id="brand" name="brand" [(ngModel)]="selectedBrand">
+                  <option value =""  selected> Any Brand </option>
+                    <option *ngFor = "let b of brands">
+                        {{b.name}}
+                  </option>
+                </select>
+                <span class="ti-angle-down"></span>
+            </div>
+            <div class="one_fourth themeborder">
+              <input type= "text" (keyup)="onKey($event)" placeholder="Model">
+             
+          </div>
+            <div class="one_fourth themeborder">
+                <select id="type" name="type" [(ngModel)]="selectedColour">
+                  <option value =""  selected> Any Colour </option>
+                  <option *ngFor = "let c of colours">
+                      {{c.name}}
+                </option>
+                </select>
+                <span class="ti-angle-down"></span>
+            </div>
           <div class="one_fourth themeborder">
-              <select id="brand" name="brand">
-                  <option value="">Any Brand</option>
-                  <option value="Audi">Audi</option>
-                  <option value="BMW">BMW</option>
-                  <option value="Lexus">Lexus</option>
-                  <option value="Mercedes Benz">Mercedes Benz</option>
-                  <option value="MINI">MINI</option>
-                  <option value="Porsche">Porsche</option>
-              </select>
-              <span class="ti-angle-down"></span>
-          </div>
-          <div class="one_fourth themeborder">
-              <select id="type" name="type">
-                  <option value="">Any Type</option>
-                  <option value="Coupe">Coupe</option>
-                  <option value="Sedan">Sedan</option>
-                  <option value="SUV">SUV</option>
-              </select>
-              <span class="ti-angle-down"></span>
-          </div>
-          <div class="one_fourth themeborder">
-              <select id="sort_by" name="sort_by">
-                  <option value="price_low">Price Low to High</option>
-                  <option value="price_high">Price High to Low</option>
-                  <option value="model">Sort By Model</option>
-                  <option value="popular">Sort By Popularity</option>
-                  <option value="review">Sort By Review Score</option>
-              </select>
-              <span class="ti-exchange-vertical"></span>
-          </div>
-          <div class="one_fourth last themeborder">
-              <input id="car_search_btn" type="submit" class="button" value="Clear" />
-          </div>
-      </div>
-  </form>
+            <select id="type" name="type" [(ngModel)]="selectedCity">
+              <option value =""  selected> City </option>
+              <option *ngFor = "let c of cities">
+                  {{c.name}}
+            </option>
+            </select>
+            <span class="ti-angle-down"></span>
+        </div>
+            <div class="one_fourth themeborder">
+              
+              <select id="sort_by" name="sort_by" [(ngModel)]="selectedPrice">
+                  <option value =""  selected> Price </option>
+                  <option *ngFor = "let p of prices">
+                      {{p.name}}
+                </option>
+                </select>
+                <span class="ti-angle-down"></span>
+            </div>
+            <div class="one_fourth themeborder" style="background-color:#27B803;" id="car_search_btn" type="submit">
+                <button  style="background-color:#27B803;border:none;align-content: center;"  id="car_search_btn" type="submit" class="button" value="Search" width="100%" height="100%">Search</button>
+            </div>
+        </div>
+    </form>
 
   <!-- Begin content -->
 
@@ -314,60 +243,39 @@
                       <div class="one">
                           <div class="car_attribute_wrapper car_list">
                               <a class="car_link" (click) = "roting(post)" ><h3>{{post.make + " " + post.model}}</h3></a>
-                              <!-- <div class="car_attribute_rating">
-                                  <div class="br-theme-fontawesome-stars-o">
-                                      <div class="br-widget">
-                                          <a href="javascript:;" class="br-selected"></a>
-                                          <a href="javascript:;" class="br-selected"></a>
-                                          <a href="javascript:;" class="br-selected"></a>
-                                          <a href="javascript:;" class="br-selected"></a>
-                                          <a href="javascript:;"></a>
-                                      </div>
-                                  </div>
-                                   <div class="car_attribute_rating_count">
-                                      4&nbsp; reviews </div>
-                              </div> -->
+                              
                               <br class="clear" />
                               <div class="one_third">
                                   <div class="car_attribute_wrapper_icon">
-                                      <div class="one_fourth"></div>
-
-                                      <div class="one_fourth">
-                                          <div class="car_attribute_icon ti-briefcase"></div>
-                                          <div class="car_attribute_content">
-                                              2 </div>
-                                      </div>
-
-                                      <div class="one_fourth">
-                                          <div class="car_attribute_icon ti-panel"></div>
-                                          <div class="car_attribute_content">
-                                              Auto </div>
-                                      </div>
+                                      <ul>
+                                          <li>
+                                              {{post.enginetype}}
+                                          </li>
+                                          <li>
+                                              {{post.enginecapacity}}
+                                          </li>
+                                      </ul>
 
                                   </div>
                                   <br class="clear" />
                               </div>
+                              <div class="one_third">
+                                <div class="car_attribute_wrapper_icon">
+                                    <ul>
+                                        <li>
+                                            {{post.exteriorcolor}}
+                                        </li>
+                                        <li>
+                                            {{post.registrationcity}}
+                                        </li>
+                                    </ul>
 
-                              <div class="two_third last">
-                                  <ul class="single_car_departure_wrapper themeborder">
-                                      <li>
-                                          <div class="single_car_departure_content full_width">
-                                              <div class="one_half ">
-                                                  <span class="ti-check"></span>Audio input </div>
-                                              <div class="one_half last">
-                                                  <span class="ti-check"></span>All Wheel drive </div>
-                                              <div class="one_half ">
-                                                  <span class="ti-check"></span>Bluetooth </div>
-                                              <div class="one_half last">
-                                                  <span class="ti-check"></span>USB input </div>
-                                              <div class="one_half ">
-                                                  <span class="ti-check"></span>Heated seats </div>
-                                              <div class="one_half last">
-                                                  <span class="ti-check"></span>FM Radio </div>
-                                          </div>
-                                      </li>
-                                  </ul>
-                              </div>
+                                </div>
+                                <br class="clear" />
+                            </div>
+                          
+                            
+                             
 
                           </div>
                           <div class="car_attribute_price car_list">

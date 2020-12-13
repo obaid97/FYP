@@ -100,16 +100,16 @@ export class UserProfileComponent implements OnInit
           let dataincome= data;
           this.userdetails = dataincome.user;
           this.userId = dataincome.user._id;
-          //console.log(this.userId)
+          console.log(this.userId)
           if(this.userdetails.profileimage == "dummy")
           {
             this.userdetails.profileimage = "../../../assets/images/avatar.svg";
           }
-          this.postsService.getuserposts(this.userId).subscribe(data =>
+          this.authService.getuserposts(this.userId).subscribe(data =>
             {
               let alluserposts = data;
               this.allposts = alluserposts;
-              // console.log(this.allposts);
+              console.log("This.all posts inside: "+data);
             });
           //console.log(this.userdetails);
       },err=>{
@@ -117,9 +117,11 @@ export class UserProfileComponent implements OnInit
 
       });
 
+     
+
 
   this.authService.getuserStats().subscribe(data =>{
- console.log("issssdata", data);
+ //console.log("issssdata", data);
  this.userPosts = data.userPosts;
  let values = []; 
  let labels = [];
@@ -130,8 +132,7 @@ export class UserProfileComponent implements OnInit
    }  
  });
  values.push(0);
- console.log("values", values);
- console.log("values", labels);
+ 
  this.barChartData = [{data: values, label: 'No.of Posts'}];
  this.barChartLabels = labels;
  this.chartReady = this.userPosts > 0 ?  true :  false;
@@ -140,22 +141,19 @@ console.log(err);
 
 });
 
-
       this.cnicNumber = localStorage.getItem("loggedinusercnic");
-        //console.log("localstorage"+ this.cnicNumber);
-      //console.log("details"+this.userdetails.cnicNumber);
+     
         this.authService.getallbuyercontracts(this.cnicNumber ).subscribe(result =>
         {
           this.buyercontract=result;
           let q= Object.entries(result);
-        //          console.log("Seller contract: "+p);
-          console.log("Buyer contract: "+q);
+       
         });
       this.authService.getallsellercontracts(this.cnicNumber).subscribe(result =>
         {
           this.sellercontract=result;
           let p= Object.entries(result);
-          console.log("Seller contract: "+p);
+          //console.log("Seller contract: "+p);
         });
         //console.log("Buyer contract: "+this.buyercontract);
         //console.log("Seller contract: "+this.sellercontract);
@@ -185,18 +183,14 @@ console.log(err);
   this.adminstatus = localStorage.getItem("adminstatus");
   if(this.adminstatus == 'true')
   {
-    console.log("set true");
+   // console.log("set true");
     this.approve = true;
   }
   else
   {
     this.approve = false;
   }
-  //this.authService.getuserDeatils();
-  //this.currentusercnic = this.authService.getUsercnic();
-  //console.log(this.authService.getuserDeatils());
- // alert(this.userdf);
-  //alert(this.fullName);
+  
 
 
   this.isloading=true;

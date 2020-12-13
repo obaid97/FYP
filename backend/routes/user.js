@@ -55,7 +55,7 @@ router.put("/forgotpassword",UserController.forgotpassword);
 router.post("/reset",UserController.resetpassword);
 router.post("/mail",UserController.sendemail);
 router.get("/key/:key",UserController.checkkey);
-
+router.get("/userposts/:id",UserController.userposts);
 
 
 

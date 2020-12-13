@@ -6,6 +6,7 @@ import { AuthSignupData } from '../auth/auth-signup-data.model';
 import { SearchService } from '../search/search.service';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
 export class HomeComponent {
 
   userIsAuthenticated = false;
+  clickform:FormGroup;
   private authListenerSubs: Subscription;
   accountStatus: any;
   userandadminstatus: boolean;
@@ -47,6 +49,10 @@ export class HomeComponent {
 
 
   ngOnInit() {
+    this.clickform = new FormGroup(
+      {
+        premake: new FormControl(null, {validators: [Validators.required]})
+      });
     // document.getElementById('car_search_form').submit(this.searching());
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
@@ -60,7 +66,7 @@ export class HomeComponent {
       }
     });
 
-    console.log("auth: "+this.userIsAuthenticated);
+    //console.log("auth: "+this.userIsAuthenticated);
     if(this.userIsAuthenticated == true)
     {
       this.authService.getuserDeatils().subscribe(data =>{
@@ -84,19 +90,9 @@ export class HomeComponent {
     }
 
 
-    /*
-    this.authService.getcurrentuserstatus()
-        .subscribe(result =>
-          {
-            this.accountStatus=result;
-            let p= Object.entries(result);
-            console.log("Seller contract: "+p);
-       });
-    console.log("admin status"+ this.userandadminstatus);*/
-
   }
 
-  searchByCond(condition='make', value='Honda') {
+  searchByCond(condition:string, value:string) {
     console.log("type", condition);
     console.log("value", value);
     this.searchService.searchByCond({[condition]: value}).subscribe(postData => {
@@ -108,6 +104,7 @@ export class HomeComponent {
 
   clickcheck() {
     console.log("heereinclick");
+    console.log("Make: "+this.clickform.value.premake );
   }
   searching() {
     let price = null;
@@ -138,6 +135,10 @@ export class HomeComponent {
       this.searchService.search(data).subscribe(postData => {
         console.log("postreturndata", postData);
         this.dataService.setData(postData);
+        let p= Object.entries(postData.posts);
+        console.log("home"+p)
+        //localStorage.removeItem('searchedposts');
+        localStorage.setItem('searchedposts',postData);
         this.router.navigate(["/search"]);
       });
     }
