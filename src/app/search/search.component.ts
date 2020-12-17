@@ -175,9 +175,11 @@ console.log("shared: "+ this.sharedData )
       //  console.log("postreturndata", postData);
         this.dataService.setData(postData);
         //localStorage.removeItem('searchedposts');
+        console.log("hereiff", postData);
         localStorage.setItem('searchedposts',postData.posts);
-        window.location.reload();
-        this.router.navigate(["/search"]);
+      this.sharedData = postData.posts;
+
+        // window.location.reload();
       });
     }
   };

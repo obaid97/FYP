@@ -266,41 +266,56 @@ style="width: 126.5%; margin-left: -10.5rem;">
                   <div class="page_content_wrapper">
                       <div class="inner">
                           <div style="margin:auto;width:100%">
-                              <h2 class="ppb_title" >Find Car by Type</h2>
+                              <h2 class="ppb_title" style="font-size:36px; font-weight:bold; " >Find Car by City</h2>
                               <div class="page_tagline" >We offer professional car rental &amp; limousine services in our range of high-end vehicles</div>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
-          <div class="ppb_car_type_grid one nopadding " style="margin-bottom:60px;">
-              <div class="page_content_wrapper page_main_content sidebar_content full_width fixed_column">
-                  <div class="standard_wrapper">
-                      <div id="1572257266780950625" class="portfolio_filter_wrapper gallery grid portrait three_cols" data-columns="3">
-                          <div class="element grid classic3_cols animated1">
-                              <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(../../assets/web-image-asset/car-make-logo/coupe.jpg);">
-                                  <a class="car_image" href="#"></a>
-                                  <div class="portfolio_info_wrapper">
-                                      <h3>Coupe</h3></div>
-                              </div>
-                          </div>
-                          <div class="element grid classic3_cols animated2">
-                              <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(../../assets/web-image-asset/car-make-logo/sedan.jpg);">
-                                  <a class="car_image" href="#"></a>
-                                  <div class="portfolio_info_wrapper">
-                                      <h3>Sedan</h3></div>
-                              </div>
-                          </div>
-                          <div class="element grid classic3_cols animated3">
-                              <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(../../assets/web-image-asset/car-make-logo/suv.png);">
-                                  <a class="car_image" href="#"></a>
-                                  <div class="portfolio_info_wrapper">
-                                      <h3>SUV</h3></div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+          <div class="container">
+            <h2>Cards Columns</h2>
+           
+            
+            <div class="card-columns">
+              <div class="card  " (click)="searchByCond('registrationcity', 'Islamabad')">
+                <div class="card-body text-center">
+                    <img src="../../assets/web-image-asset/car-make-logo/audi-s7-black-car-front-view-clouds-wallpaper-preview.jpg" width="100%" height="100%">
+                  <p class="card-text">Islamabad</p>
+                </div>
               </div>
+              <div class="card  " (click)="searchByCond('registrationcity', 'Lahore')">
+                <div class="card-body text-center">
+                    <img src="../../assets/web-image-asset/car-make-logo/1125033.jpg" width="100%" height="100%">
+                  <p class="card-text">Lahore</p>
+                </div>
+              </div>
+              <div class="card  " (click)="searchByCond('registrationcity', 'Karachi')">
+                <div class="card-body text-center">
+                    <img src="../../assets/web-image-asset/car-make-logo/toyota-supra.jpg" width="100%" height="100%">
+                  <p class="card-text">Karachi</p>
+                </div>
+              </div>
+              <div class="card  " (click)="searchByCond('registrationcity', 'Rawalpindi')">
+                <div class="card-body text-center">
+                    <img src="../../assets/web-image-asset/car-make-logo/mercedes-benz-g-wagon.jpg" width="100%" height="100%">
+                  <p class="card-text">Rawalpindi</p>
+                </div>
+              </div>
+              <div class="card  " (click)="searchByCond('registrationcity', 'Peshawar')">
+                <div class="card-body text-center">
+                    <img src="../../assets/web-image-asset/car-make-logo/suzuki-liana.jpg" width="100%" height="100%">
+                  <p class="card-text">Peshawar</p>
+                </div>
+              </div>
+              <div class="card  " (click)="searchByCond('registrationcity', 'Quetta')">
+                <div class="card-body text-center">
+                    <img src="../../assets/web-image-asset/quetta.jpg" width="100%" height="100%">
+                  <p class="card-text">Quetta</p>
+                </div>
+              </div>
+              
+          </div>
           </div>
           <div class="one withsmallpadding ppb_header_youtube withbg parallax" data-jarallax-video="https://www.youtube.com/watch?v=D3tv6J7tk0k" style="text-align:center;padding:215px 0 215px 0;color:#ffffff; background-image:url(../../assets/web-image-asset/pexels/pexels-zhang-kaiyv-842654.jpg);">
             <iframe></iframe>

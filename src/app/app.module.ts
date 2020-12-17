@@ -39,6 +39,7 @@ import { UserProfilePicComponent } from './auth/user-profile/edit-profilepic.com
 import { ReviewComponent } from './auth/review/review.component';
 import { OtherUserProfileComponent } from './auth/Other-UserProfile/Other-UserProfile.component';
 //import { RatingModule } from 'ng-starrating';
+import { ChartsModule } from 'ng2-charts';
 
 
 
@@ -78,7 +79,8 @@ import { OtherUserProfileComponent } from './auth/Other-UserProfile/Other-UserPr
     HttpClientModule,
     PostModule,
     //RatingModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
 
   ],
   providers: [

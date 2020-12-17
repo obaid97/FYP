@@ -295,7 +295,7 @@ exports.searchAllPosts = (req, res, next) => {
 
 exports.searchPostsByCond = (req, res, next) => {
   let condition;
-  let conditionMapping = ['model', 'make', 'city', 'exteriorcolor'];
+  let conditionMapping = ['model', 'make', 'registrationcity', 'exteriorcolor'];
   // let conditionMapping = {
   //   model: { model: new RegExp(req.body.model) },
   //   make: { make: new RegExp(req.body.make) },
@@ -318,7 +318,7 @@ exports.searchPostsByCond = (req, res, next) => {
       message: "Bad Request Condition not found!"
     })
   }
- // console.log("condition", condition);
+ console.log("condition", condition);
  // console.log("final", { price: { $lte: req.body.price.max === null ? 192910399392: req.body.price.max , $gte: req.body.price.min }});
   Post.find(condition).then(documents => {
   //  console.log("results", documents);
