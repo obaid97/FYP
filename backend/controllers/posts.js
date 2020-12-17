@@ -332,7 +332,7 @@ exports.searchPostsByCond = (req, res, next) => {
         maxPosts: count
       });
   }).catch(error => {
-   // console.log("errttt", error);
+   console.log("errttt", error);
     res.status(400).json({
       message: "Fetching Post Failed!"
     })
