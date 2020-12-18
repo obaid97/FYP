@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%; overflow-x:hidden ; }
 body {  font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
@@ -10,3 +10,9 @@ body {  font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-left:-10rem;
   }
 }
+
+.card-body.text-center img {
+  max-height: 170px;
+  min-height: 170px;
+}
+
